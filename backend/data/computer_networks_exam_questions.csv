@@ -1,0 +1,61 @@
+subject,question_type,difficulty,text,options,expected_answer,model_answer,marks
+Computer Networks,mcq,easy,What is related to OSI model?,"A,B,C,D",A,,1
+Computer Networks,mcq,easy,What is related to TCP/IP?,"A,B,C,D",A,,1
+Computer Networks,mcq,easy,What is related to Routing?,"A,B,C,D",A,,1
+Computer Networks,mcq,easy,What is related to Switching?,"A,B,C,D",A,,1
+Computer Networks,mcq,easy,What is related to IP addressing?,"A,B,C,D",A,,1
+Computer Networks,mcq,easy,What is related to Subnetting?,"A,B,C,D",A,,1
+Computer Networks,mcq,easy,What is related to DNS?,"A,B,C,D",A,,1
+Computer Networks,mcq,easy,What is related to HTTP/HTTPS?,"A,B,C,D",A,,1
+Computer Networks,mcq,easy,What is related to Network security?,"A,B,C,D",A,,1
+Computer Networks,mcq,easy,What is related to Congestion control?,"A,B,C,D",A,,1
+Computer Networks,mcq,easy,What is related to Error detection?,"A,B,C,D",A,,1
+Computer Networks,mcq,easy,What is related to Wireless?,"A,B,C,D",A,,1
+Computer Networks,mcq,easy,What is related to Topology?,"A,B,C,D",A,,1
+Computer Networks,mcq,easy,What is related to ARP?,"A,B,C,D",A,,1
+Computer Networks,mcq,easy,What is related to NAT?,"A,B,C,D",A,,1
+Computer Networks,mcq,easy,What is related to IPv6?,"A,B,C,D",A,,1
+Computer Networks,mcq,easy,What is related to TCP?,"A,B,C,D",A,,1
+Computer Networks,mcq,easy,What is related to UDP?,"A,B,C,D",A,,1
+Computer Networks,mcq,easy,What is related to DHCP?,"A,B,C,D",A,,1
+Computer Networks,mcq,easy,What is related to Firewall?,"A,B,C,D",A,,1
+Computer Networks,multi_select,medium,Select valid statements about VLAN.,"A,B,C,D",A,,2
+Computer Networks,multi_select,medium,Select valid statements about STP.,"A,B,C,D",A,,2
+Computer Networks,multi_select,medium,Select valid statements about OSPF.,"A,B,C,D",A,,2
+Computer Networks,multi_select,medium,Select valid statements about RIP.,"A,B,C,D",A,,2
+Computer Networks,multi_select,medium,Select valid statements about BGP.,"A,B,C,D",A,,2
+Computer Networks,multi_select,medium,Select valid statements about ICMP.,"A,B,C,D",A,,2
+Computer Networks,multi_select,medium,Select valid statements about CSMA/CA.,"A,B,C,D",A,,2
+Computer Networks,multi_select,medium,Select valid statements about CRC.,"A,B,C,D",A,,2
+Computer Networks,multi_select,medium,Select valid statements about SSL/TLS.,"A,B,C,D",A,,2
+Computer Networks,multi_select,medium,Select valid statements about Proxy.,"A,B,C,D",A,,2
+Computer Networks,short_answer,medium,Define Load balancing.,,,Concise definition of Load balancing.,2
+Computer Networks,short_answer,medium,Define QoS.,,,Concise definition of QoS.,2
+Computer Networks,short_answer,medium,Define MPLS.,,,Concise definition of MPLS.,2
+Computer Networks,short_answer,medium,Define Socket.,,,Concise definition of Socket.,2
+Computer Networks,short_answer,medium,Define MAC.,,,Concise definition of MAC.,2
+Computer Networks,short_answer,medium,Define Hub.,,,Concise definition of Hub.,2
+Computer Networks,short_answer,medium,Define Bridge.,,,Concise definition of Bridge.,2
+Computer Networks,short_answer,medium,Define Repeater.,,,Concise definition of Repeater.,2
+Computer Networks,short_answer,medium,Define Packet.,,,Concise definition of Packet.,2
+Computer Networks,short_answer,medium,Define Frame.,,,Concise definition of Frame.,2
+Computer Networks,long_answer,hard,Explain Gateway in detail with examples.,,,"Detailed explanation covering concepts, advantages and applications of Gateway.",4
+Computer Networks,long_answer,hard,Explain FTP in detail with examples.,,,"Detailed explanation covering concepts, advantages and applications of FTP.",4
+Computer Networks,long_answer,hard,Explain SMTP in detail with examples.,,,"Detailed explanation covering concepts, advantages and applications of SMTP.",4
+Computer Networks,long_answer,hard,Explain POP3 in detail with examples.,,,"Detailed explanation covering concepts, advantages and applications of POP3.",4
+Computer Networks,long_answer,hard,Explain IMAP in detail with examples.,,,"Detailed explanation covering concepts, advantages and applications of IMAP.",4
+Computer Networks,long_answer,hard,Explain CIDR in detail with examples.,,,"Detailed explanation covering concepts, advantages and applications of CIDR.",4
+Computer Networks,long_answer,hard,Explain Traceroute in detail with examples.,,,"Detailed explanation covering concepts, advantages and applications of Traceroute.",4
+Computer Networks,long_answer,hard,Explain Ping in detail with examples.,,,"Detailed explanation covering concepts, advantages and applications of Ping.",4
+Computer Networks,long_answer,hard,Explain VPN in detail with examples.,,,"Detailed explanation covering concepts, advantages and applications of VPN.",4
+Computer Networks,long_answer,hard,Explain 802.11 in detail with examples.,,,"Detailed explanation covering concepts, advantages and applications of 802.11.",4
+Computer Networks,image_upload,hard,Draw and label a diagram illustrating Bluetooth.,,,Correct labeled diagram of Bluetooth.,4
+Computer Networks,image_upload,hard,Draw and label a diagram illustrating Token ring.,,,Correct labeled diagram of Token ring.,4
+Computer Networks,image_upload,hard,Draw and label a diagram illustrating Bus.,,,Correct labeled diagram of Bus.,4
+Computer Networks,image_upload,hard,Draw and label a diagram illustrating Star.,,,Correct labeled diagram of Star.,4
+Computer Networks,image_upload,hard,Draw and label a diagram illustrating Mesh.,,,Correct labeled diagram of Mesh.,4
+Computer Networks,image_upload,hard,Draw and label a diagram illustrating Tree.,,,Correct labeled diagram of Tree.,4
+Computer Networks,image_upload,hard,Draw and label a diagram illustrating Hybrid.,,,Correct labeled diagram of Hybrid.,4
+Computer Networks,image_upload,hard,Draw and label a diagram illustrating Flow control.,,,Correct labeled diagram of Flow control.,4
+Computer Networks,image_upload,hard,Draw and label a diagram illustrating Sliding window.,,,Correct labeled diagram of Sliding window.,4
+Computer Networks,image_upload,hard,Draw and label a diagram illustrating Checksum.,,,Correct labeled diagram of Checksum.,4
