@@ -6,7 +6,7 @@ mixing the two is a common beginner mistake that causes confusing bugs.
 from datetime import datetime
 from typing import Optional, List
 
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, ConfigDict, EmailStr
 
 from app.models import UserRole, QuestionType
 
@@ -28,6 +28,12 @@ class UserOut(BaseModel):
 
     class Config:
         from_attributes = True
+
+
+class UserUpdate(BaseModel):
+    full_name: Optional[str] = None
+    email: Optional[EmailStr] = None
+    password: Optional[str] = None
 
 
 class Token(BaseModel):
@@ -53,7 +59,17 @@ class QuestionCreate(BaseModel):
     marks: int = 1
     max_marks: Optional[int] = None
     negative_marks: int = 0
+    library_id: Optional[str] = None
     options: Optional[List[OptionCreate]] = None  # required for mcq / multi_select
+
+
+class OptionOut(BaseModel):
+    id: str
+    text: str
+    is_correct: bool = False
+
+    class Config:
+        from_attributes = True
 
 
 class QuestionOut(BaseModel):
@@ -68,9 +84,32 @@ class QuestionOut(BaseModel):
     marks: int
     max_marks: Optional[int] = None
     negative_marks: int
+    library_id: Optional[str] = None
+    options: Optional[List[OptionOut]] = None
 
     class Config:
         from_attributes = True
+
+
+class LibraryCreate(BaseModel):
+    title: str
+    purpose: Optional[str] = None
+
+
+class LibraryOut(BaseModel):
+    id: str
+    title: str
+    purpose: Optional[str] = None
+    question_count: int = 0
+
+    class Config:
+        from_attributes = True
+
+
+class AssignLibraryRequest(BaseModel):
+    question_ids: List[str]
+    library_id: str
+
 class OptionForStudent(BaseModel):
     id: str
     text: str
@@ -112,12 +151,19 @@ class ExamCreate(BaseModel):
     gaze_tracking_sensitivity_threshold: int = 3
     max_tab_switch_warnings: int = 3
     question_ids: List[str]
+    join_code: Optional[str] = None
+
+
+class JoinExamRequest(BaseModel):
+    code: str
 
 
 class ExamOut(BaseModel):
     id: str
     title: str
     subject: str
+    status: str
+    total_marks: int
     duration_minutes: int
     start_time: datetime
     end_time: datetime
@@ -137,3 +183,251 @@ class ResultOut(BaseModel):
 
     class Config:
         from_attributes = True
+
+
+class StudentOut(BaseModel):
+    id: str
+    full_name: str
+    email: str
+    roll_number: Optional[str] = None
+    department: Optional[str] = None
+    semester: Optional[str] = None
+    phone: Optional[str] = None
+    account_status: str
+    assigned_count: int = 0
+    active_count: int = 0
+    submitted_count: int = 0
+    not_started_count: int = 0
+    violations_count: int = 0
+
+
+class StudentsOverview(BaseModel):
+    students_count: int
+    assignments_count: int
+    active_sessions_count: int
+    submitted_count: int
+    violations_count: int
+
+
+class AssignExamRequest(BaseModel):
+    exam_id: str
+
+
+class ExamAssignmentStatus(BaseModel):
+    assigned_student_ids: List[str]
+    assigned_count: int
+    started_count: int
+    submitted_count: int
+
+
+class BulkAssignRequest(BaseModel):
+    student_ids: List[str]
+
+
+class MonitoringOverview(BaseModel):
+    all_sessions_count: int
+    active_count: int
+    online_count: int
+    submitted_count: int
+    terminated_count: int
+    violations_count: int
+
+
+class SessionListItem(BaseModel):
+    id: str
+    student_name: str
+    student_roll: Optional[str] = None
+    exam_title: str
+    exam_subject: str
+    status: str  # Active / Submitted / Terminated
+    time_left_seconds: int
+    questions_answered: int
+    total_questions: int
+    violations_count: int
+
+
+class ViolationOut(BaseModel):
+    event_type: str
+    detail: Optional[dict] = None
+    timestamp: datetime
+
+
+class SessionDetail(BaseModel):
+    id: str
+    status: str
+    student_name: str
+    student_email: str
+    student_roll: Optional[str] = None
+    department: Optional[str] = None
+    semester: Optional[str] = None
+    exam_title: str
+    exam_subject: str
+    time_left_seconds: int
+    current_question: int
+    questions_answered: int
+    total_questions: int
+    violations_count: int
+    proctoring_enabled: bool
+    webcam_monitoring_enabled: bool
+    gaze_tracking_enabled: bool
+    max_tab_switch_warnings: int
+    termination_reason: Optional[str] = None
+    violations: List[ViolationOut]
+
+
+class EvaluationOverview(BaseModel):
+    submissions_count: int
+    manual_review_count: int
+    evaluated_count: int
+    published_count: int
+
+
+class SubmissionItem(BaseModel):
+    session_id: str
+    student_name: str
+    student_email: Optional[str] = None
+    student_roll: Optional[str] = None
+    exam_id: str
+    exam_title: str
+    exam_subject: str
+    ai_score: int
+    final_score: int
+    total_marks: int
+    pending_count: int
+    total_questions: int
+    status: str  # Pending / Manual Review / Evaluated / Published
+    violations_count: int
+
+
+class LibrarySubjectOut(BaseModel):
+    subject: str
+    question_count: int
+
+
+class ExamSectionCreate(BaseModel):
+    title: str
+    library_id: str
+    subject: str
+    section_order: int = 1
+    question_limit: int = 0
+    total_marks: int = 0
+    negative_marks: int = 0
+    randomize_questions: bool = True
+
+
+class ExamSectionOut(BaseModel):
+    id: str
+    exam_id: str
+    title: str
+    library_id: Optional[str] = None
+    subject: Optional[str] = None
+    section_order: int
+    question_limit: int
+    total_marks: int
+    negative_marks: int
+    randomize_questions: bool
+    actual_question_count: int = 0
+
+
+# ---------------------------------------------------------------------------
+# Mock Exam Schemas
+# ---------------------------------------------------------------------------
+
+class MockExamConfigOut(BaseModel):
+    id: str
+    title: str
+    guidelines: Optional[str] = None
+    duration_minutes: int = 15
+    camera_required: bool = True
+    microphone_required: bool = True
+    fullscreen_required: bool = True
+    face_detection_required: bool = True
+    max_tab_switch_warnings: int = 3
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class MockExamConfigUpdate(BaseModel):
+    title: str = "Mock Exam"
+    guidelines: str = ""
+    duration_minutes: int = 15
+    camera_required: bool = True
+    microphone_required: bool = True
+    fullscreen_required: bool = True
+    face_detection_required: bool = True
+    max_tab_switch_warnings: int = 3
+
+
+class MockOptionItem(BaseModel):
+    text: str
+    is_correct: bool = False
+
+
+class MockQuestionOut(BaseModel):
+    id: str
+    question_type: str
+    difficulty: str = "easy"
+    text: str
+    marks: int = 1
+    options: Optional[list] = None
+    model_answer: Optional[str] = None
+    display_order: int = 0
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class MockQuestionStudentOut(BaseModel):
+    """Same as MockQuestionOut but hides correct answers and model_answer."""
+    id: str
+    question_type: str
+    difficulty: str = "easy"
+    text: str
+    marks: int = 1
+    options: Optional[list] = None
+    display_order: int = 0
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class MockQuestionUpdate(BaseModel):
+    difficulty: str = "easy"
+    text: str
+    marks: int = 1
+    options: Optional[list[MockOptionItem]] = None
+    model_answer: Optional[str] = None
+
+
+class MockExamFullOut(BaseModel):
+    config: MockExamConfigOut
+    questions: list[MockQuestionOut]
+
+
+class MockExamStudentOut(BaseModel):
+    config: MockExamConfigOut
+    questions: list[MockQuestionStudentOut]
+
+
+class MockAttemptAnswerItem(BaseModel):
+    question_type: str
+    selected_options: Optional[list[str]] = None
+    text_answer: Optional[str] = None
+    image_uploaded: bool = False
+
+
+class MockAttemptRequest(BaseModel):
+    answers: list[MockAttemptAnswerItem]
+
+
+class MockAttemptFeedbackItem(BaseModel):
+    question_type: str
+    auto_graded: bool = False
+    correct: Optional[bool] = None
+    marks_awarded: int = 0
+    max_marks: int = 0
+    note: str = ""
+
+
+class MockAttemptResult(BaseModel):
+    items: list[MockAttemptFeedbackItem]
+    total_awarded: int = 0
+    total_max: int = 0

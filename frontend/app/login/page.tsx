@@ -22,6 +22,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("student");
   const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [emailFocused, setEmailFocused] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
@@ -31,6 +32,7 @@ export default function LoginPage() {
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     setError("");
+    setSuccessMessage("");
     setLoading(true);
 
     if (mode === "signup") {
@@ -54,6 +56,7 @@ export default function LoginPage() {
         }
 
         setError("");
+        setSuccessMessage("✓ Registration submitted! Your account is pending Admin approval before you can log in.");
         setMode("login");
         setFullName("");
         setPassword("");
@@ -79,7 +82,8 @@ export default function LoginPage() {
       });
 
       if (!res.ok) {
-        setError("Incorrect email or password. Please try again.");
+        const resData = await res.json().catch(() => ({}));
+        setError(resData.detail || "Incorrect email or password. Please try again.");
         setLoading(false);
         return;
       }
@@ -204,6 +208,12 @@ export default function LoginPage() {
             </div>
           )}
 
+          {successMessage && (
+            <div style={{ background: "#dcfce7", border: "1px solid #86efac", color: "#15803d", padding: "0.75rem 1rem", borderRadius: "10px", fontSize: "0.8rem", fontWeight: 700, marginBottom: "1rem", lineHeight: 1.4 }}>
+              {successMessage}
+            </div>
+          )}
+
           {error && <div style={styles.errorBox}>{error}</div>}
 
           <button
@@ -230,7 +240,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     justifyContent: "center",
     background: "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)",
     fontFamily:
-      "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+      "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
     padding: "1.5rem",
   },
   card: {

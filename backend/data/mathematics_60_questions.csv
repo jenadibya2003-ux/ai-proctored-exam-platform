@@ -1,0 +1,61 @@
+subject,question_type,difficulty,text,options,expected_answer,model_answer,marks
+Mathematics,mcq,easy,Evaluated Mathematics Question #1: What is the primary characteristic of Mathematics concept #1?,"Option A, Option B, Option C, Option D",Option A,,1
+Mathematics,multi_select,medium,Evaluated Mathematics Question #2: What is the primary characteristic of Mathematics concept #2?,"Option A, Option B, Option C, Option D",Option A,,2
+Mathematics,short_answer,hard,Evaluated Mathematics Question #3: What is the primary characteristic of Mathematics concept #3?,,Expected core concept,Model solution explaining Mathematics principles for question #3.,3
+Mathematics,long_answer,easy,Evaluated Mathematics Question #4: What is the primary characteristic of Mathematics concept #4?,,Expected core concept,Model solution explaining Mathematics principles for question #4.,1
+Mathematics,mcq,medium,Evaluated Mathematics Question #5: What is the primary characteristic of Mathematics concept #5?,"Option A, Option B, Option C, Option D",Option A,,2
+Mathematics,multi_select,hard,Evaluated Mathematics Question #6: What is the primary characteristic of Mathematics concept #6?,"Option A, Option B, Option C, Option D",Option A,,3
+Mathematics,short_answer,easy,Evaluated Mathematics Question #7: What is the primary characteristic of Mathematics concept #7?,,Expected core concept,Model solution explaining Mathematics principles for question #7.,1
+Mathematics,long_answer,medium,Evaluated Mathematics Question #8: What is the primary characteristic of Mathematics concept #8?,,Expected core concept,Model solution explaining Mathematics principles for question #8.,2
+Mathematics,mcq,hard,Evaluated Mathematics Question #9: What is the primary characteristic of Mathematics concept #9?,"Option A, Option B, Option C, Option D",Option A,,3
+Mathematics,multi_select,easy,Evaluated Mathematics Question #10: What is the primary characteristic of Mathematics concept #10?,"Option A, Option B, Option C, Option D",Option A,,1
+Mathematics,short_answer,medium,Evaluated Mathematics Question #11: What is the primary characteristic of Mathematics concept #11?,,Expected core concept,Model solution explaining Mathematics principles for question #11.,2
+Mathematics,long_answer,hard,Evaluated Mathematics Question #12: What is the primary characteristic of Mathematics concept #12?,,Expected core concept,Model solution explaining Mathematics principles for question #12.,3
+Mathematics,mcq,easy,Evaluated Mathematics Question #13: What is the primary characteristic of Mathematics concept #13?,"Option A, Option B, Option C, Option D",Option A,,1
+Mathematics,multi_select,medium,Evaluated Mathematics Question #14: What is the primary characteristic of Mathematics concept #14?,"Option A, Option B, Option C, Option D",Option A,,2
+Mathematics,short_answer,hard,Evaluated Mathematics Question #15: What is the primary characteristic of Mathematics concept #15?,,Expected core concept,Model solution explaining Mathematics principles for question #15.,3
+Mathematics,long_answer,easy,Evaluated Mathematics Question #16: What is the primary characteristic of Mathematics concept #16?,,Expected core concept,Model solution explaining Mathematics principles for question #16.,1
+Mathematics,mcq,medium,Evaluated Mathematics Question #17: What is the primary characteristic of Mathematics concept #17?,"Option A, Option B, Option C, Option D",Option A,,2
+Mathematics,multi_select,hard,Evaluated Mathematics Question #18: What is the primary characteristic of Mathematics concept #18?,"Option A, Option B, Option C, Option D",Option A,,3
+Mathematics,short_answer,easy,Evaluated Mathematics Question #19: What is the primary characteristic of Mathematics concept #19?,,Expected core concept,Model solution explaining Mathematics principles for question #19.,1
+Mathematics,long_answer,medium,Evaluated Mathematics Question #20: What is the primary characteristic of Mathematics concept #20?,,Expected core concept,Model solution explaining Mathematics principles for question #20.,2
+Mathematics,mcq,hard,Evaluated Mathematics Question #21: What is the primary characteristic of Mathematics concept #21?,"Option A, Option B, Option C, Option D",Option A,,3
+Mathematics,multi_select,easy,Evaluated Mathematics Question #22: What is the primary characteristic of Mathematics concept #22?,"Option A, Option B, Option C, Option D",Option A,,1
+Mathematics,short_answer,medium,Evaluated Mathematics Question #23: What is the primary characteristic of Mathematics concept #23?,,Expected core concept,Model solution explaining Mathematics principles for question #23.,2
+Mathematics,long_answer,hard,Evaluated Mathematics Question #24: What is the primary characteristic of Mathematics concept #24?,,Expected core concept,Model solution explaining Mathematics principles for question #24.,3
+Mathematics,mcq,easy,Evaluated Mathematics Question #25: What is the primary characteristic of Mathematics concept #25?,"Option A, Option B, Option C, Option D",Option A,,1
+Mathematics,multi_select,medium,Evaluated Mathematics Question #26: What is the primary characteristic of Mathematics concept #26?,"Option A, Option B, Option C, Option D",Option A,,2
+Mathematics,short_answer,hard,Evaluated Mathematics Question #27: What is the primary characteristic of Mathematics concept #27?,,Expected core concept,Model solution explaining Mathematics principles for question #27.,3
+Mathematics,long_answer,easy,Evaluated Mathematics Question #28: What is the primary characteristic of Mathematics concept #28?,,Expected core concept,Model solution explaining Mathematics principles for question #28.,1
+Mathematics,mcq,medium,Evaluated Mathematics Question #29: What is the primary characteristic of Mathematics concept #29?,"Option A, Option B, Option C, Option D",Option A,,2
+Mathematics,multi_select,hard,Evaluated Mathematics Question #30: What is the primary characteristic of Mathematics concept #30?,"Option A, Option B, Option C, Option D",Option A,,3
+Mathematics,short_answer,easy,Evaluated Mathematics Question #31: What is the primary characteristic of Mathematics concept #31?,,Expected core concept,Model solution explaining Mathematics principles for question #31.,1
+Mathematics,long_answer,medium,Evaluated Mathematics Question #32: What is the primary characteristic of Mathematics concept #32?,,Expected core concept,Model solution explaining Mathematics principles for question #32.,2
+Mathematics,mcq,hard,Evaluated Mathematics Question #33: What is the primary characteristic of Mathematics concept #33?,"Option A, Option B, Option C, Option D",Option A,,3
+Mathematics,multi_select,easy,Evaluated Mathematics Question #34: What is the primary characteristic of Mathematics concept #34?,"Option A, Option B, Option C, Option D",Option A,,1
+Mathematics,short_answer,medium,Evaluated Mathematics Question #35: What is the primary characteristic of Mathematics concept #35?,,Expected core concept,Model solution explaining Mathematics principles for question #35.,2
+Mathematics,long_answer,hard,Evaluated Mathematics Question #36: What is the primary characteristic of Mathematics concept #36?,,Expected core concept,Model solution explaining Mathematics principles for question #36.,3
+Mathematics,mcq,easy,Evaluated Mathematics Question #37: What is the primary characteristic of Mathematics concept #37?,"Option A, Option B, Option C, Option D",Option A,,1
+Mathematics,multi_select,medium,Evaluated Mathematics Question #38: What is the primary characteristic of Mathematics concept #38?,"Option A, Option B, Option C, Option D",Option A,,2
+Mathematics,short_answer,hard,Evaluated Mathematics Question #39: What is the primary characteristic of Mathematics concept #39?,,Expected core concept,Model solution explaining Mathematics principles for question #39.,3
+Mathematics,long_answer,easy,Evaluated Mathematics Question #40: What is the primary characteristic of Mathematics concept #40?,,Expected core concept,Model solution explaining Mathematics principles for question #40.,1
+Mathematics,mcq,medium,Evaluated Mathematics Question #41: What is the primary characteristic of Mathematics concept #41?,"Option A, Option B, Option C, Option D",Option A,,2
+Mathematics,multi_select,hard,Evaluated Mathematics Question #42: What is the primary characteristic of Mathematics concept #42?,"Option A, Option B, Option C, Option D",Option A,,3
+Mathematics,short_answer,easy,Evaluated Mathematics Question #43: What is the primary characteristic of Mathematics concept #43?,,Expected core concept,Model solution explaining Mathematics principles for question #43.,1
+Mathematics,long_answer,medium,Evaluated Mathematics Question #44: What is the primary characteristic of Mathematics concept #44?,,Expected core concept,Model solution explaining Mathematics principles for question #44.,2
+Mathematics,mcq,hard,Evaluated Mathematics Question #45: What is the primary characteristic of Mathematics concept #45?,"Option A, Option B, Option C, Option D",Option A,,3
+Mathematics,multi_select,easy,Evaluated Mathematics Question #46: What is the primary characteristic of Mathematics concept #46?,"Option A, Option B, Option C, Option D",Option A,,1
+Mathematics,short_answer,medium,Evaluated Mathematics Question #47: What is the primary characteristic of Mathematics concept #47?,,Expected core concept,Model solution explaining Mathematics principles for question #47.,2
+Mathematics,long_answer,hard,Evaluated Mathematics Question #48: What is the primary characteristic of Mathematics concept #48?,,Expected core concept,Model solution explaining Mathematics principles for question #48.,3
+Mathematics,mcq,easy,Evaluated Mathematics Question #49: What is the primary characteristic of Mathematics concept #49?,"Option A, Option B, Option C, Option D",Option A,,1
+Mathematics,multi_select,medium,Evaluated Mathematics Question #50: What is the primary characteristic of Mathematics concept #50?,"Option A, Option B, Option C, Option D",Option A,,2
+Mathematics,short_answer,hard,Evaluated Mathematics Question #51: What is the primary characteristic of Mathematics concept #51?,,Expected core concept,Model solution explaining Mathematics principles for question #51.,3
+Mathematics,long_answer,easy,Evaluated Mathematics Question #52: What is the primary characteristic of Mathematics concept #52?,,Expected core concept,Model solution explaining Mathematics principles for question #52.,1
+Mathematics,mcq,medium,Evaluated Mathematics Question #53: What is the primary characteristic of Mathematics concept #53?,"Option A, Option B, Option C, Option D",Option A,,2
+Mathematics,multi_select,hard,Evaluated Mathematics Question #54: What is the primary characteristic of Mathematics concept #54?,"Option A, Option B, Option C, Option D",Option A,,3
+Mathematics,short_answer,easy,Evaluated Mathematics Question #55: What is the primary characteristic of Mathematics concept #55?,,Expected core concept,Model solution explaining Mathematics principles for question #55.,1
+Mathematics,long_answer,medium,Evaluated Mathematics Question #56: What is the primary characteristic of Mathematics concept #56?,,Expected core concept,Model solution explaining Mathematics principles for question #56.,2
+Mathematics,mcq,hard,Evaluated Mathematics Question #57: What is the primary characteristic of Mathematics concept #57?,"Option A, Option B, Option C, Option D",Option A,,3
+Mathematics,multi_select,easy,Evaluated Mathematics Question #58: What is the primary characteristic of Mathematics concept #58?,"Option A, Option B, Option C, Option D",Option A,,1
+Mathematics,short_answer,medium,Evaluated Mathematics Question #59: What is the primary characteristic of Mathematics concept #59?,,Expected core concept,Model solution explaining Mathematics principles for question #59.,2
+Mathematics,long_answer,hard,Evaluated Mathematics Question #60: What is the primary characteristic of Mathematics concept #60?,,Expected core concept,Model solution explaining Mathematics principles for question #60.,3

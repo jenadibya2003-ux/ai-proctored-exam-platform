@@ -1,0 +1,42 @@
+/* Global CSS Styles for AI-Proctored Exam Platform */
+
+/* Hide Google Translate top banner, tooltips, popups, frames, and highlight borders */
+.goog-te-banner-frame,
+.goog-te-banner-frame.skiptranslate,
+#goog-gt-tt,
+.goog-te-balloon-frame,
+div.goog-te-spinner-pos,
+.VIpgJd-Z44wfd-Vn27od,
+.VIpgJd-Z44wfd-a99frd,
+.VIpgJd-yfv1ye-VJ211,
+iframe[id^=":"],
+iframe.goog-te-banner-frame {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  width: 0 !important;
+}
+
+body {
+  top: 0px !important;
+  position: static !important;
+  margin-top: 0px !important;
+}
+
+.goog-text-highlight {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Hide Google Translate attribution branding widgets */
+.goog-logo-link,
+.goog-te-gadget span,
+.goog-te-gadget-icon {
+  display: none !important;
+}
+
+.goog-te-gadget {
+  color: transparent !important;
+  font-size: 0px !important;
+}

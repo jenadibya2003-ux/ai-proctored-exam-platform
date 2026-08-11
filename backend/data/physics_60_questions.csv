@@ -1,0 +1,61 @@
+subject,question_type,difficulty,text,options,expected_answer,model_answer,marks
+Physics,mcq,easy,Evaluated Physics Question #1: What is the primary characteristic of Physics concept #1?,"Option A, Option B, Option C, Option D",Option A,,1
+Physics,multi_select,medium,Evaluated Physics Question #2: What is the primary characteristic of Physics concept #2?,"Option A, Option B, Option C, Option D",Option A,,2
+Physics,short_answer,hard,Evaluated Physics Question #3: What is the primary characteristic of Physics concept #3?,,Expected core concept,Model solution explaining Physics principles for question #3.,3
+Physics,long_answer,easy,Evaluated Physics Question #4: What is the primary characteristic of Physics concept #4?,,Expected core concept,Model solution explaining Physics principles for question #4.,1
+Physics,mcq,medium,Evaluated Physics Question #5: What is the primary characteristic of Physics concept #5?,"Option A, Option B, Option C, Option D",Option A,,2
+Physics,multi_select,hard,Evaluated Physics Question #6: What is the primary characteristic of Physics concept #6?,"Option A, Option B, Option C, Option D",Option A,,3
+Physics,short_answer,easy,Evaluated Physics Question #7: What is the primary characteristic of Physics concept #7?,,Expected core concept,Model solution explaining Physics principles for question #7.,1
+Physics,long_answer,medium,Evaluated Physics Question #8: What is the primary characteristic of Physics concept #8?,,Expected core concept,Model solution explaining Physics principles for question #8.,2
+Physics,mcq,hard,Evaluated Physics Question #9: What is the primary characteristic of Physics concept #9?,"Option A, Option B, Option C, Option D",Option A,,3
+Physics,multi_select,easy,Evaluated Physics Question #10: What is the primary characteristic of Physics concept #10?,"Option A, Option B, Option C, Option D",Option A,,1
+Physics,short_answer,medium,Evaluated Physics Question #11: What is the primary characteristic of Physics concept #11?,,Expected core concept,Model solution explaining Physics principles for question #11.,2
+Physics,long_answer,hard,Evaluated Physics Question #12: What is the primary characteristic of Physics concept #12?,,Expected core concept,Model solution explaining Physics principles for question #12.,3
+Physics,mcq,easy,Evaluated Physics Question #13: What is the primary characteristic of Physics concept #13?,"Option A, Option B, Option C, Option D",Option A,,1
+Physics,multi_select,medium,Evaluated Physics Question #14: What is the primary characteristic of Physics concept #14?,"Option A, Option B, Option C, Option D",Option A,,2
+Physics,short_answer,hard,Evaluated Physics Question #15: What is the primary characteristic of Physics concept #15?,,Expected core concept,Model solution explaining Physics principles for question #15.,3
+Physics,long_answer,easy,Evaluated Physics Question #16: What is the primary characteristic of Physics concept #16?,,Expected core concept,Model solution explaining Physics principles for question #16.,1
+Physics,mcq,medium,Evaluated Physics Question #17: What is the primary characteristic of Physics concept #17?,"Option A, Option B, Option C, Option D",Option A,,2
+Physics,multi_select,hard,Evaluated Physics Question #18: What is the primary characteristic of Physics concept #18?,"Option A, Option B, Option C, Option D",Option A,,3
+Physics,short_answer,easy,Evaluated Physics Question #19: What is the primary characteristic of Physics concept #19?,,Expected core concept,Model solution explaining Physics principles for question #19.,1
+Physics,long_answer,medium,Evaluated Physics Question #20: What is the primary characteristic of Physics concept #20?,,Expected core concept,Model solution explaining Physics principles for question #20.,2
+Physics,mcq,hard,Evaluated Physics Question #21: What is the primary characteristic of Physics concept #21?,"Option A, Option B, Option C, Option D",Option A,,3
+Physics,multi_select,easy,Evaluated Physics Question #22: What is the primary characteristic of Physics concept #22?,"Option A, Option B, Option C, Option D",Option A,,1
+Physics,short_answer,medium,Evaluated Physics Question #23: What is the primary characteristic of Physics concept #23?,,Expected core concept,Model solution explaining Physics principles for question #23.,2
+Physics,long_answer,hard,Evaluated Physics Question #24: What is the primary characteristic of Physics concept #24?,,Expected core concept,Model solution explaining Physics principles for question #24.,3
+Physics,mcq,easy,Evaluated Physics Question #25: What is the primary characteristic of Physics concept #25?,"Option A, Option B, Option C, Option D",Option A,,1
+Physics,multi_select,medium,Evaluated Physics Question #26: What is the primary characteristic of Physics concept #26?,"Option A, Option B, Option C, Option D",Option A,,2
+Physics,short_answer,hard,Evaluated Physics Question #27: What is the primary characteristic of Physics concept #27?,,Expected core concept,Model solution explaining Physics principles for question #27.,3
+Physics,long_answer,easy,Evaluated Physics Question #28: What is the primary characteristic of Physics concept #28?,,Expected core concept,Model solution explaining Physics principles for question #28.,1
+Physics,mcq,medium,Evaluated Physics Question #29: What is the primary characteristic of Physics concept #29?,"Option A, Option B, Option C, Option D",Option A,,2
+Physics,multi_select,hard,Evaluated Physics Question #30: What is the primary characteristic of Physics concept #30?,"Option A, Option B, Option C, Option D",Option A,,3
+Physics,short_answer,easy,Evaluated Physics Question #31: What is the primary characteristic of Physics concept #31?,,Expected core concept,Model solution explaining Physics principles for question #31.,1
+Physics,long_answer,medium,Evaluated Physics Question #32: What is the primary characteristic of Physics concept #32?,,Expected core concept,Model solution explaining Physics principles for question #32.,2
+Physics,mcq,hard,Evaluated Physics Question #33: What is the primary characteristic of Physics concept #33?,"Option A, Option B, Option C, Option D",Option A,,3
+Physics,multi_select,easy,Evaluated Physics Question #34: What is the primary characteristic of Physics concept #34?,"Option A, Option B, Option C, Option D",Option A,,1
+Physics,short_answer,medium,Evaluated Physics Question #35: What is the primary characteristic of Physics concept #35?,,Expected core concept,Model solution explaining Physics principles for question #35.,2
+Physics,long_answer,hard,Evaluated Physics Question #36: What is the primary characteristic of Physics concept #36?,,Expected core concept,Model solution explaining Physics principles for question #36.,3
+Physics,mcq,easy,Evaluated Physics Question #37: What is the primary characteristic of Physics concept #37?,"Option A, Option B, Option C, Option D",Option A,,1
+Physics,multi_select,medium,Evaluated Physics Question #38: What is the primary characteristic of Physics concept #38?,"Option A, Option B, Option C, Option D",Option A,,2
+Physics,short_answer,hard,Evaluated Physics Question #39: What is the primary characteristic of Physics concept #39?,,Expected core concept,Model solution explaining Physics principles for question #39.,3
+Physics,long_answer,easy,Evaluated Physics Question #40: What is the primary characteristic of Physics concept #40?,,Expected core concept,Model solution explaining Physics principles for question #40.,1
+Physics,mcq,medium,Evaluated Physics Question #41: What is the primary characteristic of Physics concept #41?,"Option A, Option B, Option C, Option D",Option A,,2
+Physics,multi_select,hard,Evaluated Physics Question #42: What is the primary characteristic of Physics concept #42?,"Option A, Option B, Option C, Option D",Option A,,3
+Physics,short_answer,easy,Evaluated Physics Question #43: What is the primary characteristic of Physics concept #43?,,Expected core concept,Model solution explaining Physics principles for question #43.,1
+Physics,long_answer,medium,Evaluated Physics Question #44: What is the primary characteristic of Physics concept #44?,,Expected core concept,Model solution explaining Physics principles for question #44.,2
+Physics,mcq,hard,Evaluated Physics Question #45: What is the primary characteristic of Physics concept #45?,"Option A, Option B, Option C, Option D",Option A,,3
+Physics,multi_select,easy,Evaluated Physics Question #46: What is the primary characteristic of Physics concept #46?,"Option A, Option B, Option C, Option D",Option A,,1
+Physics,short_answer,medium,Evaluated Physics Question #47: What is the primary characteristic of Physics concept #47?,,Expected core concept,Model solution explaining Physics principles for question #47.,2
+Physics,long_answer,hard,Evaluated Physics Question #48: What is the primary characteristic of Physics concept #48?,,Expected core concept,Model solution explaining Physics principles for question #48.,3
+Physics,mcq,easy,Evaluated Physics Question #49: What is the primary characteristic of Physics concept #49?,"Option A, Option B, Option C, Option D",Option A,,1
+Physics,multi_select,medium,Evaluated Physics Question #50: What is the primary characteristic of Physics concept #50?,"Option A, Option B, Option C, Option D",Option A,,2
+Physics,short_answer,hard,Evaluated Physics Question #51: What is the primary characteristic of Physics concept #51?,,Expected core concept,Model solution explaining Physics principles for question #51.,3
+Physics,long_answer,easy,Evaluated Physics Question #52: What is the primary characteristic of Physics concept #52?,,Expected core concept,Model solution explaining Physics principles for question #52.,1
+Physics,mcq,medium,Evaluated Physics Question #53: What is the primary characteristic of Physics concept #53?,"Option A, Option B, Option C, Option D",Option A,,2
+Physics,multi_select,hard,Evaluated Physics Question #54: What is the primary characteristic of Physics concept #54?,"Option A, Option B, Option C, Option D",Option A,,3
+Physics,short_answer,easy,Evaluated Physics Question #55: What is the primary characteristic of Physics concept #55?,,Expected core concept,Model solution explaining Physics principles for question #55.,1
+Physics,long_answer,medium,Evaluated Physics Question #56: What is the primary characteristic of Physics concept #56?,,Expected core concept,Model solution explaining Physics principles for question #56.,2
+Physics,mcq,hard,Evaluated Physics Question #57: What is the primary characteristic of Physics concept #57?,"Option A, Option B, Option C, Option D",Option A,,3
+Physics,multi_select,easy,Evaluated Physics Question #58: What is the primary characteristic of Physics concept #58?,"Option A, Option B, Option C, Option D",Option A,,1
+Physics,short_answer,medium,Evaluated Physics Question #59: What is the primary characteristic of Physics concept #59?,,Expected core concept,Model solution explaining Physics principles for question #59.,2
+Physics,long_answer,hard,Evaluated Physics Question #60: What is the primary characteristic of Physics concept #60?,,Expected core concept,Model solution explaining Physics principles for question #60.,3

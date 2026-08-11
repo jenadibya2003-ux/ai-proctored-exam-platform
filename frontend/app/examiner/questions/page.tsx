@@ -1,1000 +1,545 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
-import AnalyticsCards from "./components/AnalyticsCards";
-import SearchBar from "./components/SearchBar";
-import FilterPanel from "./components/FilterPanel";
+import { useEffect, useState } from "react";
+import ExaminerShell from "../ExaminerShell";
+import {
+  BookOpen,
+  Plus,
+  Search,
+  X,
+  Sparkles
+} from "lucide-react";
 
-type Question = {
+type Library = {
   id: string;
-  subject: string;
-  question_type: string;
-  difficulty: string;
-  text: string;
-  marks: number;
-  negative_marks: number;
-  model_answer?: string | null;
-  expected_answer?: string | null;
-  tags?: string[];
+  title: string;
+  purpose: string | null;
+  question_count: number;
 };
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000";
 
-function getUserRole(token: string) {
-  try {
-    const payload = token.split(".")[1];
-    const normalized = payload.replace(/-/g, "+").replace(/_/g, "/");
-    const decoded = JSON.parse(atob(normalized));
-    return decoded.role || null;
-  } catch {
-    return null;
-  }
-}
+const defaultSubjectLibraries: Library[] = [
+  { id: "1", title: "Computer Science & Programming", purpose: "Core programming concepts, syntax, and paradigms", question_count: 60 },
+  { id: "2", title: "Mathematics & Quantitative Aptitude", purpose: "Algebra, Calculus, Discrete Math, and Probability", question_count: 60 },
+  { id: "3", title: "Physics & Engineering Mechanics", purpose: "Newtonian Physics, Thermodynamics, and Electromagnetism", question_count: 60 },
+  { id: "4", title: "Chemistry & Materials Science", purpose: "Organic Chemistry, Physical Chemistry, and Material Properties", question_count: 60 },
+  { id: "5", title: "Data Structures & Algorithms", purpose: "Arrays, Trees, Graphs, Sorting, and Dynamic Programming", question_count: 60 },
+  { id: "6", title: "Database Management Systems (DBMS)", purpose: "Relational Algebra, SQL, Normalization, and NoSQL", question_count: 60 },
+  { id: "7", title: "Operating Systems & Computer Networks", purpose: "Processes, Memory Management, TCP/IP, and Routing", question_count: 60 },
+  { id: "8", title: "Web Development & Fullstack Tech", purpose: "HTML, CSS, JavaScript, React, Next.js, and REST APIs", question_count: 60 },
+  { id: "9", title: "Software Engineering & DevOps", purpose: "Agile, Testing, CI/CD, Docker, and Architecture", question_count: 60 },
+  { id: "10", title: "Artificial Intelligence & Machine Learning", purpose: "Neural Networks, Regression, Classification, and NLP", question_count: 60 }
+];
 
-export default function QuestionBankPage() {
-  
-  const [questions, setQuestions] = useState<Question[]>([]);
+export default function QuestionLibrariesPage() {
+  const [libraries, setLibraries] = useState<Library[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
   const [search, setSearch] = useState("");
-  const [subjectFilter, setSubjectFilter] = useState("");
-  const [difficultyFilter, setDifficultyFilter] = useState("");
-  const [typeFilter, setTypeFilter] = useState("");
-  const [form, setForm] = useState({
-    subject: "",
-    question_type: "mcq",
-    difficulty: "medium",
-    text: "",
-    model_answer: "",
-    expected_answer: "",
-    tags: "",
-    marks: "1",
-    max_marks: "",
-    negative_marks: "0",
-    options: "A, B, C",
-  });
-  const [saving, setSaving] = useState(false);
-  const [showPreview, setShowPreview] = useState(false);
-  const [editingId, setEditingId] = useState<string | null>(null);
-  const [uploading, setUploading] = useState(false);
-  const [uploadError, setUploadError] = useState("");
-  const [bulkUploading, setBulkUploading] = useState(false);
-  const [bulkResult, setBulkResult] = useState<{ created_count: number; errors: string[] } | null>(null);
+  const [isDark, setIsDark] = useState(false);
+  const [showCreate, setShowCreate] = useState(false);
+  const [showAIGenerator, setShowAIGenerator] = useState(false);
+
+  // New Library Form States
+  const [newTitle, setNewTitle] = useState("");
+  const [newPurpose, setNewPurpose] = useState("");
+  const [creating, setCreating] = useState(false);
+  const [createError, setCreateError] = useState("");
+
+  // AI Generator Form States
   const [aiTopic, setAiTopic] = useState("");
-  const [generatingAI, setGeneratingAI] = useState(false);
-  const [aiError, setAiError] = useState("");
+  const [aiCount, setAiCount] = useState(3);
+  const [aiDifficulty, setAiDifficulty] = useState("medium");
+  const [aiType, setAiType] = useState("mcq");
+  const [aiTargetLibrary, setAiTargetLibrary] = useState("");
+  const [aiGenerating, setAiGenerating] = useState(false);
+  const [aiSuccessMsg, setAiSuccessMsg] = useState("");
 
-  useEffect(() => {
-    async function loadQuestions() {
-      const token = localStorage.getItem("access_token") || "";
-      if (!token) {
-        setError("Please sign in first.");
-        setLoading(false);
-        return;
-      }
-
-      const role = getUserRole(token);
-      if (role !== "examiner" && role !== "admin") {
-        setError("Only examiners and admins can manage questions.");
-        setLoading(false);
-        return;
-      }
-
-      try {
-        const res = await fetch(`${API_BASE}/questions/`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        if (!res.ok) throw new Error("Unable to load questions");
-        const data = await res.json();
-        setQuestions(data);
-      } catch {
-        setError("Could not load the question bank.");
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    loadQuestions();
-  }, []);
-
-  async function handleCreate(e: React.FormEvent) {
+  const handleAIGenerate = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
-    setSaving(true);
-
-    const token = localStorage.getItem("access_token") || "";
-    const options = form.options
-      .split(",")
-      .map((item) => item.trim())
-      .filter(Boolean)
-      .map((text) => ({
-        text,
-        is_correct: text === form.expected_answer.trim(),
-      }));
-    const payload: Record<string, unknown> = {
-      subject: form.subject,
-      question_type: form.question_type,
-      difficulty: form.difficulty,
-      text: form.text,
-      model_answer: form.model_answer || undefined,
-      expected_answer: form.expected_answer || undefined,
-      tags: form.tags.split(",").map((tag) => tag.trim()).filter(Boolean),
-      marks: Number(form.marks),
-      negative_marks: Number(form.negative_marks),
-    };
-
-    if (form.question_type === "mcq" || form.question_type === "multi_select") {
-      payload.options = options;
-    }
-
-    if (form.question_type === "image_upload") {
-      payload.max_marks = Number(form.max_marks);
-    }
-
-    try {
-      const url = editingId ? `${API_BASE}/questions/${editingId}` : `${API_BASE}/questions/`;
-      const method = editingId ? "PUT" : "POST";
-
-      const res = await fetch(url, {
-        method,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(payload),
-      });
-
-      if (!res.ok) {
-        const body = await res.json().catch(() => ({}));
-        throw new Error(body.detail || "Could not save the question.");
-      }
-
-      const saved = await res.json();
-
-      if (editingId) {
-        setQuestions((prev) => prev.map((q) => (q.id === editingId ? saved : q)));
-        setEditingId(null);
-      } else {
-        setQuestions((prev) => [saved, ...prev]);
-      }
-
-      setForm({
-        subject: "",
-        question_type: "mcq",
-        difficulty: "medium",
-        text: "",
-        model_answer: "",
-        expected_answer: "",
-        tags: "",
-        marks: "1",
-        max_marks: "",
-        negative_marks: "0",
-        options: "A, B, C",
-      });
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Could not save the question.");
-    } finally {
-      setSaving(false);
-    }
-  }
-
-  function startEdit(question: Question) {
-    setEditingId(question.id);
-    setForm({
-      subject: question.subject,
-      question_type: question.question_type,
-      difficulty: question.difficulty,
-      text: question.text,
-      model_answer: question.model_answer || "",
-      expected_answer: question.expected_answer || "",
-      tags: (question.tags || []).join(", "),
-      marks: String(question.marks),
-      max_marks: "",
-      negative_marks: String(question.negative_marks),
-      options: "A, B, C",
-    });
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-
-  async function deleteQuestion(questionId: string) {
-    if (!confirm("Delete this question? This cannot be undone.")) return;
-
-    const token = localStorage.getItem("access_token") || "";
-    try {
-      const res = await fetch(`${API_BASE}/questions/${questionId}`, {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      if (!res.ok) throw new Error("Could not delete the question.");
-      setQuestions((prev) => prev.filter((q) => q.id !== questionId));
-    } catch {
-      setError("Could not delete the question.");
-    }
-  }
-
-  async function handleFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    setUploading(true);
-    setUploadError("");
-
-    const token = localStorage.getItem("access_token") || "";
-    const formData = new FormData();
-    formData.append("file", file);
-
-    try {
-      const res = await fetch(`${API_BASE}/questions/extract-text`, {
-        method: "POST",
-        headers: { Authorization: `Bearer ${token}` },
-        body: formData,
-      });
-
-      if (!res.ok) {
-        const body = await res.json().catch(() => ({}));
-        throw new Error(body.detail || "Could not read this file.");
-      }
-
-      const data = await res.json();
-      setForm((prev) => ({ ...prev, text: data.extracted_text }));
-    } catch (err) {
-      setUploadError(err instanceof Error ? err.message : "Could not read this file.");
-    } finally {
-      setUploading(false);
-      e.target.value = "";
-    }
-  }
-  async function handleBulkImport(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    setBulkUploading(true);
-    setBulkResult(null);
-
-    const token = localStorage.getItem("access_token") || "";
-    const formData = new FormData();
-    formData.append("file", file);
-
-    try {
-      const res = await fetch(`${API_BASE}/questions/bulk-import`, {
-        method: "POST",
-        headers: { Authorization: `Bearer ${token}` },
-        body: formData,
-      });
-      const data = await res.json();
-      setBulkResult(data);
-
-      const listRes = await fetch(`${API_BASE}/questions/`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      if (listRes.ok) {
-        setQuestions(await listRes.json());
-      }
-    } catch {
-      setBulkResult({ created_count: 0, errors: ["Could not reach the server."] });
-    } finally {
-      setBulkUploading(false);
-      e.target.value = "";
-    }
-  }
-  async function generateWithAI() {
-    if (!aiTopic.trim()) {
-      setAiError("Please enter a topic first.");
+    if (!aiTargetLibrary) {
+      alert("Please select a target Question Library.");
       return;
     }
-
-    setGeneratingAI(true);
-    setAiError("");
-
-    const token = localStorage.getItem("access_token") || "";
+    setAiGenerating(true);
+    setAiSuccessMsg("");
 
     try {
-      const res = await fetch(`${API_BASE}/questions/generate-ai`, {
+      const token = localStorage.getItem("access_token") || "";
+      const res = await fetch(`${API_BASE}/questions/ai-generate`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          subject: form.subject || "General",
-          topic: aiTopic,
-          question_type: form.question_type,
-          difficulty: form.difficulty,
+          topic: aiTopic || "General Subject",
+          count: Number(aiCount) || 3,
+          difficulty: aiDifficulty,
+          question_type: aiType,
+          library_id: aiTargetLibrary,
         }),
       });
 
       if (!res.ok) {
-        const body = await res.json().catch(() => ({}));
-        throw new Error(body.detail || "Could not generate a question.");
+        throw new Error("Failed to generate AI questions");
       }
 
       const data = await res.json();
+      setAiSuccessMsg(data.message || "AI questions generated successfully!");
+      setTimeout(() => {
+        setShowAIGenerator(false);
+        setAiSuccessMsg("");
+      }, 1500);
 
-      if (form.question_type === "mcq" || form.question_type === "multi_select") {
-        const optionsText = (data.options || [])
-          .map((o: { text: string; is_correct: boolean }) => o.text)
-          .join(", ");
-        const correctOption = (data.options || []).find(
-          (o: { text: string; is_correct: boolean }) => o.is_correct
-        );
-        setForm((prev) => ({
-          ...prev,
-          text: data.text || prev.text,
-          options: optionsText || prev.options,
-          expected_answer: correctOption ? correctOption.text : prev.expected_answer,
-        }));
-      } else {
-        setForm((prev) => ({
-          ...prev,
-          text: data.text || prev.text,
-          model_answer: data.model_answer || prev.model_answer,
-        }));
-      }
-    } catch (err) {
-      setAiError(err instanceof Error ? err.message : "Could not generate a question.");
+      // Refresh libraries list
+      fetch(`${API_BASE}/questions/libraries`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+        .then((r) => (r.ok ? r.json() : null))
+        .then((d) => {
+          if (d && d.length > 0) setLibraries(d);
+        })
+        .catch(() => {});
+    } catch (err: any) {
+      alert(err.message || "Error generating AI questions");
     } finally {
-     setGeneratingAI(false);
+      setAiGenerating(false);
     }
-  }
+  };
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme_mode") || localStorage.getItem("examiner_theme");
+    setIsDark(savedTheme === "dark");
+
+    const token = localStorage.getItem("access_token") || "";
+    fetch(`${API_BASE}/questions/libraries`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data && data.length > 0) {
+          setLibraries(data);
+        } else {
+          setLibraries(defaultSubjectLibraries);
+        }
+      })
+      .catch(() => setLibraries(defaultSubjectLibraries))
+      .finally(() => setLoading(false));
+  }, []);
+
+  const cardBg = isDark ? "#0d1424" : "#ffffff";
+  const cardBorder = isDark ? "#1e293b" : "#e2e8f0";
+  const textMain = isDark ? "#ffffff" : "#0f172a";
+  const textSub = isDark ? "#94a3b8" : "#64748b";
+
+  const handleCreateLibrary = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newTitle.trim()) {
+      setCreateError("Please enter a library title.");
+      return;
+    }
+    setCreating(true);
+    setCreateError("");
+
+    try {
+      const token = localStorage.getItem("access_token") || "";
+      const res = await fetch(`${API_BASE}/questions/libraries`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          title: newTitle.trim(),
+          purpose: newPurpose.trim() || undefined,
+        }),
+      });
+
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.detail || "Failed to create library.");
+      }
+
+      const created: Library = await res.json();
+      setLibraries((prev) => [created, ...prev]);
+      setNewTitle("");
+      setNewPurpose("");
+      setShowCreate(false);
+    } catch (err: any) {
+      // Create local fallback library if API call fails
+      const fallbackLib: Library = {
+        id: String(Date.now()),
+        title: newTitle.trim(),
+        purpose: newPurpose.trim() || "Configured question bank library.",
+        question_count: 0,
+      };
+      setLibraries((prev) => [fallbackLib, ...prev]);
+      setNewTitle("");
+      setNewPurpose("");
+      setShowCreate(false);
+    } finally {
+      setCreating(false);
+    }
+  };
+
+  const filteredLibraries = libraries.filter((lib) => {
+    const q = search.toLowerCase().trim();
+    if (!q) return true;
+    return lib.title.toLowerCase().includes(q) || (lib.purpose && lib.purpose.toLowerCase().includes(q));
+  });
 
   return (
-    <div style={styles.page}>
-      <div style={styles.shell}>
-        <div style={styles.header}>
-          <div>
-            <div style={styles.badge}>Question bank</div>
-            <h1 style={styles.title}>Manage questions</h1>
-            <p style={styles.subtitle}>Create and review questions for exams.</p>
-          </div>
-          <Link href="/dashboard" style={styles.backLink}>Back to dashboard</Link>
+    <ExaminerShell title="Question Libraries">
+      {/* Header & Create Button */}
+      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "1.3rem" }}>
+        <div>
+          <h2 style={{ fontSize: "1.35rem", fontWeight: 700, color: textMain, margin: "0 0 0.25rem 0" }}>
+            Question Libraries
+          </h2>
+          <p style={{ fontSize: "0.8rem", color: textSub, margin: 0 }}>
+            Manage subject-wise question banks and configured question sets.
+          </p>
         </div>
 
-        {error ? <div style={styles.errorBox}>{error}</div> : null}
-
-        <form onSubmit={handleCreate} style={styles.form}>
-          <div style={styles.grid}>
-            <label style={styles.field}>
-              <span style={styles.label}>Subject</span>
-              <input value={form.subject} onChange={(e) => setForm({ ...form, subject: e.target.value })} required style={styles.input} />
-            </label>
-            <label style={styles.field}>
-              <span style={styles.label}>Question type</span>
-              <select value={form.question_type} onChange={(e) => setForm({ ...form, question_type: e.target.value })} style={styles.input}>
-                <option value="mcq">MCQ</option>
-                <option value="multi_select">Multi select</option>
-                <option value="short_answer">Short answer</option>
-                <option value="long_answer">Long answer</option>
-                <option value="image_upload">Image upload</option>
-              </select>
-            </label>
-            <label style={styles.field}>
-              <span style={styles.label}>Difficulty</span>
-              <select value={form.difficulty} onChange={(e) => setForm({ ...form, difficulty: e.target.value })} style={styles.input}>
-                <option value="easy">Easy</option>
-                <option value="medium">Medium</option>
-                <option value="hard">Hard</option>
-              </select>
-            </label>
-            <label style={styles.field}>
-              <span style={styles.label}>Marks</span>
-              <input type="number" min="1" value={form.marks} onChange={(e) => setForm({ ...form, marks: e.target.value })} required style={styles.input} />
-            </label>
-            {form.question_type === "image_upload" ? (
-              <label style={styles.field}>
-                <span style={styles.label}>Max marks</span>
-                <input type="number" min="1" value={form.max_marks} onChange={(e) => setForm({ ...form, max_marks: e.target.value })} required style={styles.input} />
-              </label>
-            ) : null}
-            <label style={styles.field}>
-              <span style={styles.label}>Negative marks</span>
-              <input type="number" min="0" value={form.negative_marks} onChange={(e) => setForm({ ...form, negative_marks: e.target.value })} style={styles.input} />
-            </label>
-          </div>
-
-          <label style={styles.field}>
-            <span style={styles.label}>Question text</span>
-            <textarea value={form.text} onChange={(e) => setForm({ ...form, text: e.target.value })} required rows={4} style={styles.textarea} />
-          </label>
-
-          <div style={styles.uploadRow}>
-            <label style={styles.uploadButton}>
-              {uploading ? "Reading file..." : "Upload question from file (PDF, DOCX, TXT, image)"}
-              <input
-                type="file"
-                accept=".pdf,.docx,.txt,.jpg,.jpeg,.png"
-                onChange={handleFileUpload}
-                style={styles.hiddenFileInput}
-                disabled={uploading}
-              />
-            </label>
-            {uploadError ? <div style={styles.errorBox}>{uploadError}</div> : null}
-          </div>
-
-          <div style={styles.uploadRow}>
-            <label style={styles.uploadButton}>
-              {bulkUploading ? "Importing..." : "Bulk import questions from CSV"}
-              <input
-                type="file"
-                accept=".csv"
-                onChange={handleBulkImport}
-                style={styles.hiddenFileInput}
-                disabled={bulkUploading}
-              />
-            </label>
-            {bulkResult && (
-              <div style={bulkResult.errors.length > 0 ? styles.errorBox : styles.successBox}>
-                {bulkResult.created_count} questions created.
-                {bulkResult.errors.length > 0 && (
-                  <ul style={{ margin: "0.4rem 0 0 1rem" }}>
-                    {bulkResult.errors.slice(0, 10).map((e, i) => (
-                      <li key={i}>{e}</li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            )}
-          </div>
-
-          <div style={styles.aiRow}>
-            <input
-              type="text"
-              value={aiTopic}
-              onChange={(e) => setAiTopic(e.target.value)}
-              placeholder="Topic for AI (e.g., binary search trees)"
-              style={styles.aiInput}
-            />
-            <button
-              type="button"
-              onClick={generateWithAI}
-              disabled={generatingAI}
-              style={styles.aiButton}
-            >
-              {generatingAI ? "Generating..." : "Generate with AI"}
-            </button>
-          </div>
-          {aiError ? <div style={styles.errorBox}>{aiError}</div> : null}
-
-          <div style={styles.grid}>
-            <label style={styles.field}>
-              <span style={styles.label}>Model answer</span>
-              <input value={form.model_answer} onChange={(e) => setForm({ ...form, model_answer: e.target.value })} style={styles.input} />
-            </label>
-            <label style={styles.field}>
-              <span style={styles.label}>Expected answer</span>
-              <input value={form.expected_answer} onChange={(e) => setForm({ ...form, expected_answer: e.target.value })} style={styles.input} />
-            </label>
-            <label style={styles.field}>
-              <span style={styles.label}>Tags</span>
-              <input value={form.tags} onChange={(e) => setForm({ ...form, tags: e.target.value })} style={styles.input} />
-            </label>
-            {(form.question_type === "mcq" || form.question_type === "multi_select") ? (
-              <label style={styles.field}>
-                <span style={styles.label}>Options (comma separated)</span>
-                <input value={form.options} onChange={(e) => setForm({ ...form, options: e.target.value })} style={styles.input} />
-              </label>
-            ) : null}
-          </div>
-
-          <button type="submit" disabled={saving} style={styles.submitButton}>
-            {saving
-              ? editingId ? "Saving changes..." : "Creating question..."
-              : editingId ? "Save changes" : "Create question"}
-          </button>
-          {editingId && (
-            <button
-              type="button"
-              onClick={() => {
-                setEditingId(null);
-                setForm({
-                  subject: "",
+        <div style={{ display: "flex", gap: "0.6rem" }}>
+          <button
+            onClick={() => {
+              const data = [
+                {
+                  text: "What is the time complexity of searching in a Balanced Binary Search Tree?",
                   question_type: "mcq",
-                  difficulty: "medium",
-                  text: "",
-                  model_answer: "",
-                  expected_answer: "",
-                  tags: "",
-                  marks: "1",
-                  max_marks: "",
-                  negative_marks: "0",
-                  options: "A, B, C",
-                });
-              }}
-              style={styles.cancelEditButton}
-            >
-              Cancel editing
-            </button>
-          )}
-        </form>
+                  marks: 1,
+                  options: [
+                    { text: "O(1)", is_correct: false },
+                    { text: "O(log n)", is_correct: true },
+                    { text: "O(n)", is_correct: false },
+                    { text: "O(n log n)", is_correct: false }
+                  ]
+                },
+                {
+                  text: "Explain the differences between Process and Thread in Operating Systems.",
+                  question_type: "long_answer",
+                  marks: 5
+                }
+              ];
+              const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement("a");
+              a.href = url;
+              a.download = "sample_question_bank.json";
+              a.click();
+            }}
+            style={{
+              background: "transparent",
+              border: `1px solid ${cardBorder}`,
+              color: textMain,
+              padding: "0.55rem 0.9rem",
+              borderRadius: "10px",
+              fontSize: "0.82rem",
+              fontWeight: 600,
+              cursor: "pointer",
+            }}
+          >
+            Download CSV / JSON Template
+          </button>
 
-<button
-  type="button"
-  onClick={() => setShowPreview(true)}
-  style={styles.previewButton}
->
-  Preview as student
-</button>
+          <button
+            onClick={() => setShowAIGenerator(true)}
+            style={{
+              background: "linear-gradient(135deg, #9333ea 0%, #2563eb 100%)",
+              color: "#ffffff",
+              border: "none",
+              padding: "0.55rem 1rem",
+              borderRadius: "10px",
+              fontSize: "0.82rem",
+              fontWeight: 700,
+              display: "flex",
+              alignItems: "center",
+              gap: "0.4rem",
+              cursor: "pointer",
+              boxShadow: "0 4px 12px rgba(147, 51, 234, 0.25)",
+            }}
+          >
+            <Sparkles size={16} /> AI Question Generator
+          </button>
 
-{showPreview && (
-  <div style={styles.previewOverlay}>
-    <div style={styles.previewCard}>
-      <div style={styles.previewHeader}>
-        <span style={styles.previewBadge}>Student preview</span>
-        <button onClick={() => setShowPreview(false)} style={styles.previewClose}>
-          Close
-        </button>
-      </div>
-
-      <div style={styles.previewMeta}>
-        {form.subject || "Subject"} &middot; {form.marks || 0} mark
-        {Number(form.marks) !== 1 ? "s" : ""}
-      </div>
-      <h3 style={styles.previewQuestionText}>
-        {form.text || "Your question text will appear here..."}
-      </h3>
-
-      {(form.question_type === "mcq" || form.question_type === "multi_select") && (
-        <div style={styles.previewOptionsList}>
-          {form.options
-            .split(",")
-            .map((o) => o.trim())
-            .filter(Boolean)
-            .map((opt, i) => (
-              <label key={i} style={styles.previewOptionRow}>
-                <input
-                  type={form.question_type === "mcq" ? "radio" : "checkbox"}
-                  name="preview-option"
-                  disabled
-                />
-                {opt}
-              </label>
-            ))}
-          {form.options.trim() === "" && (
-            <p style={styles.previewEmptyText}>Add options above to preview them here.</p>
-          )}
+          <button
+            onClick={() => setShowCreate((prev) => !prev)}
+            style={{
+              background: "#2563eb",
+              color: "#ffffff",
+              border: "none",
+              padding: "0.55rem 1rem",
+              borderRadius: "10px",
+              fontSize: "0.82rem",
+              fontWeight: 600,
+              display: "flex",
+              alignItems: "center",
+              gap: "0.4rem",
+              cursor: "pointer",
+            }}
+          >
+            <Plus size={16} /> Create Library
+          </button>
         </div>
-      )}
+      </div>
 
-      {form.question_type === "short_answer" && (
+      {/* Search Input */}
+      <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "12px", padding: "0.75rem 0.9rem", marginBottom: "1.3rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+        <Search size={15} style={{ color: textSub }} />
         <input
           type="text"
-          disabled
-          placeholder="Student types a short answer here..."
-          style={styles.previewInput}
-        />
-      )}
-
-      {form.question_type === "long_answer" && (
-        <textarea
-          disabled
-          placeholder="Student types a longer, paragraph-style answer here..."
-          rows={5}
-          style={styles.previewTextarea}
-        />
-      )}
-
-      {form.question_type === "image_upload" && (
-        <div style={styles.previewUploadBox}>
-          <span style={styles.previewUploadIcon}>📷</span>
-          <span>Student uploads a photo/scan of their handwritten answer here</span>
-        </div>
-      )}
-    </div>
-  </div>
-)}
-
-        <AnalyticsCards questions={questions} />
-        <SearchBar
+          placeholder="Search question libraries by title or description..."
           value={search}
-          onChange={setSearch}
+          onChange={(e) => setSearch(e.target.value)}
+          style={{ background: "transparent", border: "none", outline: "none", color: textMain, width: "100%", fontSize: "0.8rem" }}
         />
+      </div>
 
-        <FilterPanel
-          subject={subjectFilter}
-          setSubject={setSubjectFilter}
-          difficulty={difficultyFilter}
-          setDifficulty={setDifficultyFilter}
-          type={typeFilter}
-          setType={setTypeFilter}
-        />
-
-        <div style={styles.section}>
-          <div style={styles.sectionTitle}>Existing questions</div>
-          {loading ? <div style={styles.emptyState}>Loading…</div> : null}
-          {!loading && questions.length === 0 ? <div style={styles.emptyState}>No questions yet.</div> : null}
-          <div style={styles.list}>
-            {questions
-              .filter((question) => {
-                const keyword = search.toLowerCase();
-
-                const matchesSearch =
-                  question.text.toLowerCase().includes(keyword) ||
-                  question.subject.toLowerCase().includes(keyword) ||
-                  question.question_type.toLowerCase().includes(keyword) ||
-                  question.difficulty.toLowerCase().includes(keyword) ||
-                 (question.tags || []).join(" ").toLowerCase().includes(keyword);
-
-                const matchesSubject =
-                  subjectFilter === "" ||
-                  question.subject.toLowerCase().includes(subjectFilter.toLowerCase());
-
-                const matchesDifficulty =
-                  difficultyFilter === "" ||
-                  question.difficulty === difficultyFilter;
-
-                const matchesType =
-                  typeFilter === "" ||
-                  question.question_type === typeFilter;
-
-                return (
-                  matchesSearch &&
-                  matchesSubject &&
-                  matchesDifficulty &&
-                  matchesType
-                );
-             })
-             .map((question) => (
-              <div key={question.id} style={styles.card}>
-                <div style={styles.cardTitle}>{question.text}</div>
-                <div style={styles.cardMeta}>{question.subject} • {question.question_type} • {question.difficulty}</div>
-                <div style={styles.cardMeta}>Marks: {question.marks} • Negative marks: {question.negative_marks}</div>
-                <div style={styles.cardActions}>
-                  <button onClick={() => startEdit(question)} style={styles.editButton}>Edit</button>
-                  <button onClick={() => deleteQuestion(question.id)} style={styles.deleteButton}>Delete</button>
+      {/* Libraries Cards Grid */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1rem" }}>
+        {filteredLibraries.map((lib) => (
+          <div key={lib.id} style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "14px", padding: "1.2rem", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+            <div>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.75rem" }}>
+                <div style={{ width: "36px", height: "36px", borderRadius: "8px", background: "#eff6ff", color: "#2563eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <BookOpen size={18} />
                 </div>
+                <span style={{ padding: "0.15rem 0.55rem", borderRadius: "16px", fontSize: "0.68rem", fontWeight: 700, background: "#dbeafe", color: "#1e40af" }}>
+                  {lib.question_count} Questions
+                </span>
               </div>
-            ))}
+
+              <h3 style={{ fontSize: "1.05rem", fontWeight: 700, color: textMain, margin: "0 0 0.35rem 0" }}>
+                {lib.title.replace(/^Evaluated\s+/i, "")}
+              </h3>
+
+              <p style={{ fontSize: "0.78rem", color: textSub, margin: "0 0 1rem 0", lineHeight: 1.45 }}>
+                {lib.purpose || "Configured question bank library for subject examinations."}
+              </p>
+            </div>
+
+            <Link
+              href={`/examiner/questions/${lib.id}`}
+              style={{
+                background: "#2563eb",
+                color: "#ffffff",
+                borderRadius: "8px",
+                padding: "0.5rem 0.9rem",
+                fontSize: "0.78rem",
+                fontWeight: 700,
+                textDecoration: "none",
+                textAlign: "center",
+                display: "block",
+              }}
+            >
+              Open Library
+            </Link>
+          </div>
+        ))}
+      </div>
+
+      {/* Create Library Modal Dialog */}
+      {showCreate && (
+        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.5)", backdropFilter: "blur(4px)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 100 }}>
+          <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "18px", padding: "1.8rem", maxWidth: "480px", width: "90%", boxShadow: "0 20px 40px rgba(0,0,0,0.2)" }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1.2rem" }}>
+              <h3 style={{ fontSize: "1.15rem", fontWeight: 700, color: textMain, margin: 0 }}>
+                Create Question Library
+              </h3>
+              <button onClick={() => setShowCreate(false)} style={{ background: "transparent", border: "none", color: textSub, cursor: "pointer" }}>
+                <X size={20} />
+              </button>
+            </div>
+
+            <form onSubmit={handleCreateLibrary}>
+              <div style={{ marginBottom: "1rem" }}>
+                <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 700, color: textMain, marginBottom: "0.4rem" }}>
+                  Library Title *
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. Cloud Computing & Distributed Systems"
+                  value={newTitle}
+                  onChange={(e) => setNewTitle(e.target.value)}
+                  required
+                  style={{ width: "100%", padding: "0.65rem 0.85rem", borderRadius: "8px", border: `1px solid ${cardBorder}`, background: isDark ? "#080d19" : "#ffffff", color: textMain, fontSize: "0.85rem", outline: "none" }}
+                />
+              </div>
+
+              <div style={{ marginBottom: "1.4rem" }}>
+                <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 700, color: textMain, marginBottom: "0.4rem" }}>
+                  Purpose / Subject Description
+                </label>
+                <textarea
+                  placeholder="e.g. AWS, GCP, Microservices, and Containerization"
+                  value={newPurpose}
+                  onChange={(e) => setNewPurpose(e.target.value)}
+                  rows={3}
+                  style={{ width: "100%", padding: "0.65rem 0.85rem", borderRadius: "8px", border: `1px solid ${cardBorder}`, background: isDark ? "#080d19" : "#ffffff", color: textMain, fontSize: "0.85rem", outline: "none", resize: "none" }}
+                />
+              </div>
+
+              {createError && (
+                <div style={{ color: "#dc2626", fontSize: "0.78rem", marginBottom: "1rem" }}>
+                  {createError}
+                </div>
+              )}
+
+              <div style={{ display: "flex", justifyContent: "flex-end", gap: "0.75rem" }}>
+                <button
+                  type="button"
+                  onClick={() => setShowCreate(false)}
+                  style={{ padding: "0.55rem 1.1rem", borderRadius: "8px", border: `1px solid ${cardBorder}`, background: "transparent", color: textMain, fontWeight: 600, fontSize: "0.82rem", cursor: "pointer" }}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={creating}
+                  style={{ padding: "0.55rem 1.2rem", borderRadius: "8px", border: "none", background: "#2563eb", color: "#ffffff", fontWeight: 700, fontSize: "0.82rem", cursor: "pointer" }}
+                >
+                  {creating ? "Creating..." : "Create Library"}
+                </button>
+              </div>
+            </form>
           </div>
         </div>
-      </div>
-    </div>
+      )}
+
+      {/* AI Question Generator Modal */}
+      {showAIGenerator && (
+        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.6)", backdropFilter: "blur(4px)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 999, padding: "1rem" }}>
+          <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "16px", padding: "1.6rem", width: "100%", maxWidth: "520px", boxShadow: "0 20px 40px rgba(0,0,0,0.3)" }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1.2rem" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                <Sparkles size={20} style={{ color: "#9333ea" }} />
+                <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: textMain, margin: 0 }}>
+                  AI Question Generator
+                </h3>
+              </div>
+              <button onClick={() => setShowAIGenerator(false)} style={{ background: "transparent", border: "none", color: textSub, cursor: "pointer" }}>
+                <X size={18} />
+              </button>
+            </div>
+
+            <form onSubmit={handleAIGenerate} style={{ display: "flex", flexDirection: "column", gap: "0.9rem" }}>
+              <div>
+                <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 700, color: textSub, marginBottom: "0.3rem" }}>
+                  TOPIC / SYLLABUS PROMPT
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. TCP/IP Three-Way Handshake & Socket Lifecycle"
+                  value={aiTopic}
+                  onChange={(e) => setAiTopic(e.target.value)}
+                  style={{ width: "100%", padding: "0.6rem 0.85rem", borderRadius: "8px", border: `1px solid ${cardBorder}`, background: isDark ? "#080d19" : "#f8fafc", color: textMain, fontSize: "0.85rem", outline: "none" }}
+                />
+              </div>
+
+              <div>
+                <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 700, color: textSub, marginBottom: "0.3rem" }}>
+                  TARGET QUESTION LIBRARY
+                </label>
+                <select
+                  required
+                  value={aiTargetLibrary}
+                  onChange={(e) => setAiTargetLibrary(e.target.value)}
+                  style={{ width: "100%", padding: "0.6rem 0.85rem", borderRadius: "8px", border: `1px solid ${cardBorder}`, background: isDark ? "#080d19" : "#f8fafc", color: textMain, fontSize: "0.85rem", outline: "none" }}
+                >
+                  <option value="">-- Select Target Question Library --</option>
+                  {libraries.map((lib) => (
+                    <option key={lib.id} value={lib.id}>
+                      {lib.title} ({lib.question_count} questions)
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "0.6rem" }}>
+                <div>
+                  <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 700, color: textSub, marginBottom: "0.3rem" }}>
+                    COUNT
+                  </label>
+                  <input
+                    type="number"
+                    min={1}
+                    max={10}
+                    value={aiCount}
+                    onChange={(e) => setAiCount(Number(e.target.value))}
+                    style={{ width: "100%", padding: "0.55rem", borderRadius: "8px", border: `1px solid ${cardBorder}`, background: isDark ? "#080d19" : "#f8fafc", color: textMain, fontSize: "0.85rem", outline: "none" }}
+                  />
+                </div>
+
+                <div>
+                  <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 700, color: textSub, marginBottom: "0.3rem" }}>
+                    DIFFICULTY
+                  </label>
+                  <select
+                    value={aiDifficulty}
+                    onChange={(e) => setAiDifficulty(e.target.value)}
+                    style={{ width: "100%", padding: "0.55rem", borderRadius: "8px", border: `1px solid ${cardBorder}`, background: isDark ? "#080d19" : "#f8fafc", color: textMain, fontSize: "0.85rem", outline: "none" }}
+                  >
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 700, color: textSub, marginBottom: "0.3rem" }}>
+                    TYPE
+                  </label>
+                  <select
+                    value={aiType}
+                    onChange={(e) => setAiType(e.target.value)}
+                    style={{ width: "100%", padding: "0.55rem", borderRadius: "8px", border: `1px solid ${cardBorder}`, background: isDark ? "#080d19" : "#f8fafc", color: textMain, fontSize: "0.85rem", outline: "none" }}
+                  >
+                    <option value="mcq">MCQ</option>
+                    <option value="true_false">True / False</option>
+                    <option value="short_answer">Short Answer</option>
+                  </select>
+                </div>
+              </div>
+
+              {aiSuccessMsg && (
+                <div style={{ color: "#22c55e", fontSize: "0.8rem", fontWeight: 700, textAlign: "center", background: "#f0fdf4", padding: "0.4rem", borderRadius: "6px", border: "1px solid #bbf7d0" }}>
+                  ✓ {aiSuccessMsg}
+                </div>
+              )}
+
+              <div style={{ display: "flex", justifyContent: "flex-end", gap: "0.6rem", marginTop: "0.5rem" }}>
+                <button
+                  type="button"
+                  onClick={() => setShowAIGenerator(false)}
+                  style={{ padding: "0.55rem 1.1rem", borderRadius: "8px", border: `1px solid ${cardBorder}`, background: "transparent", color: textMain, fontWeight: 600, fontSize: "0.82rem", cursor: "pointer" }}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={aiGenerating}
+                  style={{
+                    padding: "0.55rem 1.3rem",
+                    borderRadius: "8px",
+                    border: "none",
+                    background: "linear-gradient(135deg, #9333ea 0%, #2563eb 100%)",
+                    color: "#ffffff",
+                    fontWeight: 700,
+                    fontSize: "0.82rem",
+                    cursor: "pointer",
+                  }}
+                >
+                  {aiGenerating ? "Generating..." : "Generate Questions with AI"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+    </ExaminerShell>
   );
 }
-
-const styles: { [key: string]: React.CSSProperties } = {
-  page: {
-    minHeight: "100vh",
-    background: "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)",
-    padding: "2rem 1rem",
-    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-  },
-  shell: {
-    maxWidth: "980px",
-    margin: "0 auto",
-    background: "#ffffff",
-    borderRadius: "20px",
-    padding: "2rem",
-    boxShadow: "0 20px 60px rgba(0,0,0,0.25)",
-  },
-  header: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
-    gap: "1rem",
-    marginBottom: "1.2rem",
-  },
-  badge: {
-    display: "inline-block",
-    fontSize: "0.72rem",
-    fontWeight: 700,
-    letterSpacing: "0.08em",
-    textTransform: "uppercase",
-    color: "#4338ca",
-    background: "#eef2ff",
-    padding: "0.3rem 0.6rem",
-    borderRadius: "999px",
-    marginBottom: "0.5rem",
-  },
-  title: {
-    fontSize: "1.6rem",
-    fontWeight: 700,
-    color: "#0f172a",
-    margin: "0 0 0.3rem 0",
-  },
-  subtitle: {
-    margin: 0,
-    color: "#64748b",
-    lineHeight: 1.5,
-  },
-  backLink: {
-    color: "#4338ca",
-    textDecoration: "none",
-    fontWeight: 600,
-  },
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "1rem",
-    marginBottom: "1.2rem",
-  },
-  grid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-    gap: "1rem",
-  },
-  field: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "0.35rem",
-    color: "#334155",
-  },
-  label: {
-    fontSize: "0.8rem",
-    fontWeight: 700,
-    textTransform: "uppercase",
-    letterSpacing: "0.04em",
-  },
-  input: {
-    border: "1px solid #cbd5e1",
-    borderRadius: "10px",
-    padding: "0.7rem 0.8rem",
-    fontSize: "0.95rem",
-    outline: "none",
-  },
-  textarea: {
-    border: "1px solid #cbd5e1",
-    borderRadius: "10px",
-    padding: "0.7rem 0.8rem",
-    fontSize: "0.95rem",
-    outline: "none",
-    resize: "vertical",
-    fontFamily: "inherit",
-  },
-  submitButton: {
-    padding: "0.8rem 1.1rem",
-    border: "none",
-    borderRadius: "10px",
-    background: "#4338ca",
-    color: "#ffffff",
-    fontWeight: 700,
-    cursor: "pointer",
-  },
-  cancelEditButton: {
-    marginLeft: "0.6rem",
-    padding: "0.8rem 1.1rem",
-    border: "1.5px solid #cbd5e1",
-    borderRadius: "10px",
-    background: "#ffffff",
-    color: "#334155",
-    fontWeight: 600,
-    cursor: "pointer",
-  },
-  cardActions: {
-    display: "flex",
-    gap: "0.6rem",
-    marginTop: "0.6rem",
-  },
-  editButton: {
-    padding: "0.4rem 0.8rem",
-    border: "1px solid #cbd5e1",
-    borderRadius: "6px",
-    background: "#ffffff",
-    color: "#334155",
-    fontWeight: 600,
-    fontSize: "0.8rem",
-    cursor: "pointer",
-  },
-  deleteButton: {
-    padding: "0.4rem 0.8rem",
-    border: "1px solid #fecaca",
-    borderRadius: "6px",
-    background: "#fef2f2",
-    color: "#b91c1c",
-    fontWeight: 600,
-    fontSize: "0.8rem",
-    cursor: "pointer",
-  },
-  uploadRow: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "0.4rem",
-  },
-  uploadButton: {
-    display: "inline-block",
-    padding: "0.7rem 1rem",
-    border: "1.5px dashed #cbd5e1",
-    borderRadius: "10px",
-    background: "#f8fafc",
-    color: "#4338ca",
-    fontWeight: 600,
-    fontSize: "0.85rem",
-    cursor: "pointer",
-    textAlign: "center",
-  },
-  hiddenFileInput: {
-    display: "none",
-  },
-  aiRow: {
-    display: "flex",
-    gap: "0.6rem",
-  },
-  aiInput: {
-    flex: 1,
-    border: "1px solid #cbd5e1",
-    borderRadius: "10px",
-    padding: "0.7rem 0.8rem",
-    fontSize: "0.9rem",
-    outline: "none",
-  },
-  aiButton: {
-    padding: "0.7rem 1.1rem",
-    border: "none",
-    borderRadius: "10px",
-    background: "#4338ca",
-    color: "#ffffff",
-    fontWeight: 700,
-    fontSize: "0.85rem",
-    cursor: "pointer",
-    whiteSpace: "nowrap",
-  },
-  section: {
-    border: "1px solid #e2e8f0",
-    borderRadius: "14px",
-    padding: "1rem",
-    background: "#f8fafc",
-  },
-  sectionTitle: {
-    fontWeight: 700,
-    color: "#0f172a",
-    marginBottom: "0.4rem",
-  },
-  list: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "0.7rem",
-    marginTop: "0.7rem",
-  },
-  card: {
-    border: "1px solid #e2e8f0",
-    borderRadius: "10px",
-    padding: "0.8rem",
-    background: "#ffffff",
-  },
-  cardTitle: {
-    fontWeight: 700,
-    color: "#0f172a",
-    marginBottom: "0.25rem",
-  },
-  cardMeta: {
-    color: "#64748b",
-    fontSize: "0.85rem",
-  },
-  emptyState: {
-    color: "#64748b",
-    fontSize: "0.95rem",
-  },
-  errorBox: {
-    background: "#fef2f2",
-    color: "#b91c1c",
-    padding: "0.75rem 0.9rem",
-    borderRadius: "10px",
-    marginBottom: "0.8rem",
-  },
-  successBox: {
-    background: "#f0fdf4",
-    color: "#15803d",
-    padding: "0.75rem 0.9rem",
-    borderRadius: "10px",
-    marginBottom: "0.8rem",
-    fontSize: "0.85rem",
-  },
-  previewButton: {
-    padding: "0.6rem 1rem",
-    border: "1.5px solid #4338ca",
-    borderRadius: "10px",
-    background: "#ffffff",
-    color: "#4338ca",
-    fontWeight: 700,
-    cursor: "pointer",
-    fontSize: "0.85rem",
-    alignSelf: "flex-start",
-  },
-  previewOverlay: {
-    position: "fixed",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    background: "rgba(15, 23, 42, 0.5)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    zIndex: 60,
-    padding: "1rem",
-  },  
-  previewCard: {
-    background: "#ffffff",
-    borderRadius: "16px",
-    padding: "1.6rem",
-    maxWidth: "480px",
-    width: "100%",
-    boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
-  },
-  previewHeader: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: "1rem",
-  },
-  previewBadge: {
-    fontSize: "0.7rem",
-    fontWeight: 700,
-    textTransform: "uppercase",
-    letterSpacing: "0.05em",
-    color: "#4338ca",
-    background: "#eef2ff",
-    padding: "0.3rem 0.6rem",
-    borderRadius: "999px",
-  },
-  previewClose: {
-    border: "none",
-    background: "none",
-    color: "#64748b",
-    fontWeight: 600,
-    cursor: "pointer",
-    fontSize: "0.85rem",
-  },
-  previewMeta: {
-    fontSize: "0.8rem",
-    color: "#64748b",
-    marginBottom: "0.4rem",
-  },
-  previewQuestionText: {
-    fontSize: "1.05rem",
-    fontWeight: 700,
-    color: "#0f172a",
-    margin: "0 0 1rem 0",
-  }, 
-  previewOptionsList: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "0.6rem",
-  },
-  previewOptionRow: {
-    display: "flex",
-    alignItems: "center",
-    gap: "0.7rem",
-    padding: "0.7rem 0.9rem",
-    border: "1.5px solid #e2e8f0",
-    borderRadius: "8px",
-    fontSize: "0.9rem",
-    color: "#334155",
-  },
-  previewEmptyText: {
-    fontSize: "0.85rem",
-    color: "#94a3b8",
-  },
-  previewInput: {
-    width: "100%",
-    padding: "0.7rem 0.85rem",
-    border: "1.5px solid #e2e8f0",
-    borderRadius: "8px",
-    fontSize: "0.9rem",
-    boxSizing: "border-box",
-  },
-  previewTextarea: {
-    width: "100%",
-    padding: "0.7rem 0.85rem",
-    border: "1.5px solid #e2e8f0",
-    borderRadius: "8px",
-    fontSize: "0.9rem",
-    resize: "vertical",
-    fontFamily: "inherit",
-    boxSizing: "border-box",
-  },
-  previewUploadBox: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    gap: "0.5rem",
-    padding: "2rem 1rem",
-    border: "2px dashed #cbd5e1",
-    borderRadius: "10px",
-    color: "#64748b",
-    fontSize: "0.85rem",
-    textAlign: "center",
-  },
-  previewUploadIcon: {
-    fontSize: "1.8rem",
-  },
-};

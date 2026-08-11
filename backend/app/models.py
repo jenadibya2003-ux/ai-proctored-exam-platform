@@ -44,6 +44,14 @@ class User(Base):
     role = Column(Enum(UserRole), nullable=False, default=UserRole.student)
     created_at = Column(DateTime, default=datetime.utcnow)
 
+    # Student profile fields (optional; left blank until the student fills
+    # them in or an admin sets them).
+    roll_number = Column(String, nullable=True)
+    department = Column(String, nullable=True)
+    semester = Column(String, nullable=True)
+    phone = Column(String, nullable=True)
+    account_status = Column(String, nullable=False, default="approved")
+
 
 class Question(Base):
     __tablename__ = "question_bank"
@@ -60,8 +68,23 @@ class Question(Base):
     max_marks = Column(Integer, nullable=True)
     negative_marks = Column(Integer, nullable=False, default=0)
     created_by = Column(String, ForeignKey("users.id"))
+    library_id = Column(String, ForeignKey("question_libraries.id"), nullable=True)
 
     options = relationship("Option", back_populates="question", cascade="all, delete-orphan")
+    library = relationship("QuestionLibrary", back_populates="questions")
+
+
+class QuestionLibrary(Base):
+    """A named folder used to group questions in the examiner's question bank."""
+    __tablename__ = "question_libraries"
+
+    id = Column(String, primary_key=True, default=gen_uuid)
+    title = Column(String, nullable=False)
+    purpose = Column(String, nullable=True)
+    created_by = Column(String, ForeignKey("users.id"))
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    questions = relationship("Question", back_populates="library")
 
 
 class Option(Base):
@@ -96,6 +119,8 @@ class Exam(Base):
     gaze_tracking_enabled = Column(Boolean, default=False)
     gaze_tracking_sensitivity_threshold = Column(Integer, default=3)
     max_tab_switch_warnings = Column(Integer, default=3)
+    join_code = Column(String, unique=True, index=True, nullable=True)
+    is_mock = Column(Boolean, default=False)
     created_by = Column(String, ForeignKey("users.id"))
 
 
@@ -106,6 +131,26 @@ class ExamQuestion(Base):
     id = Column(String, primary_key=True, default=gen_uuid)
     exam_id = Column(String, ForeignKey("exams.id"), nullable=False)
     question_id = Column(String, ForeignKey("question_bank.id"), nullable=False)
+    section_id = Column(String, ForeignKey("exam_sections.id"), nullable=True)
+
+
+class ExamSection(Base):
+    """A named section within a multi-subject exam. Students can switch
+    between sections during the exam; each section pulls its questions
+    from one question library + subject."""
+    __tablename__ = "exam_sections"
+
+    id = Column(String, primary_key=True, default=gen_uuid)
+    exam_id = Column(String, ForeignKey("exams.id"), nullable=False)
+    title = Column(String, nullable=False)
+    library_id = Column(String, ForeignKey("question_libraries.id"), nullable=True)
+    subject = Column(String, nullable=True)
+    section_order = Column(Integer, default=1)
+    question_limit = Column(Integer, default=0)
+    total_marks = Column(Integer, default=0)
+    negative_marks = Column(Integer, default=0)
+    randomize_questions = Column(Boolean, default=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
 
 
 class ExamSession(Base):
@@ -122,6 +167,29 @@ class ExamSession(Base):
     suspicion_score = Column(Integer, default=0)
     is_revoked = Column(Boolean, default=False)
     token_expires_at = Column(DateTime, nullable=True)
+    review_status = Column(String, nullable=True)
+    review_note = Column(Text, nullable=True)
+
+
+class ExamEnrollment(Base):
+    """Tracks a student joining an exam via a join code."""
+    __tablename__ = "exam_enrollments"
+
+    id = Column(String, primary_key=True, default=gen_uuid)
+    exam_id = Column(String, ForeignKey("exams.id"), nullable=False)
+    student_id = Column(String, ForeignKey("users.id"), nullable=False)
+    joined_at = Column(DateTime, default=datetime.utcnow)
+
+
+class ExamAssignment(Base):
+    """Tracks an examiner explicitly assigning an exam to a student (distinct
+    from ExamEnrollment, which is a student self-joining via a code)."""
+    __tablename__ = "exam_assignments"
+
+    id = Column(String, primary_key=True, default=gen_uuid)
+    exam_id = Column(String, ForeignKey("exams.id"), nullable=False)
+    student_id = Column(String, ForeignKey("users.id"), nullable=False)
+    assigned_at = Column(DateTime, default=datetime.utcnow)
 
 
 class Answer(Base):
@@ -135,6 +203,8 @@ class Answer(Base):
     image_path = Column(String, nullable=True)          # for image_upload
     ai_score = Column(Integer, nullable=True)
     ai_justification = Column(Text, nullable=True)
+    matched_keywords = Column(JSON, nullable=True)
+    examiner_remarks = Column(Text, nullable=True)
     final_score = Column(Integer, nullable=True)
     graded_by = Column(String, ForeignKey("users.id"), nullable=True)
 
@@ -148,6 +218,7 @@ class Result(Base):
     exam_id = Column(String, ForeignKey("exams.id"), nullable=False)
     total_score = Column(Integer, nullable=True)
     percentage = Column(Integer, nullable=True)
+    examiner_feedback = Column(Text, nullable=True)
     status = Column(String, default="pending")
     created_at = Column(DateTime, default=datetime.utcnow)
 
@@ -160,3 +231,43 @@ class ProctorEvent(Base):
     event_type = Column(String, nullable=False)   # face_absent, multiple_faces, gaze_away, tab_switch
     detail = Column(JSON, nullable=True)
     timestamp = Column(DateTime, default=datetime.utcnow)
+
+
+class Notification(Base):
+    __tablename__ = "notifications"
+
+    id = Column(String, primary_key=True, default=gen_uuid)
+    user_id = Column(String, ForeignKey("users.id"), nullable=True)   # Nullable for role/global broadcast
+    target_role = Column(String, nullable=True, default="all")         # student, examiner, admin, all
+    title = Column(String, nullable=False)
+    message = Column(Text, nullable=False)
+    category = Column(String, default="announcement")                 # exam_scheduled, exam_submitted, user_registration, proctoring_alert, announcement
+    is_read = Column(Boolean, default=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+
+class MockExamConfig(Base):
+    __tablename__ = "mock_exam_config"
+
+    id = Column(String, primary_key=True, default=gen_uuid)
+    title = Column(String, nullable=False, default="Mock Exam")
+    guidelines = Column(Text, nullable=True)
+    duration_minutes = Column(Integer, default=15)
+    camera_required = Column(Boolean, default=True)
+    microphone_required = Column(Boolean, default=True)
+    fullscreen_required = Column(Boolean, default=True)
+    face_detection_required = Column(Boolean, default=True)
+    max_tab_switch_warnings = Column(Integer, default=3)
+
+
+class MockQuestion(Base):
+    __tablename__ = "mock_questions"
+
+    id = Column(String, primary_key=True, default=gen_uuid)
+    question_type = Column(Enum(QuestionType), nullable=False)
+    difficulty = Column(String, default="easy")
+    text = Column(Text, nullable=False)
+    marks = Column(Integer, default=1)
+    options = Column(JSON, nullable=True)
+    model_answer = Column(Text, nullable=True)
+    display_order = Column(Integer, default=0)

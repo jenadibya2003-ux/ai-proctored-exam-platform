@@ -230,7 +230,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     justifyContent: "center",
     background: "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)",
     fontFamily:
-      "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+      "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
     padding: "1.5rem",
   },
   card: {

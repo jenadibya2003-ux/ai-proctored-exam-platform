@@ -1,0 +1,61 @@
+subject,question_type,difficulty,text,options,expected_answer,model_answer,marks
+Chemistry,mcq,easy,Evaluated Chemistry Question #1: What is the primary characteristic of Chemistry concept #1?,"Option A, Option B, Option C, Option D",Option A,,1
+Chemistry,multi_select,medium,Evaluated Chemistry Question #2: What is the primary characteristic of Chemistry concept #2?,"Option A, Option B, Option C, Option D",Option A,,2
+Chemistry,short_answer,hard,Evaluated Chemistry Question #3: What is the primary characteristic of Chemistry concept #3?,,Expected core concept,Model solution explaining Chemistry principles for question #3.,3
+Chemistry,long_answer,easy,Evaluated Chemistry Question #4: What is the primary characteristic of Chemistry concept #4?,,Expected core concept,Model solution explaining Chemistry principles for question #4.,1
+Chemistry,mcq,medium,Evaluated Chemistry Question #5: What is the primary characteristic of Chemistry concept #5?,"Option A, Option B, Option C, Option D",Option A,,2
+Chemistry,multi_select,hard,Evaluated Chemistry Question #6: What is the primary characteristic of Chemistry concept #6?,"Option A, Option B, Option C, Option D",Option A,,3
+Chemistry,short_answer,easy,Evaluated Chemistry Question #7: What is the primary characteristic of Chemistry concept #7?,,Expected core concept,Model solution explaining Chemistry principles for question #7.,1
+Chemistry,long_answer,medium,Evaluated Chemistry Question #8: What is the primary characteristic of Chemistry concept #8?,,Expected core concept,Model solution explaining Chemistry principles for question #8.,2
+Chemistry,mcq,hard,Evaluated Chemistry Question #9: What is the primary characteristic of Chemistry concept #9?,"Option A, Option B, Option C, Option D",Option A,,3
+Chemistry,multi_select,easy,Evaluated Chemistry Question #10: What is the primary characteristic of Chemistry concept #10?,"Option A, Option B, Option C, Option D",Option A,,1
+Chemistry,short_answer,medium,Evaluated Chemistry Question #11: What is the primary characteristic of Chemistry concept #11?,,Expected core concept,Model solution explaining Chemistry principles for question #11.,2
+Chemistry,long_answer,hard,Evaluated Chemistry Question #12: What is the primary characteristic of Chemistry concept #12?,,Expected core concept,Model solution explaining Chemistry principles for question #12.,3
+Chemistry,mcq,easy,Evaluated Chemistry Question #13: What is the primary characteristic of Chemistry concept #13?,"Option A, Option B, Option C, Option D",Option A,,1
+Chemistry,multi_select,medium,Evaluated Chemistry Question #14: What is the primary characteristic of Chemistry concept #14?,"Option A, Option B, Option C, Option D",Option A,,2
+Chemistry,short_answer,hard,Evaluated Chemistry Question #15: What is the primary characteristic of Chemistry concept #15?,,Expected core concept,Model solution explaining Chemistry principles for question #15.,3
+Chemistry,long_answer,easy,Evaluated Chemistry Question #16: What is the primary characteristic of Chemistry concept #16?,,Expected core concept,Model solution explaining Chemistry principles for question #16.,1
+Chemistry,mcq,medium,Evaluated Chemistry Question #17: What is the primary characteristic of Chemistry concept #17?,"Option A, Option B, Option C, Option D",Option A,,2
+Chemistry,multi_select,hard,Evaluated Chemistry Question #18: What is the primary characteristic of Chemistry concept #18?,"Option A, Option B, Option C, Option D",Option A,,3
+Chemistry,short_answer,easy,Evaluated Chemistry Question #19: What is the primary characteristic of Chemistry concept #19?,,Expected core concept,Model solution explaining Chemistry principles for question #19.,1
+Chemistry,long_answer,medium,Evaluated Chemistry Question #20: What is the primary characteristic of Chemistry concept #20?,,Expected core concept,Model solution explaining Chemistry principles for question #20.,2
+Chemistry,mcq,hard,Evaluated Chemistry Question #21: What is the primary characteristic of Chemistry concept #21?,"Option A, Option B, Option C, Option D",Option A,,3
+Chemistry,multi_select,easy,Evaluated Chemistry Question #22: What is the primary characteristic of Chemistry concept #22?,"Option A, Option B, Option C, Option D",Option A,,1
+Chemistry,short_answer,medium,Evaluated Chemistry Question #23: What is the primary characteristic of Chemistry concept #23?,,Expected core concept,Model solution explaining Chemistry principles for question #23.,2
+Chemistry,long_answer,hard,Evaluated Chemistry Question #24: What is the primary characteristic of Chemistry concept #24?,,Expected core concept,Model solution explaining Chemistry principles for question #24.,3
+Chemistry,mcq,easy,Evaluated Chemistry Question #25: What is the primary characteristic of Chemistry concept #25?,"Option A, Option B, Option C, Option D",Option A,,1
+Chemistry,multi_select,medium,Evaluated Chemistry Question #26: What is the primary characteristic of Chemistry concept #26?,"Option A, Option B, Option C, Option D",Option A,,2
+Chemistry,short_answer,hard,Evaluated Chemistry Question #27: What is the primary characteristic of Chemistry concept #27?,,Expected core concept,Model solution explaining Chemistry principles for question #27.,3
+Chemistry,long_answer,easy,Evaluated Chemistry Question #28: What is the primary characteristic of Chemistry concept #28?,,Expected core concept,Model solution explaining Chemistry principles for question #28.,1
+Chemistry,mcq,medium,Evaluated Chemistry Question #29: What is the primary characteristic of Chemistry concept #29?,"Option A, Option B, Option C, Option D",Option A,,2
+Chemistry,multi_select,hard,Evaluated Chemistry Question #30: What is the primary characteristic of Chemistry concept #30?,"Option A, Option B, Option C, Option D",Option A,,3
+Chemistry,short_answer,easy,Evaluated Chemistry Question #31: What is the primary characteristic of Chemistry concept #31?,,Expected core concept,Model solution explaining Chemistry principles for question #31.,1
+Chemistry,long_answer,medium,Evaluated Chemistry Question #32: What is the primary characteristic of Chemistry concept #32?,,Expected core concept,Model solution explaining Chemistry principles for question #32.,2
+Chemistry,mcq,hard,Evaluated Chemistry Question #33: What is the primary characteristic of Chemistry concept #33?,"Option A, Option B, Option C, Option D",Option A,,3
+Chemistry,multi_select,easy,Evaluated Chemistry Question #34: What is the primary characteristic of Chemistry concept #34?,"Option A, Option B, Option C, Option D",Option A,,1
+Chemistry,short_answer,medium,Evaluated Chemistry Question #35: What is the primary characteristic of Chemistry concept #35?,,Expected core concept,Model solution explaining Chemistry principles for question #35.,2
+Chemistry,long_answer,hard,Evaluated Chemistry Question #36: What is the primary characteristic of Chemistry concept #36?,,Expected core concept,Model solution explaining Chemistry principles for question #36.,3
+Chemistry,mcq,easy,Evaluated Chemistry Question #37: What is the primary characteristic of Chemistry concept #37?,"Option A, Option B, Option C, Option D",Option A,,1
+Chemistry,multi_select,medium,Evaluated Chemistry Question #38: What is the primary characteristic of Chemistry concept #38?,"Option A, Option B, Option C, Option D",Option A,,2
+Chemistry,short_answer,hard,Evaluated Chemistry Question #39: What is the primary characteristic of Chemistry concept #39?,,Expected core concept,Model solution explaining Chemistry principles for question #39.,3
+Chemistry,long_answer,easy,Evaluated Chemistry Question #40: What is the primary characteristic of Chemistry concept #40?,,Expected core concept,Model solution explaining Chemistry principles for question #40.,1
+Chemistry,mcq,medium,Evaluated Chemistry Question #41: What is the primary characteristic of Chemistry concept #41?,"Option A, Option B, Option C, Option D",Option A,,2
+Chemistry,multi_select,hard,Evaluated Chemistry Question #42: What is the primary characteristic of Chemistry concept #42?,"Option A, Option B, Option C, Option D",Option A,,3
+Chemistry,short_answer,easy,Evaluated Chemistry Question #43: What is the primary characteristic of Chemistry concept #43?,,Expected core concept,Model solution explaining Chemistry principles for question #43.,1
+Chemistry,long_answer,medium,Evaluated Chemistry Question #44: What is the primary characteristic of Chemistry concept #44?,,Expected core concept,Model solution explaining Chemistry principles for question #44.,2
+Chemistry,mcq,hard,Evaluated Chemistry Question #45: What is the primary characteristic of Chemistry concept #45?,"Option A, Option B, Option C, Option D",Option A,,3
+Chemistry,multi_select,easy,Evaluated Chemistry Question #46: What is the primary characteristic of Chemistry concept #46?,"Option A, Option B, Option C, Option D",Option A,,1
+Chemistry,short_answer,medium,Evaluated Chemistry Question #47: What is the primary characteristic of Chemistry concept #47?,,Expected core concept,Model solution explaining Chemistry principles for question #47.,2
+Chemistry,long_answer,hard,Evaluated Chemistry Question #48: What is the primary characteristic of Chemistry concept #48?,,Expected core concept,Model solution explaining Chemistry principles for question #48.,3
+Chemistry,mcq,easy,Evaluated Chemistry Question #49: What is the primary characteristic of Chemistry concept #49?,"Option A, Option B, Option C, Option D",Option A,,1
+Chemistry,multi_select,medium,Evaluated Chemistry Question #50: What is the primary characteristic of Chemistry concept #50?,"Option A, Option B, Option C, Option D",Option A,,2
+Chemistry,short_answer,hard,Evaluated Chemistry Question #51: What is the primary characteristic of Chemistry concept #51?,,Expected core concept,Model solution explaining Chemistry principles for question #51.,3
+Chemistry,long_answer,easy,Evaluated Chemistry Question #52: What is the primary characteristic of Chemistry concept #52?,,Expected core concept,Model solution explaining Chemistry principles for question #52.,1
+Chemistry,mcq,medium,Evaluated Chemistry Question #53: What is the primary characteristic of Chemistry concept #53?,"Option A, Option B, Option C, Option D",Option A,,2
+Chemistry,multi_select,hard,Evaluated Chemistry Question #54: What is the primary characteristic of Chemistry concept #54?,"Option A, Option B, Option C, Option D",Option A,,3
+Chemistry,short_answer,easy,Evaluated Chemistry Question #55: What is the primary characteristic of Chemistry concept #55?,,Expected core concept,Model solution explaining Chemistry principles for question #55.,1
+Chemistry,long_answer,medium,Evaluated Chemistry Question #56: What is the primary characteristic of Chemistry concept #56?,,Expected core concept,Model solution explaining Chemistry principles for question #56.,2
+Chemistry,mcq,hard,Evaluated Chemistry Question #57: What is the primary characteristic of Chemistry concept #57?,"Option A, Option B, Option C, Option D",Option A,,3
+Chemistry,multi_select,easy,Evaluated Chemistry Question #58: What is the primary characteristic of Chemistry concept #58?,"Option A, Option B, Option C, Option D",Option A,,1
+Chemistry,short_answer,medium,Evaluated Chemistry Question #59: What is the primary characteristic of Chemistry concept #59?,,Expected core concept,Model solution explaining Chemistry principles for question #59.,2
+Chemistry,long_answer,hard,Evaluated Chemistry Question #60: What is the primary characteristic of Chemistry concept #60?,,Expected core concept,Model solution explaining Chemistry principles for question #60.,3

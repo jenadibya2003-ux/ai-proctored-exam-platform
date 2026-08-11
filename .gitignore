@@ -1,7 +1,15 @@
 node_modules/
 .next/
 .venv/
+.venv-1/
+venv/
+backend/venv/
 __pycache__/
 *.pyc
+*.db
+backend/*.db
+backend/tokens.json
+backend/submit_body.json
+frontend/tsconfig.tsbuildinfo
 .env
-.env.local
+.env.local

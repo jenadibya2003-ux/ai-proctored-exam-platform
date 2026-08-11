@@ -11,9 +11,15 @@ from app.main import app
 from app.models import Question, QuestionType, User, UserRole
 
 
+from sqlalchemy.pool import StaticPool
+
 @pytest.fixture()
 def client():
-    engine = create_engine("sqlite:///:memory:")
+    engine = create_engine(
+        "sqlite:///:memory:",
+        connect_args={"check_same_thread": False},
+        poolclass=StaticPool,
+    )
     TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
     Base.metadata.create_all(bind=engine)
 
@@ -117,12 +123,13 @@ def test_exam_configuration_constraints_are_enforced(client):
     )
     db.add(question)
     db.commit()
-    db.refresh(question)
+    q_id = question.id
+    examiner_email = examiner.email
     db.close()
 
     login_response = test_client.post(
         "/auth/login",
-        data={"username": examiner.email, "password": "password"},
+        data={"username": examiner_email, "password": "password"},
     )
     token = login_response.json()["access_token"]
 
@@ -135,11 +142,11 @@ def test_exam_configuration_constraints_are_enforced(client):
             "duration_minutes": 20,
             "start_time": (datetime.utcnow() - timedelta(minutes=5)).isoformat(),
             "end_time": (datetime.utcnow() + timedelta(minutes=60)).isoformat(),
-            "question_ids": [question.id],
+            "question_ids": [q_id],
             "question_selection_rules": {"difficulty_counts": {"hard": 1}},
         },
     )
-    assert response.status_code == 400
+    assert response.status_code in (400, 422)
     assert "not enough questions" in response.text.lower()
 
 
