@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import AdminShell from "../AdminShell";
 import { Mail, Lock, CheckCircle2, AlertCircle, Calendar } from "lucide-react";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000";
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "https://ai-proctored-exam-platform-iv1t.onrender.com";
 
 export default function AdminProfileView() {
   const [fullName, setFullName] = useState("admin1");

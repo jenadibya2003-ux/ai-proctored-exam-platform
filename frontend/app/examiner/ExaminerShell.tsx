@@ -21,7 +21,7 @@ import {
 } from "lucide-react";
 import LanguageSelector from "../components/LanguageSelector";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000";
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "https://ai-proctored-exam-platform-iv1t.onrender.com";
 
 interface ExaminerShellProps {
   children: ReactNode;

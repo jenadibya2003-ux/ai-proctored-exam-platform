@@ -5,7 +5,7 @@ import { useParams } from "next/navigation";
 import ExaminerShell from "../../ExaminerShell";
 import { Plus, Layers, Trash2, BookOpen, Upload, Sparkles, X } from "lucide-react";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000";
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "https://ai-proctored-exam-platform-iv1t.onrender.com";
 
 type Section = {
   id: string;

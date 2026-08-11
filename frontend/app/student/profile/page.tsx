@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import StudentShell from "../StudentShell";
 import { Mail, Lock, CheckCircle2, AlertCircle, Calendar } from "lucide-react";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000";
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "https://ai-proctored-exam-platform-iv1t.onrender.com";
 
 export default function StudentProfilePage() {
   const [fullName, setFullName] = useState("student1");
