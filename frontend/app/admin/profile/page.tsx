@@ -5,7 +5,18 @@ import { useEffect, useState } from "react";
 import AdminShell from "../AdminShell";
 import { Mail, Lock, CheckCircle2, AlertCircle, Calendar } from "lucide-react";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "https://ai-proctored-exam-platform-iv1t.onrender.com";
+const getApiBase = () => {
+  const envUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+  if (typeof window !== "undefined") {
+    if (!envUrl || envUrl.includes("localhost") || envUrl.includes("127.0.0.1")) {
+      if (window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1") {
+        return "https://ai-proctored-exam-platform-iv1t.onrender.com";
+      }
+    }
+  }
+  return envUrl || "https://ai-proctored-exam-platform-iv1t.onrender.com";
+};
+const API_BASE = getApiBase();
 
 export default function AdminProfileView() {
   const [fullName, setFullName] = useState("admin1");
