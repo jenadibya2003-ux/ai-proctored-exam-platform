@@ -23,7 +23,7 @@ app = FastAPI(title="AI-Proctored Online Examination Platform")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Next.js dev server
+    allow_origins=["*"],  # Allow all origins for production Vercel frontend
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

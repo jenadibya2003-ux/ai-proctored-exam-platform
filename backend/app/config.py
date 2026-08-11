@@ -6,7 +6,7 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    database_url: str = "postgresql://exam_user:exam_pass@localhost:5432/exam_platform"
+    database_url: str = "sqlite:///./exam_platform.db"
     jwt_secret_key: str = "dev-secret-change-me"
     jwt_algorithm: str = "HS256"
     access_token_expire_minutes: int = 60
