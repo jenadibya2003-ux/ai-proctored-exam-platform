@@ -14,12 +14,13 @@ from app.routers import auth, questions, exams, students, monitoring, evaluation
 # Creates tables directly from models on startup.
 # In local development and tests this is resilient even when the DB is not
 # yet available. Alembic migrations are still available for structured schema changes.
+import app.models
+from app.models import User, UserRole
+from app.database import SessionLocal
+from app.auth import hash_password
+
 try:
     Base.metadata.create_all(bind=engine)
-    from app.database import SessionLocal
-    from app.models import User, UserRole
-    from app.auth import hash_password
-
     db = SessionLocal()
     demo_users = [
         {"email": "student@example.com", "password": "password123", "full_name": "Demo Student", "role": UserRole.student},
@@ -42,6 +43,7 @@ try:
             user.account_status = "approved"
     db.commit()
     db.close()
+    print("Demo users successfully created and approved on startup.")
 except Exception as e:
     print(f"Startup DB init warning: {e}")
 
