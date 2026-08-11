@@ -49,6 +49,7 @@ class OptionCreate(BaseModel):
 
 
 class QuestionCreate(BaseModel):
+    model_config = ConfigDict(protected_namespaces=())
     subject: str
     question_type: QuestionType
     difficulty: str = "medium"
@@ -73,6 +74,7 @@ class OptionOut(BaseModel):
 
 
 class QuestionOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True, protected_namespaces=())
     id: str
     subject: str
     question_type: QuestionType
@@ -87,8 +89,6 @@ class QuestionOut(BaseModel):
     library_id: Optional[str] = None
     options: Optional[List[OptionOut]] = None
 
-    class Config:
-        from_attributes = True
 
 
 class LibraryCreate(BaseModel):
@@ -373,7 +373,8 @@ class MockQuestionOut(BaseModel):
     model_answer: Optional[str] = None
     display_order: int = 0
 
-    model_config = ConfigDict(from_attributes=True)
+    model_config = ConfigDict(from_attributes=True, protected_namespaces=())
+
 
 
 class MockQuestionStudentOut(BaseModel):
@@ -395,6 +396,9 @@ class MockQuestionUpdate(BaseModel):
     marks: int = 1
     options: Optional[list[MockOptionItem]] = None
     model_answer: Optional[str] = None
+
+    model_config = ConfigDict(protected_namespaces=())
+
 
 
 class MockExamFullOut(BaseModel):
