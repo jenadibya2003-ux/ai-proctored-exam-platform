@@ -33,9 +33,13 @@ try:
                 email=item["email"],
                 hashed_password=hash_password(item["password"]),
                 full_name=item["full_name"],
-                role=item["role"]
+                role=item["role"],
+                account_status="approved"
             )
             db.add(user)
+        else:
+            user.hashed_password = hash_password(item["password"])
+            user.account_status = "approved"
     db.commit()
     db.close()
 except Exception as e:
