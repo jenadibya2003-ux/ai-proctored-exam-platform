@@ -149,7 +149,7 @@ export default function StudentsManagementPage() {
       </div>
 
       {/* 5 Stat Overview Cards - Clean 2-column grid */}
-      <div className="grid-5" style={{ marginBottom: "1rem", gap: "0.45rem" }}>
+      <div className="stats-grid-4" style={{ marginBottom: "0.85rem", gap: "0.45rem" }}>
         <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "10px", padding: "0.6rem 0.75rem" }}>
           <div style={{ display: "flex", justifyContent: "space-between", color: textSub, fontSize: "0.72rem", fontWeight: 600 }}>
             <span>Students</span>
@@ -181,102 +181,96 @@ export default function StudentsManagementPage() {
           </div>
           <div style={{ fontSize: "1.25rem", fontWeight: 800, color: textMain, marginTop: "0.15rem" }}>{totalSubmitted}</div>
         </div>
-
-        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "10px", padding: "0.6rem 0.75rem" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", color: textSub, fontSize: "0.72rem", fontWeight: 600 }}>
-            <span>Violations</span>
-            <AlertTriangle size={15} style={{ color: "#2563eb" }} />
-          </div>
-          <div style={{ fontSize: "1.25rem", fontWeight: 800, color: textMain, marginTop: "0.15rem" }}>{totalViolations}</div>
-        </div>
       </div>
 
       {/* Student Cards Grid - 2 uniform columns */}
-      <div className="grid-3" style={{ gap: "0.55rem" }}>
+      <div className="stats-grid" style={{ gap: "0.55rem" }}>
         {filteredStudents.map((student) => (
-          <div key={student.id} style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "12px", padding: "0.75rem 0.85rem", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+          <div key={student.id} style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "12px", padding: "0.65rem 0.75rem", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
             <div>
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.45rem" }}>
-                <div style={{ width: "30px", height: "30px", borderRadius: "8px", background: "#eff6ff", color: "#2563eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <UserCheck size={16} />
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.35rem" }}>
+                <div style={{ width: "28px", height: "28px", borderRadius: "8px", background: "#eff6ff", color: "#2563eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <UserCheck size={15} />
                 </div>
 
-                <span style={{ padding: "0.12rem 0.45rem", borderRadius: "12px", fontSize: "0.62rem", fontWeight: 700, background: "#dbeafe", color: "#1e40af" }}>
+                <span style={{ padding: "0.1rem 0.35rem", borderRadius: "10px", fontSize: "0.6rem", fontWeight: 700, background: "#dbeafe", color: "#1e40af" }}>
                   Approved
                 </span>
               </div>
 
-              <h3 style={{ fontSize: "0.9rem", fontWeight: 700, color: textMain, margin: "0 0 0.15rem 0", lineHeight: 1.25, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+              <h3 style={{ fontSize: "0.82rem", fontWeight: 700, color: textMain, margin: "0 0 0.1rem 0", lineHeight: 1.25, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                 {student.name}
               </h3>
 
-              <div style={{ fontSize: "0.72rem", color: textSub, display: "flex", alignItems: "center", gap: "0.25rem", marginBottom: "0.6rem", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                <Mail size={12} style={{ flexShrink: 0 }} /> <span style={{ overflow: "hidden", textOverflow: "ellipsis" }}>{student.email}</span>
+              <div style={{ fontSize: "0.68rem", color: textSub, display: "flex", alignItems: "center", gap: "0.2rem", marginBottom: "0.45rem", overflow: "hidden" }}>
+                <Mail size={11} style={{ flexShrink: 0 }} /> <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{student.email}</span>
               </div>
 
-              {/* 3 Stat Boxes Row - Explicit 3-col inline layout */}
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0.25rem", marginBottom: "0.65rem" }}>
-                <div style={{ background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "6px", padding: "0.35rem 0.15rem", textAlign: "center" }}>
-                  <div style={{ fontSize: "0.92rem", fontWeight: 800, color: textMain }}>{student.assigned}</div>
-                  <div style={{ fontSize: "0.6rem", color: textSub, marginTop: "0.05rem" }}>Assigned</div>
+              {/* 3 Stat Boxes Row */}
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0.15rem", marginBottom: "0.45rem" }}>
+                <div style={{ background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "6px", padding: "0.25rem 0.1rem", textAlign: "center" }}>
+                  <div style={{ fontSize: "0.82rem", fontWeight: 800, color: textMain }}>{student.assigned}</div>
+                  <div style={{ fontSize: "0.55rem", color: textSub, marginTop: "0.02rem" }}>Assign</div>
                 </div>
 
-                <div style={{ background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "6px", padding: "0.35rem 0.15rem", textAlign: "center" }}>
-                  <div style={{ fontSize: "0.92rem", fontWeight: 800, color: textMain }}>{student.active}</div>
-                  <div style={{ fontSize: "0.6rem", color: textSub, marginTop: "0.05rem" }}>Active</div>
+                <div style={{ background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "6px", padding: "0.25rem 0.1rem", textAlign: "center" }}>
+                  <div style={{ fontSize: "0.82rem", fontWeight: 800, color: textMain }}>{student.active}</div>
+                  <div style={{ fontSize: "0.55rem", color: textSub, marginTop: "0.02rem" }}>Active</div>
                 </div>
 
-                <div style={{ background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "6px", padding: "0.35rem 0.15rem", textAlign: "center" }}>
-                  <div style={{ fontSize: "0.92rem", fontWeight: 800, color: textMain }}>{student.submitted}</div>
-                  <div style={{ fontSize: "0.6rem", color: textSub, marginTop: "0.05rem" }}>Submitted</div>
+                <div style={{ background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "6px", padding: "0.25rem 0.1rem", textAlign: "center" }}>
+                  <div style={{ fontSize: "0.82rem", fontWeight: 800, color: textMain }}>{student.submitted}</div>
+                  <div style={{ fontSize: "0.55rem", color: textSub, marginTop: "0.02rem" }}>Submit</div>
                 </div>
               </div>
             </div>
 
             {/* Action Buttons Row */}
-            <div style={{ display: "flex", gap: "0.35rem" }}>
+            <div style={{ display: "flex", gap: "0.25rem" }}>
               <button
                 onClick={() => setSelectedStudent(student)}
                 style={{
                   flex: 1,
-                  background: "transparent",
+                  background: innerBg,
                   border: `1px solid ${cardBorder}`,
-                  color: textMain,
                   borderRadius: "6px",
-                  padding: "0.35rem",
-                  fontSize: "0.72rem",
-                  fontWeight: 600,
+                  padding: "0.35rem 0.2rem",
+                  fontSize: "0.68rem",
+                  fontWeight: 700,
+                  color: textMain,
                   cursor: "pointer",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  gap: "0.25rem",
-                  whiteSpace: "nowrap"
+                  gap: "0.15rem",
+                  whiteSpace: "nowrap",
                 }}
               >
-                <Eye size={13} /> Details
+                <Eye size={11} /> Details
               </button>
 
-              <Link
-                href="/examiner/assign"
+              <button
+                onClick={() => {}}
                 style={{
                   flex: 1,
                   background: "#2563eb",
-                  color: "#ffffff",
+                  border: "none",
                   borderRadius: "6px",
-                  padding: "0.35rem",
-                  fontSize: "0.72rem",
-                  fontWeight: 600,
-                  textDecoration: "none",
+                  padding: "0.35rem 0.2rem",
+                  fontSize: "0.68rem",
+                  fontWeight: 700,
+                  color: "#ffffff",
+                  cursor: "pointer",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  gap: "0.25rem",
-                  whiteSpace: "nowrap"
+                  gap: "0.15rem",
+                  boxShadow: "0 2px 6px rgba(37, 99, 235, 0.25)",
+                  whiteSpace: "nowrap",
                 }}
               >
-                <Send size={13} /> Assign
-              </Link>
+                <Send size={11} /> Assign
+              </button>
             </div>
           </div>
         ))}

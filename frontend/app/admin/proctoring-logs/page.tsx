@@ -205,16 +205,16 @@ export default function AdminProctoringLogsPage() {
       </div>
 
       {/* Proctoring Logs Table */}
-      <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "16px", overflow: "hidden" }}>
-        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.85rem" }}>
+      <div className="table-responsive" style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "14px", overflowX: "auto", WebkitOverflowScrolling: "touch", width: "100%", marginBottom: "1rem" }}>
+        <table style={{ width: "100%", minWidth: "600px", borderCollapse: "collapse", fontSize: "0.78rem" }}>
           <thead>
             <tr style={{ background: innerBg, borderBottom: `1px solid ${cardBorder}`, color: textSub, textAlign: "left" }}>
-              <th style={{ padding: "0.9rem 1.2rem", fontWeight: 700 }}>CANDIDATE</th>
-              <th style={{ padding: "0.9rem 1.2rem", fontWeight: 700 }}>EXAM TITLE</th>
-              <th style={{ padding: "0.9rem 1.2rem", fontWeight: 700 }}>TRUST SCORE</th>
-              <th style={{ padding: "0.9rem 1.2rem", fontWeight: 700 }}>VIOLATIONS</th>
-              <th style={{ padding: "0.9rem 1.2rem", fontWeight: 700 }}>STATUS</th>
-              <th style={{ padding: "0.9rem 1.2rem", fontWeight: 700, textAlign: "right" }}>ACTIONS</th>
+              <th style={{ padding: "0.65rem 0.85rem", fontWeight: 700 }}>CANDIDATE</th>
+              <th style={{ padding: "0.65rem 0.85rem", fontWeight: 700 }}>EXAM TITLE</th>
+              <th style={{ padding: "0.65rem 0.85rem", fontWeight: 700 }}>TRUST SCORE</th>
+              <th style={{ padding: "0.65rem 0.85rem", fontWeight: 700 }}>VIOLATIONS</th>
+              <th style={{ padding: "0.65rem 0.85rem", fontWeight: 700 }}>STATUS</th>
+              <th style={{ padding: "0.65rem 0.85rem", fontWeight: 700, textAlign: "right" }}>ACTIONS</th>
             </tr>
           </thead>
           <tbody>

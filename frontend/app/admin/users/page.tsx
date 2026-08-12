@@ -182,23 +182,23 @@ export default function AdminUsersView() {
       )}
 
       {/* Filters & Search Row */}
-      <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "14px", padding: "0.85rem 1.1rem", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "1rem", marginBottom: "1.2rem" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", flex: 1, maxWidth: "500px", background: inputBg, border: `1px solid ${cardBorder}`, borderRadius: "10px", padding: "0.55rem 0.85rem" }}>
-          <Search size={16} style={{ color: textSub }} />
+      <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "14px", padding: "0.75rem 0.95rem", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.5rem", flexWrap: "wrap", marginBottom: "1rem" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", flex: 1, minWidth: "220px", background: inputBg, border: `1px solid ${cardBorder}`, borderRadius: "8px", padding: "0.45rem 0.75rem" }}>
+          <Search size={15} style={{ color: textSub, flexShrink: 0 }} />
           <input
             type="text"
             placeholder="Search name, email, ID, or department..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            style={{ background: "transparent", border: "none", outline: "none", color: textMain, width: "100%", fontSize: "0.85rem" }}
+            style={{ background: "transparent", border: "none", outline: "none", color: textMain, width: "100%", fontSize: "0.78rem" }}
           />
         </div>
 
-        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", flexWrap: "wrap" }}>
           <select
             value={roleFilter}
             onChange={(e) => setRoleFilter(e.target.value)}
-            style={{ background: inputBg, border: `1px solid ${cardBorder}`, color: textMain, borderRadius: "10px", padding: "0.55rem 0.85rem", fontSize: "0.85rem", outline: "none", cursor: "pointer", fontWeight: 600 }}
+            style={{ background: inputBg, border: `1px solid ${cardBorder}`, color: textMain, borderRadius: "8px", padding: "0.45rem 0.65rem", fontSize: "0.78rem", outline: "none", cursor: "pointer", fontWeight: 600 }}
           >
             <option value="All Roles">All Roles</option>
             <option value="Student">Student</option>
@@ -209,7 +209,7 @@ export default function AdminUsersView() {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            style={{ background: inputBg, border: `1px solid ${cardBorder}`, color: textMain, borderRadius: "10px", padding: "0.55rem 0.85rem", fontSize: "0.85rem", outline: "none", cursor: "pointer", fontWeight: 600 }}
+            style={{ background: inputBg, border: `1px solid ${cardBorder}`, color: textMain, borderRadius: "8px", padding: "0.45rem 0.65rem", fontSize: "0.78rem", outline: "none", cursor: "pointer", fontWeight: 600 }}
           >
             <option value="All Statuses">All Statuses</option>
             <option value="Pending">Pending</option>
@@ -225,21 +225,21 @@ export default function AdminUsersView() {
               setStatusFilter("All Statuses");
               fetchUsers();
             }}
-            style={{ background: inputBg, border: `1px solid ${cardBorder}`, color: textSub, borderRadius: "10px", padding: "0.55rem 0.85rem", fontSize: "0.85rem", cursor: "pointer", display: "flex", alignItems: "center", gap: "0.4rem", fontWeight: 600 }}
+            style={{ background: inputBg, border: `1px solid ${cardBorder}`, color: textSub, borderRadius: "8px", padding: "0.45rem 0.65rem", fontSize: "0.78rem", cursor: "pointer", display: "flex", alignItems: "center", gap: "0.3rem", fontWeight: 600 }}
           >
-            <RefreshCw size={14} />
+            <RefreshCw size={13} />
             Refresh
           </button>
         </div>
       </div>
 
       {/* Counter */}
-      <div style={{ fontSize: "0.82rem", color: textSub, marginBottom: "1rem", fontWeight: 600 }}>
+      <div style={{ fontSize: "0.78rem", color: textSub, marginBottom: "0.75rem", fontWeight: 600 }}>
         Showing {filteredAccounts.length} of {accounts.length} accounts
       </div>
 
       {/* Account Cards List */}
-      <div style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.65rem" }}>
         {filteredAccounts.map((acc) => {
           const isStudent = acc.role === "Student";
           const isPending = acc.status === "Pending";
@@ -252,19 +252,21 @@ export default function AdminUsersView() {
               style={{
                 background: cardBg,
                 border: `1px solid ${cardBorder}`,
-                borderRadius: "14px",
-                padding: "1.1rem 1.4rem",
+                borderRadius: "12px",
+                padding: "0.85rem 0.95rem",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
+                flexWrap: "wrap",
+                gap: "0.65rem",
               }}
             >
-              <div style={{ display: "flex", alignItems: "center", gap: "1.1rem" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", minWidth: 0, flex: 1 }}>
                 <div
                   style={{
-                    width: "44px",
-                    height: "44px",
-                    borderRadius: "12px",
+                    width: "36px",
+                    height: "36px",
+                    borderRadius: "10px",
                     background: isStudent ? "#1e3a8a" : "#581c87",
                     color: "#ffffff",
                     display: "flex",
@@ -273,18 +275,18 @@ export default function AdminUsersView() {
                     flexShrink: 0,
                   }}
                 >
-                  {isStudent ? <GraduationCap size={22} /> : <UserCheck size={22} />}
+                  {isStudent ? <GraduationCap size={18} /> : <UserCheck size={18} />}
                 </div>
 
-                <div>
-                  <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
-                    <span style={{ fontSize: "0.95rem", fontWeight: 700, color: textMain }}>{acc.name}</span>
+                <div style={{ minWidth: 0 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", flexWrap: "wrap" }}>
+                    <span style={{ fontSize: "0.88rem", fontWeight: 700, color: textMain, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{acc.name}</span>
 
                     <span
                       style={{
-                        padding: "0.2rem 0.65rem",
-                        borderRadius: "20px",
-                        fontSize: "0.75rem",
+                        padding: "0.1rem 0.45rem",
+                        borderRadius: "14px",
+                        fontSize: "0.65rem",
                         fontWeight: 700,
                         background: isStudent ? "#1d4ed8" : "#6b21a8",
                         color: "#ffffff",
@@ -295,9 +297,9 @@ export default function AdminUsersView() {
 
                     <span
                       style={{
-                        padding: "0.2rem 0.65rem",
-                        borderRadius: "20px",
-                        fontSize: "0.75rem",
+                        padding: "0.1rem 0.45rem",
+                        borderRadius: "14px",
+                        fontSize: "0.65rem",
                         fontWeight: 700,
                         background:
                           isPending
