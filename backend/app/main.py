@@ -20,11 +20,7 @@ from app.database import SessionLocal
 from app.auth import hash_password
 import os
 
-# Delete stale SQLite DB so it's recreated fresh with correct schema
-db_path = "./exam_platform.db"
-if os.path.exists(db_path):
-    os.remove(db_path)
-    print("Removed old SQLite database for fresh schema creation.")
+# Ensure DB tables exist on startup without wiping user data
 
 try:
     Base.metadata.create_all(bind=engine)
@@ -33,6 +29,10 @@ try:
         {"email": "student@example.com", "password": "password123", "full_name": "Demo Student", "role": UserRole.student},
         {"email": "examiner@example.com", "password": "password123", "full_name": "Demo Examiner", "role": UserRole.examiner},
         {"email": "admin@example.com", "password": "password123", "full_name": "Demo Admin", "role": UserRole.admin},
+        {"email": "student1@example.com", "password": "password123", "full_name": "Student Candidate 1", "role": UserRole.student},
+        {"email": "student2@test.com", "password": "password123", "full_name": "Student Candidate 2", "role": UserRole.student},
+        {"email": "examiner2@test.com", "password": "password123", "full_name": "Examiner Lead 2", "role": UserRole.examiner},
+        {"email": "admin1@test.com", "password": "password123", "full_name": "System Administrator 1", "role": UserRole.admin},
     ]
     for item in demo_users:
         user = db.query(User).filter(User.email == item["email"]).first()

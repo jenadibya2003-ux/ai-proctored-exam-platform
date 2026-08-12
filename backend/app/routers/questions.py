@@ -42,6 +42,28 @@ def list_libraries(
     current_user: User = Depends(require_role(UserRole.examiner, UserRole.admin)),
 ):
     libraries = db.query(QuestionLibrary).order_by(QuestionLibrary.created_at.desc()).all()
+    if not libraries:
+        default_libs = [
+            ("1", "Computer Science & Programming", "Core programming concepts, syntax, and paradigms"),
+            ("2", "Mathematics & Quantitative Aptitude", "Algebra, Calculus, Discrete Math, and Probability"),
+            ("3", "Physics & Engineering Mechanics", "Newtonian Physics, Thermodynamics, and Electromagnetism"),
+            ("4", "Chemistry & Materials Science", "Organic Chemistry, Physical Chemistry, and Material Properties"),
+            ("5", "Data Structures & Algorithms", "Arrays, Trees, Graphs, Sorting, and Dynamic Programming"),
+            ("6", "Database Management Systems (DBMS)", "Relational Algebra, SQL, Normalization, and NoSQL"),
+            ("7", "Operating Systems & Computer Networks", "Processes, Memory Management, TCP/IP, and Routing"),
+            ("8", "Web Development & Fullstack Tech", "HTML, CSS, JavaScript, React, Next.js, and REST APIs"),
+            ("9", "Software Engineering & DevOps", "Agile, Testing, CI/CD, Docker, and Architecture"),
+            ("10", "Artificial Intelligence & Machine Learning", "Neural Networks, Regression, Classification, and NLP"),
+        ]
+        for lib_id, title, purpose in default_libs:
+            db_lib = QuestionLibrary(id=lib_id, title=title, purpose=purpose, created_by=current_user.id)
+            db.add(db_lib)
+        try:
+            db.commit()
+        except Exception:
+            db.rollback()
+        libraries = db.query(QuestionLibrary).order_by(QuestionLibrary.created_at.desc()).all()
+
     results = []
     for lib in libraries:
         count = db.query(Question).filter(Question.library_id == lib.id).count()
