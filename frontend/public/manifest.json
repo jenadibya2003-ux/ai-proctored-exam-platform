@@ -1,10 +1,12 @@
 {
+  "id": "/",
+  "scope": "/",
   "name": "AI-Proctored Examination Platform",
   "short_name": "AI Exam App",
-  "description": "Secure AI-Proctored Examination & Assessment Platform for Students, Examiners, and Admins",
+  "description": "Secure AI-Proctored Examination Platform",
   "start_url": "/login",
   "display": "standalone",
-  "orientation": "any",
+  "orientation": "portrait-primary",
   "background_color": "#0f172a",
   "theme_color": "#2563eb",
   "icons": [
