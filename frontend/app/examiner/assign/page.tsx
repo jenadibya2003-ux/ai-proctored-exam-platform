@@ -210,59 +210,59 @@ export default function AssignExamsPage() {
       )}
 
       {/* 4 Stat Overview Cards */}
-      <div className="stats-grid-4" style={{ marginBottom: "1.3rem" }}>
-        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "12px", padding: "1rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <div className="stats-grid-4" style={{ marginBottom: "0.85rem", gap: "0.45rem" }}>
+        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "10px", padding: "0.6rem 0.75rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div>
-            <div style={{ fontSize: "0.75rem", color: textSub, fontWeight: 500 }}>My Exams</div>
-            <div style={{ fontSize: "1.4rem", fontWeight: 800, color: textMain, marginTop: "0.15rem" }}>{exams.length}</div>
+            <div style={{ fontSize: "0.72rem", color: textSub, fontWeight: 600 }}>My Exams</div>
+            <div style={{ fontSize: "1.25rem", fontWeight: 800, color: textMain, marginTop: "0.1rem" }}>{exams.length}</div>
           </div>
-          <FileText size={18} style={{ color: "#2563eb" }} />
+          <FileText size={16} style={{ color: "#2563eb" }} />
         </div>
 
-        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "12px", padding: "1rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "10px", padding: "0.6rem 0.75rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div>
-            <div style={{ fontSize: "0.75rem", color: textSub, fontWeight: 500 }}>Assignments</div>
-            <div style={{ fontSize: "1.4rem", fontWeight: 800, color: textMain, marginTop: "0.15rem" }}>{assignedStudentIds.length}</div>
+            <div style={{ fontSize: "0.72rem", color: textSub, fontWeight: 600 }}>Assignments</div>
+            <div style={{ fontSize: "1.25rem", fontWeight: 800, color: textMain, marginTop: "0.1rem" }}>{assignedStudentIds.length}</div>
           </div>
-          <Users size={18} style={{ color: "#2563eb" }} />
+          <Users size={16} style={{ color: "#2563eb" }} />
         </div>
 
-        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "12px", padding: "1rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "10px", padding: "0.6rem 0.75rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div>
-            <div style={{ fontSize: "0.75rem", color: textSub, fontWeight: 500 }}>Started</div>
-            <div style={{ fontSize: "1.4rem", fontWeight: 800, color: textMain, marginTop: "0.15rem" }}>0</div>
+            <div style={{ fontSize: "0.72rem", color: textSub, fontWeight: 600 }}>Started</div>
+            <div style={{ fontSize: "1.25rem", fontWeight: 800, color: textMain, marginTop: "0.1rem" }}>0</div>
           </div>
-          <Clock size={18} style={{ color: "#2563eb" }} />
+          <Clock size={16} style={{ color: "#2563eb" }} />
         </div>
 
-        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "12px", padding: "1rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "10px", padding: "0.6rem 0.75rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div>
-            <div style={{ fontSize: "0.75rem", color: textSub, fontWeight: 500 }}>Submitted</div>
-            <div style={{ fontSize: "1.4rem", fontWeight: 800, color: textMain, marginTop: "0.15rem" }}>1</div>
+            <div style={{ fontSize: "0.72rem", color: textSub, fontWeight: 600 }}>Submitted</div>
+            <div style={{ fontSize: "1.25rem", fontWeight: 800, color: textMain, marginTop: "0.1rem" }}>1</div>
           </div>
-          <CheckCircle2 size={18} style={{ color: "#2563eb" }} />
+          <CheckCircle2 size={16} style={{ color: "#2563eb" }} />
         </div>
       </div>
 
       {/* Main 2-Column Grid */}
-      <div className="grid-2">
+      <div className="grid-2" style={{ gap: "0.75rem" }}>
         {/* Left Panel */}
-        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "14px", padding: "1.3rem" }}>
-          <h3 style={{ fontSize: "1.05rem", fontWeight: 700, color: textMain, margin: "0 0 0.15rem 0" }}>Select Examination</h3>
-          <p style={{ fontSize: "0.75rem", color: textSub, margin: "0 0 0.95rem 0" }}>Choose the exam that you want to assign.</p>
+        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "12px", padding: "0.85rem 0.95rem" }}>
+          <h3 style={{ fontSize: "0.95rem", fontWeight: 700, color: textMain, margin: "0 0 0.1rem 0" }}>Select Examination</h3>
+          <p style={{ fontSize: "0.72rem", color: textSub, margin: "0 0 0.65rem 0" }}>Choose the exam that you want to assign.</p>
 
-          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "8px", padding: "0.5rem 0.75rem", marginBottom: "0.85rem" }}>
-            <Search size={15} style={{ color: textSub }} />
+          <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "8px", padding: "0.45rem 0.75rem", marginBottom: "0.65rem" }}>
+            <Search size={14} style={{ color: textSub }} />
             <input
               type="text"
               placeholder="Search exams..."
               value={searchExams}
               onChange={(e) => setSearchExams(e.target.value)}
-              style={{ background: "transparent", border: "none", outline: "none", color: textMain, width: "100%", fontSize: "0.8rem" }}
+              style={{ background: "transparent", border: "none", outline: "none", color: textMain, width: "100%", fontSize: "0.78rem" }}
             />
           </div>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: "0.65rem" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.45rem" }}>
             {filteredExams.map((e) => {
               const isSelected = selectedExam?.id === e.id;
               return (
@@ -272,18 +272,18 @@ export default function AssignExamsPage() {
                   style={{
                     background: innerBg,
                     border: isSelected ? "2px solid #2563eb" : `1px solid ${cardBorder}`,
-                    borderRadius: "10px",
-                    padding: "0.75rem 0.9rem",
+                    borderRadius: "8px",
+                    padding: "0.6rem 0.75rem",
                     cursor: "pointer",
                   }}
                 >
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.25rem" }}>
-                    <div style={{ fontSize: "0.88rem", fontWeight: 700, color: textMain }}>{e.title}</div>
-                    <span style={{ padding: "0.15rem 0.5rem", borderRadius: "16px", fontSize: "0.65rem", fontWeight: 600, background: "#dbeafe", color: "#1e40af" }}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.15rem" }}>
+                    <div style={{ fontSize: "0.82rem", fontWeight: 700, color: textMain, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{e.title}</div>
+                    <span style={{ padding: "0.1rem 0.4rem", borderRadius: "10px", fontSize: "0.62rem", fontWeight: 600, background: "#dbeafe", color: "#1e40af", flexShrink: 0 }}>
                       {e.status}
                     </span>
                   </div>
-                  <div style={{ fontSize: "0.72rem", color: textSub }}>{e.subject}</div>
+                  <div style={{ fontSize: "0.7rem", color: textSub }}>{e.subject}</div>
                 </div>
               );
             })}
@@ -291,44 +291,44 @@ export default function AssignExamsPage() {
         </div>
 
         {/* Right Panel */}
-        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "14px", padding: "1.3rem" }}>
+        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "12px", padding: "0.85rem 0.95rem" }}>
           {selectedExam && (
             <>
-              <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: textMain, margin: "0 0 0.15rem 0" }}>
+              <h3 style={{ fontSize: "0.98rem", fontWeight: 800, color: textMain, margin: "0 0 0.1rem 0" }}>
                 {selectedExam.title}
               </h3>
-              <p style={{ fontSize: "0.78rem", color: textSub, margin: "0 0 0.95rem 0" }}>
+              <p style={{ fontSize: "0.72rem", color: textSub, margin: "0 0 0.65rem 0" }}>
                 {selectedExam.subject}
               </p>
 
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.65rem", marginBottom: "0.85rem" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flex: 1, background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "8px", padding: "0.45rem 0.75rem" }}>
-                  <Search size={15} style={{ color: textSub }} />
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.45rem", marginBottom: "0.65rem" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "8px", padding: "0.45rem 0.75rem" }}>
+                  <Search size={14} style={{ color: textSub }} />
                   <input
                     type="text"
-                    placeholder="Search available students..."
+                    placeholder="Search candidates..."
                     value={searchStudents}
                     onChange={(e) => setSearchStudents(e.target.value)}
-                    style={{ background: "transparent", border: "none", outline: "none", color: textMain, width: "100%", fontSize: "0.8rem" }}
+                    style={{ background: "transparent", border: "none", outline: "none", color: textMain, width: "100%", fontSize: "0.78rem" }}
                   />
                 </div>
 
                 <button
                   onClick={handleAssignEntireGroup}
-                  style={{ background: "#2563eb", color: "#ffffff", border: "none", borderRadius: "6px", padding: "0.45rem 0.8rem", fontSize: "0.75rem", fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: "0.3rem" }}
+                  style={{ background: "#2563eb", color: "#ffffff", border: "none", borderRadius: "6px", padding: "0.45rem 0.75rem", fontSize: "0.75rem", fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: "0.3rem", width: "100%" }}
                 >
-                  <Users size={14} /> Assign to Student Group
+                  <Users size={14} /> Assign to All Students
                 </button>
               </div>
 
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.45rem" }}>
                 {filteredAvailableStudents.map((student) => {
                   const isAssigned = assignedStudentIds.includes(student.id);
                   return (
-                    <div key={student.id} style={{ background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "10px", padding: "0.65rem 0.85rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                      <div>
-                        <div style={{ fontWeight: 700, fontSize: "0.82rem", color: textMain }}>{student.name}</div>
-                        <div style={{ fontSize: "0.72rem", color: textSub }}>{student.email}</div>
+                    <div key={student.id} style={{ background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "8px", padding: "0.55rem 0.75rem", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.4rem" }}>
+                      <div style={{ minWidth: 0, flex: 1 }}>
+                        <div style={{ fontWeight: 700, fontSize: "0.78rem", color: textMain, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{student.name}</div>
+                        <div style={{ fontSize: "0.68rem", color: textSub, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{student.email}</div>
                       </div>
 
                       <button
@@ -338,10 +338,11 @@ export default function AssignExamsPage() {
                           color: "#ffffff",
                           border: "none",
                           borderRadius: "6px",
-                          padding: "0.3rem 0.7rem",
-                          fontSize: "0.72rem",
+                          padding: "0.3rem 0.65rem",
+                          fontSize: "0.7rem",
                           fontWeight: 700,
                           cursor: "pointer",
+                          flexShrink: 0,
                         }}
                       >
                         {isAssigned ? "Assigned" : "Assign"}

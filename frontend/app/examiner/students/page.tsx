@@ -126,115 +126,115 @@ export default function StudentsManagementPage() {
   return (
     <ExaminerShell title="Students">
       {/* Header & Search Bar */}
-      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "1.3rem" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem", marginBottom: "1rem" }}>
         <div>
-          <h2 style={{ fontSize: "1.35rem", fontWeight: 700, color: textMain, margin: "0 0 0.25rem 0" }}>
+          <h2 style={{ fontSize: "1.15rem", fontWeight: 700, color: textMain, margin: "0 0 0.15rem 0" }}>
             Student Management
           </h2>
-          <p style={{ fontSize: "0.8rem", color: textSub, margin: 0 }}>
-            View registered students, exam assignments, and submission activity.
+          <p style={{ fontSize: "0.75rem", color: textSub, margin: 0 }}>
+            View registered candidates, exam assignments, and submission activity.
           </p>
         </div>
 
-        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", width: "260px", background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "8px", padding: "0.5rem 0.8rem" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", width: "100%", background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "8px", padding: "0.45rem 0.75rem" }}>
           <Search size={15} style={{ color: textSub }} />
           <input
             type="text"
-            placeholder="Search students..."
+            placeholder="Search students by name, email or roll..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            style={{ background: "transparent", border: "none", outline: "none", color: textMain, width: "100%", fontSize: "0.8rem" }}
+            style={{ background: "transparent", border: "none", outline: "none", color: textMain, width: "100%", fontSize: "0.78rem" }}
           />
         </div>
       </div>
 
-      {/* 5 Stat Overview Cards */}
-      <div className="grid-5" style={{ marginBottom: "1.3rem" }}>
-        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "12px", padding: "1rem" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", color: textSub, fontSize: "0.75rem", fontWeight: 500 }}>
+      {/* 5 Stat Overview Cards - Clean 2-column grid */}
+      <div className="grid-5" style={{ marginBottom: "1rem", gap: "0.45rem" }}>
+        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "10px", padding: "0.6rem 0.75rem" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", color: textSub, fontSize: "0.72rem", fontWeight: 600 }}>
             <span>Students</span>
             <Users size={15} style={{ color: "#2563eb" }} />
           </div>
-          <div style={{ fontSize: "1.4rem", fontWeight: 800, color: textMain, marginTop: "0.25rem" }}>{students.length}</div>
+          <div style={{ fontSize: "1.25rem", fontWeight: 800, color: textMain, marginTop: "0.15rem" }}>{students.length}</div>
         </div>
 
-        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "12px", padding: "1rem" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", color: textSub, fontSize: "0.75rem", fontWeight: 500 }}>
-            <span>Assignments</span>
+        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "10px", padding: "0.6rem 0.75rem" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", color: textSub, fontSize: "0.72rem", fontWeight: 600 }}>
+            <span>Assigned</span>
             <BookOpen size={15} style={{ color: "#2563eb" }} />
           </div>
-          <div style={{ fontSize: "1.4rem", fontWeight: 800, color: textMain, marginTop: "0.25rem" }}>{totalAssignments}</div>
+          <div style={{ fontSize: "1.25rem", fontWeight: 800, color: textMain, marginTop: "0.15rem" }}>{totalAssignments}</div>
         </div>
 
-        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "12px", padding: "1rem" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", color: textSub, fontSize: "0.75rem", fontWeight: 500 }}>
-            <span>Active Sessions</span>
+        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "10px", padding: "0.6rem 0.75rem" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", color: textSub, fontSize: "0.72rem", fontWeight: 600 }}>
+            <span>Active</span>
             <PlayCircle size={15} style={{ color: "#2563eb" }} />
           </div>
-          <div style={{ fontSize: "1.4rem", fontWeight: 800, color: textMain, marginTop: "0.25rem" }}>{totalActive}</div>
+          <div style={{ fontSize: "1.25rem", fontWeight: 800, color: textMain, marginTop: "0.15rem" }}>{totalActive}</div>
         </div>
 
-        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "12px", padding: "1rem" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", color: textSub, fontSize: "0.75rem", fontWeight: 500 }}>
+        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "10px", padding: "0.6rem 0.75rem" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", color: textSub, fontSize: "0.72rem", fontWeight: 600 }}>
             <span>Submitted</span>
             <CheckCircle2 size={15} style={{ color: "#2563eb" }} />
           </div>
-          <div style={{ fontSize: "1.4rem", fontWeight: 800, color: textMain, marginTop: "0.25rem" }}>{totalSubmitted}</div>
+          <div style={{ fontSize: "1.25rem", fontWeight: 800, color: textMain, marginTop: "0.15rem" }}>{totalSubmitted}</div>
         </div>
 
-        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "12px", padding: "1rem" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", color: textSub, fontSize: "0.75rem", fontWeight: 500 }}>
+        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "10px", padding: "0.6rem 0.75rem" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", color: textSub, fontSize: "0.72rem", fontWeight: 600 }}>
             <span>Violations</span>
             <AlertTriangle size={15} style={{ color: "#2563eb" }} />
           </div>
-          <div style={{ fontSize: "1.4rem", fontWeight: 800, color: textMain, marginTop: "0.25rem" }}>{totalViolations}</div>
+          <div style={{ fontSize: "1.25rem", fontWeight: 800, color: textMain, marginTop: "0.15rem" }}>{totalViolations}</div>
         </div>
       </div>
 
-      {/* Student Cards Grid */}
-      <div className="grid-3">
+      {/* Student Cards Grid - 2 uniform columns */}
+      <div className="grid-3" style={{ gap: "0.55rem" }}>
         {filteredStudents.map((student) => (
-          <div key={student.id} style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "14px", padding: "1.2rem", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+          <div key={student.id} style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "12px", padding: "0.75rem 0.85rem", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
             <div>
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.75rem" }}>
-                <div style={{ width: "36px", height: "36px", borderRadius: "8px", background: "#eff6ff", color: "#2563eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <UserCheck size={18} />
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.45rem" }}>
+                <div style={{ width: "30px", height: "30px", borderRadius: "8px", background: "#eff6ff", color: "#2563eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <UserCheck size={16} />
                 </div>
 
-                <span style={{ padding: "0.15rem 0.55rem", borderRadius: "16px", fontSize: "0.68rem", fontWeight: 600, background: "#dbeafe", color: "#1e40af" }}>
+                <span style={{ padding: "0.12rem 0.45rem", borderRadius: "12px", fontSize: "0.62rem", fontWeight: 700, background: "#dbeafe", color: "#1e40af" }}>
                   Approved
                 </span>
               </div>
 
-              <h3 style={{ fontSize: "1.05rem", fontWeight: 700, color: textMain, margin: "0 0 0.3rem 0" }}>
+              <h3 style={{ fontSize: "0.9rem", fontWeight: 700, color: textMain, margin: "0 0 0.15rem 0", lineHeight: 1.25, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                 {student.name}
               </h3>
 
-              <div style={{ fontSize: "0.78rem", color: textSub, display: "flex", alignItems: "center", gap: "0.3rem", marginBottom: "0.95rem" }}>
-                <Mail size={13} /> {student.email}
+              <div style={{ fontSize: "0.72rem", color: textSub, display: "flex", alignItems: "center", gap: "0.25rem", marginBottom: "0.6rem", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                <Mail size={12} style={{ flexShrink: 0 }} /> <span style={{ overflow: "hidden", textOverflow: "ellipsis" }}>{student.email}</span>
               </div>
 
-              {/* 3 Stat Boxes Grid */}
-              <div className="grid-3" style={{ marginBottom: "0.95rem" }}>
-                <div style={{ background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "8px", padding: "0.5rem 0.3rem", textAlign: "center" }}>
-                  <div style={{ fontSize: "1rem", fontWeight: 800, color: textMain }}>{student.assigned}</div>
-                  <div style={{ fontSize: "0.65rem", color: textSub, marginTop: "0.1rem" }}>Assigned</div>
+              {/* 3 Stat Boxes Row - Explicit 3-col inline layout */}
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0.25rem", marginBottom: "0.65rem" }}>
+                <div style={{ background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "6px", padding: "0.35rem 0.15rem", textAlign: "center" }}>
+                  <div style={{ fontSize: "0.92rem", fontWeight: 800, color: textMain }}>{student.assigned}</div>
+                  <div style={{ fontSize: "0.6rem", color: textSub, marginTop: "0.05rem" }}>Assigned</div>
                 </div>
 
-                <div style={{ background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "8px", padding: "0.5rem 0.3rem", textAlign: "center" }}>
-                  <div style={{ fontSize: "1rem", fontWeight: 800, color: textMain }}>{student.active}</div>
-                  <div style={{ fontSize: "0.65rem", color: textSub, marginTop: "0.1rem" }}>Active</div>
+                <div style={{ background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "6px", padding: "0.35rem 0.15rem", textAlign: "center" }}>
+                  <div style={{ fontSize: "0.92rem", fontWeight: 800, color: textMain }}>{student.active}</div>
+                  <div style={{ fontSize: "0.6rem", color: textSub, marginTop: "0.05rem" }}>Active</div>
                 </div>
 
-                <div style={{ background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "8px", padding: "0.5rem 0.3rem", textAlign: "center" }}>
-                  <div style={{ fontSize: "1rem", fontWeight: 800, color: textMain }}>{student.submitted}</div>
-                  <div style={{ fontSize: "0.65rem", color: textSub, marginTop: "0.1rem" }}>Submitted</div>
+                <div style={{ background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "6px", padding: "0.35rem 0.15rem", textAlign: "center" }}>
+                  <div style={{ fontSize: "0.92rem", fontWeight: 800, color: textMain }}>{student.submitted}</div>
+                  <div style={{ fontSize: "0.6rem", color: textSub, marginTop: "0.05rem" }}>Submitted</div>
                 </div>
               </div>
             </div>
 
             {/* Action Buttons Row */}
-            <div style={{ display: "flex", gap: "0.5rem" }}>
+            <div style={{ display: "flex", gap: "0.35rem" }}>
               <button
                 onClick={() => setSelectedStudent(student)}
                 style={{
@@ -243,14 +243,15 @@ export default function StudentsManagementPage() {
                   border: `1px solid ${cardBorder}`,
                   color: textMain,
                   borderRadius: "6px",
-                  padding: "0.45rem",
-                  fontSize: "0.75rem",
+                  padding: "0.35rem",
+                  fontSize: "0.72rem",
                   fontWeight: 600,
                   cursor: "pointer",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  gap: "0.3rem",
+                  gap: "0.25rem",
+                  whiteSpace: "nowrap"
                 }}
               >
                 <Eye size={13} /> Details
@@ -263,14 +264,15 @@ export default function StudentsManagementPage() {
                   background: "#2563eb",
                   color: "#ffffff",
                   borderRadius: "6px",
-                  padding: "0.45rem",
-                  fontSize: "0.75rem",
+                  padding: "0.35rem",
+                  fontSize: "0.72rem",
                   fontWeight: 600,
                   textDecoration: "none",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  gap: "0.3rem",
+                  gap: "0.25rem",
+                  whiteSpace: "nowrap"
                 }}
               >
                 <Send size={13} /> Assign
