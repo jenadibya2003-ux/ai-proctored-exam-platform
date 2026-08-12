@@ -18,6 +18,13 @@ import app.models
 from app.models import User, UserRole
 from app.database import SessionLocal
 from app.auth import hash_password
+import os
+
+# Delete stale SQLite DB so it's recreated fresh with correct schema
+db_path = "./exam_platform.db"
+if os.path.exists(db_path):
+    os.remove(db_path)
+    print("Removed old SQLite database for fresh schema creation.")
 
 try:
     Base.metadata.create_all(bind=engine)
