@@ -217,7 +217,10 @@ button, input, select, textarea {
     max-width: 48px !important;
   }
 
-  /* 2-Column Side-by-Side Grid for Stat Cards & Feature Tiles on Mobile */
+  /* Strict 2-Column Side-by-Side Integration across ALL Dashboards & Sub-Sections on Mobile
+     (Applies to Student, Examiner, Admin dashboards, Question Libraries, Exams, Mock Exams, Students, Assign Exams, Live Monitoring, AI Evaluation, Proctoring Logs, User Management, Reports, etc.) */
+  .grid-2, .grid-3, .grid-4, .grid-5,
+  .two-col-grid, .dashboard-2col,
   .stats-grid, .stats-grid-4,
   .responsive-grid-cards,
   .exam-cards-grid,
@@ -228,14 +231,11 @@ button, input, select, textarea {
     margin-bottom: 0.55rem !important;
   }
 
-  /* Page-Level Section Containers, Multi-Panel Layouts & Form Rows:
-     MUST STACK IN 1 FULL-WIDTH COLUMN ON MOBILE (≤ 900px) so no right panel spills off-screen */
-  .grid-2, .grid-3, .grid-4, .grid-5,
-  .two-col-grid, .dashboard-2col,
+  /* Wide sidebars and form rows stack in 1 column for input typing */
   .grid-wide-sidebar, .grid-sidebar-wide, .wide-sidebar-grid,
   .form-row, .form-row-3 {
     grid-template-columns: 1fr !important;
-    gap: 0.65rem !important;
+    gap: 0.6rem !important;
     width: 100% !important;
   }
 

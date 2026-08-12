@@ -277,13 +277,13 @@ export default function AssignExamsPage() {
                     cursor: "pointer",
                   }}
                 >
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.15rem" }}>
-                    <div style={{ fontSize: "0.82rem", fontWeight: 700, color: textMain, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{e.title}</div>
-                    <span style={{ padding: "0.1rem 0.4rem", borderRadius: "10px", fontSize: "0.62rem", fontWeight: 600, background: "#dbeafe", color: "#1e40af", flexShrink: 0 }}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.15rem", gap: "0.25rem" }}>
+                    <div style={{ fontSize: "0.78rem", fontWeight: 700, color: textMain, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", flex: 1, minWidth: 0 }}>{e.title}</div>
+                    <span style={{ padding: "0.08rem 0.3rem", borderRadius: "8px", fontSize: "0.58rem", fontWeight: 600, background: "#dbeafe", color: "#1e40af", flexShrink: 0 }}>
                       {e.status}
                     </span>
                   </div>
-                  <div style={{ fontSize: "0.7rem", color: textSub }}>{e.subject}</div>
+                  <div style={{ fontSize: "0.68rem", color: textSub, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{e.subject}</div>
                 </div>
               );
             })}
@@ -291,44 +291,44 @@ export default function AssignExamsPage() {
         </div>
 
         {/* Right Panel */}
-        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "12px", padding: "0.85rem 0.95rem" }}>
+        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "12px", padding: "0.85rem 0.95rem", minWidth: 0 }}>
           {selectedExam && (
             <>
-              <h3 style={{ fontSize: "0.98rem", fontWeight: 800, color: textMain, margin: "0 0 0.1rem 0" }}>
+              <h3 style={{ fontSize: "0.88rem", fontWeight: 800, color: textMain, margin: "0 0 0.1rem 0", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                 {selectedExam.title}
               </h3>
-              <p style={{ fontSize: "0.72rem", color: textSub, margin: "0 0 0.65rem 0" }}>
+              <p style={{ fontSize: "0.68rem", color: textSub, margin: "0 0 0.5rem 0", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                 {selectedExam.subject}
               </p>
 
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.45rem", marginBottom: "0.65rem" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "8px", padding: "0.45rem 0.75rem" }}>
-                  <Search size={14} style={{ color: textSub }} />
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem", marginBottom: "0.55rem" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.3rem", background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "8px", padding: "0.35rem 0.55rem" }}>
+                  <Search size={13} style={{ color: textSub, flexShrink: 0 }} />
                   <input
                     type="text"
                     placeholder="Search candidates..."
                     value={searchStudents}
                     onChange={(e) => setSearchStudents(e.target.value)}
-                    style={{ background: "transparent", border: "none", outline: "none", color: textMain, width: "100%", fontSize: "0.78rem" }}
+                    style={{ background: "transparent", border: "none", outline: "none", color: textMain, width: "100%", fontSize: "0.72rem" }}
                   />
                 </div>
 
                 <button
                   onClick={handleAssignEntireGroup}
-                  style={{ background: "#2563eb", color: "#ffffff", border: "none", borderRadius: "6px", padding: "0.45rem 0.75rem", fontSize: "0.75rem", fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: "0.3rem", width: "100%" }}
+                  style={{ background: "#2563eb", color: "#ffffff", border: "none", borderRadius: "6px", padding: "0.35rem 0.45rem", fontSize: "0.68rem", fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: "0.25rem", width: "100%", whiteSpace: "nowrap" }}
                 >
-                  <Users size={14} /> Assign to All Students
+                  <Users size={13} /> Assign All
                 </button>
               </div>
 
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.45rem" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem" }}>
                 {filteredAvailableStudents.map((student) => {
                   const isAssigned = assignedStudentIds.includes(student.id);
                   return (
-                    <div key={student.id} style={{ background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "8px", padding: "0.55rem 0.75rem", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.4rem" }}>
+                    <div key={student.id} style={{ background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "8px", padding: "0.45rem 0.55rem", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.25rem" }}>
                       <div style={{ minWidth: 0, flex: 1 }}>
-                        <div style={{ fontWeight: 700, fontSize: "0.78rem", color: textMain, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{student.name}</div>
-                        <div style={{ fontSize: "0.68rem", color: textSub, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{student.email}</div>
+                        <div style={{ fontWeight: 700, fontSize: "0.72rem", color: textMain, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{student.name}</div>
+                        <div style={{ fontSize: "0.62rem", color: textSub, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{student.email}</div>
                       </div>
 
                       <button
@@ -338,14 +338,14 @@ export default function AssignExamsPage() {
                           color: "#ffffff",
                           border: "none",
                           borderRadius: "6px",
-                          padding: "0.3rem 0.65rem",
-                          fontSize: "0.7rem",
+                          padding: "0.25rem 0.45rem",
+                          fontSize: "0.65rem",
                           fontWeight: 700,
                           cursor: "pointer",
                           flexShrink: 0,
                         }}
                       >
-                        {isAssigned ? "Assigned" : "Assign"}
+                        {isAssigned ? "Done" : "Assign"}
                       </button>
                     </div>
                   );
