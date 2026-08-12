@@ -187,57 +187,32 @@ export default function ExaminerDashboardPage() {
         </div>
       </div>
 
-      {/* Quick Action Grid - 2 to 3 Column Featured Subsections */}
-      <h3 style={{ fontSize: "0.9rem", fontWeight: 700, color: textMain, marginBottom: "0.5rem" }}>
-        Featured Examiner Subsections
+      {/* Quick Action Grid - 2 Column Side-by-Side Cards */}
+      <h3 style={{ fontSize: "0.92rem", fontWeight: 700, color: textMain, marginBottom: "0.55rem" }}>
+        Quick Management Shortcuts
       </h3>
 
-      <div className="responsive-grid-cards" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0.4rem", marginBottom: "0.85rem" }}>
+      <div className="stats-grid" style={{ marginBottom: "0.85rem", gap: "0.45rem" }}>
         <Link
           href="/examiner/questions"
           style={{
             background: cardBg,
             border: `1px solid ${cardBorder}`,
-            borderRadius: "10px",
-            padding: "0.55rem 0.5rem",
+            borderRadius: "12px",
+            padding: "0.65rem 0.75rem",
             textDecoration: "none",
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
-            textAlign: "center",
-            gap: "0.25rem",
+            alignItems: "flex-start",
+            gap: "0.35rem",
           }}
         >
-          <div style={{ width: "28px", height: "28px", borderRadius: "8px", background: "#eff6ff", color: "#2563eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <BookOpen size={15} />
+          <div style={{ width: "30px", height: "30px", borderRadius: "8px", background: "#eff6ff", color: "#2563eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <BookOpen size={16} />
           </div>
           <div>
-            <div style={{ fontWeight: 700, fontSize: "0.75rem", color: textMain, lineHeight: 1.2 }}>Q-Libraries</div>
-            <div style={{ fontSize: "0.62rem", color: textSub, marginTop: "0.05rem" }}>23 Subjects</div>
-          </div>
-        </Link>
-
-        <Link
-          href="/examiner/create"
-          style={{
-            background: cardBg,
-            border: `1px solid ${cardBorder}`,
-            borderRadius: "10px",
-            padding: "0.55rem 0.5rem",
-            textDecoration: "none",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            textAlign: "center",
-            gap: "0.25rem",
-          }}
-        >
-          <div style={{ width: "28px", height: "28px", borderRadius: "8px", background: "#eff6ff", color: "#2563eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <PlusCircle size={15} />
-          </div>
-          <div>
-            <div style={{ fontWeight: 700, fontSize: "0.75rem", color: textMain, lineHeight: 1.2 }}>Create Exam</div>
-            <div style={{ fontSize: "0.62rem", color: textSub, marginTop: "0.05rem" }}>Build test</div>
+            <div style={{ fontWeight: 700, fontSize: "0.8rem", color: textMain, lineHeight: 1.25 }}>Question Libraries</div>
+            <div style={{ fontSize: "0.68rem", color: textSub, marginTop: "0.1rem", lineHeight: 1.2 }}>23 Subject Libraries</div>
           </div>
         </Link>
 
@@ -246,22 +221,21 @@ export default function ExaminerDashboardPage() {
           style={{
             background: cardBg,
             border: `1px solid ${cardBorder}`,
-            borderRadius: "10px",
-            padding: "0.55rem 0.5rem",
+            borderRadius: "12px",
+            padding: "0.65rem 0.75rem",
             textDecoration: "none",
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
-            textAlign: "center",
-            gap: "0.25rem",
+            alignItems: "flex-start",
+            gap: "0.35rem",
           }}
         >
-          <div style={{ width: "28px", height: "28px", borderRadius: "8px", background: "#eff6ff", color: "#2563eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <Send size={15} />
+          <div style={{ width: "30px", height: "30px", borderRadius: "8px", background: "#eff6ff", color: "#2563eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <Send size={16} />
           </div>
           <div>
-            <div style={{ fontWeight: 700, fontSize: "0.75rem", color: textMain, lineHeight: 1.2 }}>Assign Exams</div>
-            <div style={{ fontSize: "0.62rem", color: textSub, marginTop: "0.05rem" }}>Candidates</div>
+            <div style={{ fontWeight: 700, fontSize: "0.8rem", color: textMain, lineHeight: 1.25 }}>Assign Exams</div>
+            <div style={{ fontSize: "0.68rem", color: textSub, marginTop: "0.1rem", lineHeight: 1.2 }}>Assign candidates</div>
           </div>
         </Link>
 
@@ -270,46 +244,21 @@ export default function ExaminerDashboardPage() {
           style={{
             background: cardBg,
             border: `1px solid ${cardBorder}`,
-            borderRadius: "10px",
-            padding: "0.55rem 0.5rem",
+            borderRadius: "12px",
+            padding: "0.65rem 0.75rem",
             textDecoration: "none",
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
-            textAlign: "center",
-            gap: "0.25rem",
+            alignItems: "flex-start",
+            gap: "0.35rem",
           }}
         >
-          <div style={{ width: "28px", height: "28px", borderRadius: "8px", background: "#eff6ff", color: "#2563eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <Eye size={15} />
+          <div style={{ width: "30px", height: "30px", borderRadius: "8px", background: "#eff6ff", color: "#2563eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <Eye size={16} />
           </div>
           <div>
-            <div style={{ fontWeight: 700, fontSize: "0.75rem", color: textMain, lineHeight: 1.2 }}>Live Monitor</div>
-            <div style={{ fontSize: "0.62rem", color: textSub, marginTop: "0.05rem" }}>Webcams</div>
-          </div>
-        </Link>
-
-        <Link
-          href="/examiner/ai-evaluation"
-          style={{
-            background: cardBg,
-            border: `1px solid ${cardBorder}`,
-            borderRadius: "10px",
-            padding: "0.55rem 0.5rem",
-            textDecoration: "none",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            textAlign: "center",
-            gap: "0.25rem",
-          }}
-        >
-          <div style={{ width: "28px", height: "28px", borderRadius: "8px", background: "#eff6ff", color: "#2563eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <CheckSquare size={15} />
-          </div>
-          <div>
-            <div style={{ fontWeight: 700, fontSize: "0.75rem", color: textMain, lineHeight: 1.2 }}>AI Evaluation</div>
-            <div style={{ fontSize: "0.62rem", color: textSub, marginTop: "0.05rem" }}>Auto grading</div>
+            <div style={{ fontWeight: 700, fontSize: "0.8rem", color: textMain, lineHeight: 1.25 }}>Live Monitoring</div>
+            <div style={{ fontSize: "0.68rem", color: textSub, marginTop: "0.1rem", lineHeight: 1.2 }}>Proctor webcams</div>
           </div>
         </Link>
 
@@ -318,22 +267,21 @@ export default function ExaminerDashboardPage() {
           style={{
             background: cardBg,
             border: `1px solid ${cardBorder}`,
-            borderRadius: "10px",
-            padding: "0.55rem 0.5rem",
+            borderRadius: "12px",
+            padding: "0.65rem 0.75rem",
             textDecoration: "none",
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
-            textAlign: "center",
-            gap: "0.25rem",
+            alignItems: "flex-start",
+            gap: "0.35rem",
           }}
         >
-          <div style={{ width: "28px", height: "28px", borderRadius: "8px", background: "#eff6ff", color: "#2563eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <GraduationCap size={15} />
+          <div style={{ width: "30px", height: "30px", borderRadius: "8px", background: "#eff6ff", color: "#2563eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <CheckSquare size={16} />
           </div>
           <div>
-            <div style={{ fontWeight: 700, fontSize: "0.75rem", color: textMain, lineHeight: 1.2 }}>Results</div>
-            <div style={{ fontSize: "0.62rem", color: textSub, marginTop: "0.05rem" }}>Analytics</div>
+            <div style={{ fontWeight: 700, fontSize: "0.8rem", color: textMain, lineHeight: 1.25 }}>Results & Analytics</div>
+            <div style={{ fontSize: "0.68rem", color: textSub, marginTop: "0.1rem", lineHeight: 1.2 }}>Scores & reports</div>
           </div>
         </Link>
       </div>
