@@ -187,75 +187,84 @@ button, input, select, textarea {
 /* Mobile Phones & Portrait Devices (≤ 900px) */
 @media (max-width: 900px) {
   html {
-    font-size: 14px !important;
+    font-size: 11.5px !important;
   }
 
-  /* Fixed and auto-fit grids collapse to 1 column with compact gap */
+  /* Stat cards: 2 side-by-side compact columns on mobile so 4 stat cards fit in 2 small rows */
+  .stats-grid, .stats-grid-4 {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.45rem !important;
+    margin-bottom: 0.65rem !important;
+  }
+
+  /* Other grids: compact 1-col layout */
   .grid-2, .grid-3, .grid-4, .grid-5,
   .grid-wide-sidebar, .grid-sidebar-wide,
   .responsive-grid-cards,
-  .stats-grid, .stats-grid-4,
   .exam-cards-grid, .two-col-grid, .wide-sidebar-grid,
   .form-row, .form-row-3 {
     grid-template-columns: 1fr !important;
-    gap: 0.75rem !important;
+    gap: 0.5rem !important;
     width: 100% !important;
   }
 
-  /* Compact mobile headings & typography */
-  h1, .h1 { font-size: 1.25rem !important; line-height: 1.3 !important; }
-  h2, .h2 { font-size: 1.1rem !important; line-height: 1.3 !important; }
-  h3, .h3 { font-size: 0.98rem !important; line-height: 1.35 !important; }
-  h4, .h4 { font-size: 0.9rem !important; line-height: 1.35 !important; }
+  /* Dense typography */
+  h1, .h1 { font-size: 1.1rem !important; line-height: 1.25 !important; margin-bottom: 0.35rem !important; }
+  h2, .h2 { font-size: 0.98rem !important; line-height: 1.25 !important; margin-bottom: 0.3rem !important; }
+  h3, .h3 { font-size: 0.88rem !important; line-height: 1.3 !important; margin-bottom: 0.25rem !important; }
+  h4, .h4 { font-size: 0.82rem !important; line-height: 1.3 !important; }
   p, span, label { max-width: 100%; overflow-wrap: anywhere; word-break: break-word; }
 
-  /* Stacking helpers */
-  .mobile-stack-flex { flex-direction: column !important; align-items: stretch !important; }
-  .mobile-full-width { width: 100% !important; max-width: 100% !important; }
-
-  /* Banner: stack on mobile with compact padding */
+  /* Compact banner */
   .welcome-banner {
-    flex-direction: column !important;
-    align-items: stretch !important;
-    gap: 0.75rem !important;
-    padding: 0.95rem 0.85rem !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 0.5rem !important;
+    padding: 0.65rem 0.75rem !important;
+    margin-bottom: 0.65rem !important;
+    border-radius: 10px !important;
   }
   .welcome-banner-btn {
-    width: 100% !important;
-    justify-content: center !important;
-    padding: 0.55rem 0.9rem !important;
-    font-size: 0.82rem !important;
+    width: auto !important;
+    padding: 0.35rem 0.65rem !important;
+    font-size: 0.75rem !important;
+    white-space: nowrap !important;
   }
 
-  /* Main content padding & bounds */
+  /* Main content area tight bounds */
   .main-content-area {
-    padding: 0.65rem 0.5rem !important;
+    padding: 0.4rem 0.4rem !important;
     width: 100% !important;
     max-width: 100vw !important;
     overflow-x: hidden !important;
   }
   .card-padded {
-    padding: 0.85rem 0.75rem !important;
-    border-radius: 12px !important;
+    padding: 0.6rem 0.65rem !important;
+    border-radius: 8px !important;
+    margin-bottom: 0.65rem !important;
   }
 
-  /* Universal container & flex wrapping for dashboard toolbars */
+  /* Universal container & flex wrapping for toolbars */
   .flex-toolbar, .dashboard-toolbar, .filter-row {
-    flex-direction: column !important;
-    align-items: stretch !important;
-    gap: 0.65rem !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: 0.4rem !important;
   }
   .flex-toolbar > *, .dashboard-toolbar > *, .filter-row > * {
-    width: 100% !important;
+    flex: 1 1 auto !important;
+    min-width: 120px !important;
   }
 
-  /* Header */
-  .header-title { font-size: 0.85rem !important; }
-  .header-controls { gap: 0.25rem !important; }
+  /* Header bar compact */
+  header { height: 48px !important; }
+  .header-title { font-size: 0.82rem !important; }
+  .header-controls { gap: 0.2rem !important; }
 
   /* Exam interface */
   .exam-layout { flex-direction: column !important; }
-  .exam-question-nav { width: 100% !important; order: 2; max-height: 180px; overflow-y: auto; }
+  .exam-question-nav { width: 100% !important; order: 2; max-height: 150px; overflow-y: auto; }
   .exam-question-body { order: 1; }
 }
 
