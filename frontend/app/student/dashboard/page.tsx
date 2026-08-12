@@ -158,101 +158,101 @@ export default function StudentDashboardPage() {
         </Link>
       </div>
 
-      {/* ── 3 Stat Cards ──────────────────────────────────────────── */}
-      <div className="stats-grid">
-        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "14px", padding: "1.1rem 1.25rem" }}>
+      {/* ── 3 Stat Cards ── 2 uniform side-by-side columns ── */}
+      <div className="stats-grid" style={{ marginBottom: "0.85rem", gap: "0.45rem" }}>
+        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "12px", padding: "0.65rem 0.75rem" }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            <span style={{ fontSize: "0.78rem", fontWeight: 600, color: textSub }}>Available Exams</span>
-            <FileText size={18} style={{ color: "#3b82f6", flexShrink: 0 }} />
+            <span style={{ fontSize: "0.72rem", fontWeight: 700, color: textSub }}>Available Exams</span>
+            <FileText size={16} style={{ color: "#3b82f6", flexShrink: 0 }} />
           </div>
-          <div style={{ fontSize: "1.6rem", fontWeight: 800, color: textMain, marginTop: "0.35rem" }}>
+          <div style={{ fontSize: "1.25rem", fontWeight: 800, color: textMain, marginTop: "0.15rem" }}>
             {stats.availableExams}
           </div>
-          <div style={{ fontSize: "0.7rem", color: textSub, marginTop: "0.15rem" }}>Assigned to you</div>
+          <div style={{ fontSize: "0.68rem", color: textSub, marginTop: "0.05rem" }}>Assigned to you</div>
         </div>
 
-        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "14px", padding: "1.1rem 1.25rem" }}>
+        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "12px", padding: "0.65rem 0.75rem" }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            <span style={{ fontSize: "0.78rem", fontWeight: 600, color: textSub }}>Completed Exams</span>
-            <CheckCircle2 size={18} style={{ color: "#16a34a", flexShrink: 0 }} />
+            <span style={{ fontSize: "0.72rem", fontWeight: 700, color: textSub }}>Completed</span>
+            <CheckCircle2 size={16} style={{ color: "#16a34a", flexShrink: 0 }} />
           </div>
-          <div style={{ fontSize: "1.6rem", fontWeight: 800, color: textMain, marginTop: "0.35rem" }}>
+          <div style={{ fontSize: "1.25rem", fontWeight: 800, color: textMain, marginTop: "0.15rem" }}>
             {stats.completedExams}
           </div>
-          <div style={{ fontSize: "0.7rem", color: textSub, marginTop: "0.15rem" }}>This semester</div>
+          <div style={{ fontSize: "0.68rem", color: textSub, marginTop: "0.05rem" }}>This semester</div>
         </div>
 
-        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "14px", padding: "1.1rem 1.25rem" }}>
+        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "12px", padding: "0.65rem 0.75rem" }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            <span style={{ fontSize: "0.78rem", fontWeight: 600, color: textSub }}>AI Monitoring</span>
-            <Video size={18} style={{ color: "#9333ea", flexShrink: 0 }} />
+            <span style={{ fontSize: "0.72rem", fontWeight: 700, color: textSub }}>AI Monitoring</span>
+            <Video size={16} style={{ color: "#9333ea", flexShrink: 0 }} />
           </div>
-          <div style={{ fontSize: "1.6rem", fontWeight: 800, color: textMain, marginTop: "0.35rem" }}>
+          <div style={{ fontSize: "1.25rem", fontWeight: 800, color: textMain, marginTop: "0.15rem" }}>
             {stats.aiMonitoring}
           </div>
-          <div style={{ fontSize: "0.7rem", color: textSub, marginTop: "0.15rem" }}>Proctoring status</div>
+          <div style={{ fontSize: "0.68rem", color: textSub, marginTop: "0.05rem" }}>Proctoring status</div>
         </div>
       </div>
 
-      {/* ── Assigned Examinations ─────────────────────────────────── */}
+      {/* ── Assigned Examinations ── */}
       <div
         style={{
           background: cardBg,
           border: `1px solid ${cardBorder}`,
-          borderRadius: "16px",
-          padding: "1.35rem",
-          marginBottom: "1.4rem",
+          borderRadius: "14px",
+          padding: "0.85rem 0.95rem",
+          marginBottom: "0.85rem",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1rem", gap: "0.5rem", flexWrap: "wrap" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.65rem", gap: "0.4rem", flexWrap: "wrap" }}>
           <div style={{ minWidth: 0 }}>
-            <h3 style={{ fontSize: "1rem", fontWeight: 700, color: textMain, margin: 0 }}>
+            <h3 style={{ fontSize: "0.95rem", fontWeight: 700, color: textMain, margin: 0 }}>
               My Assigned Examinations
             </h3>
-            <p style={{ fontSize: "0.78rem", color: textSub, margin: "0.15rem 0 0 0" }}>
+            <p style={{ fontSize: "0.72rem", color: textSub, margin: "0.1rem 0 0 0" }}>
               Select an exam below to begin system check and enter the proctored environment.
             </p>
           </div>
           <Link
             href="/student/my-exams"
-            style={{ fontSize: "0.78rem", fontWeight: 700, color: "#2563eb", textDecoration: "none", flexShrink: 0 }}
+            style={{ fontSize: "0.72rem", fontWeight: 700, color: "#2563eb", textDecoration: "none", flexShrink: 0 }}
           >
             Manage All ({exams.length}) →
           </Link>
         </div>
 
-        <div className="exam-cards-grid">
+        <div className="exam-cards-grid" style={{ gap: "0.45rem" }}>
           {exams.map((ex) => (
             <div
               key={ex.id}
               style={{
                 background: innerBg,
                 border: `1px solid ${cardBorder}`,
-                borderRadius: "12px",
-                padding: "1rem",
+                borderRadius: "10px",
+                padding: "0.65rem 0.75rem",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
-                gap: "0.75rem",
+                gap: "0.45rem",
               }}
             >
               <div>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.5rem", gap: "0.5rem", flexWrap: "wrap" }}>
-                  <span style={{ fontSize: "0.7rem", fontWeight: 700, background: "#dbeafe", color: "#1e40af", padding: "0.15rem 0.5rem", borderRadius: "10px", whiteSpace: "nowrap" }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.25rem", gap: "0.3rem", flexWrap: "wrap" }}>
+                  <span style={{ fontSize: "0.65rem", fontWeight: 700, background: "#dbeafe", color: "#1e40af", padding: "0.1rem 0.4rem", borderRadius: "8px", whiteSpace: "nowrap" }}>
                     {ex.subject}
                   </span>
-                  <span style={{ fontSize: "0.7rem", fontWeight: 700, color: "#16a34a", display: "flex", alignItems: "center", gap: "0.2rem", whiteSpace: "nowrap" }}>
-                    <ShieldCheck size={13} /> AI Proctored
+                  <span style={{ fontSize: "0.65rem", fontWeight: 700, color: "#16a34a", display: "flex", alignItems: "center", gap: "0.15rem", whiteSpace: "nowrap" }}>
+                    <ShieldCheck size={12} /> AI Proctored
                   </span>
                 </div>
 
-                <h4 style={{ fontSize: "0.88rem", fontWeight: 700, color: textMain, margin: "0 0 0.4rem 0", lineHeight: 1.35 }}>
+                <h4 style={{ fontSize: "0.82rem", fontWeight: 700, color: textMain, margin: "0 0 0.25rem 0", lineHeight: 1.25, overflow: "hidden", textOverflow: "ellipsis" }}>
                   {ex.title}
                 </h4>
 
-                <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", fontSize: "0.72rem", color: textSub, flexWrap: "wrap" }}>
-                  <span style={{ display: "flex", alignItems: "center", gap: "0.2rem" }}>
-                    <Clock size={12} /> {ex.duration_minutes} Mins
+                <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", fontSize: "0.68rem", color: textSub, flexWrap: "wrap" }}>
+                  <span style={{ display: "flex", alignItems: "center", gap: "0.15rem" }}>
+                    <Clock size={11} /> {ex.duration_minutes} Mins
                   </span>
                   <span>Marks: {ex.total_marks}</span>
                 </div>
@@ -263,20 +263,20 @@ export default function StudentDashboardPage() {
                 style={{
                   background: "#2563eb",
                   color: "#ffffff",
-                  borderRadius: "8px",
-                  padding: "0.55rem 0.85rem",
+                  borderRadius: "6px",
+                  padding: "0.4rem 0.65rem",
                   fontWeight: 700,
-                  fontSize: "0.78rem",
+                  fontSize: "0.72rem",
                   textDecoration: "none",
                   textAlign: "center",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  gap: "0.35rem",
-                  boxShadow: "0 2px 8px rgba(37,99,235,0.2)",
+                  gap: "0.25rem",
+                  boxShadow: "0 2px 6px rgba(37,99,235,0.2)",
                 }}
               >
-                <Play size={13} /> Start Exam
+                <Play size={12} /> Start Exam
               </Link>
             </div>
           ))}
