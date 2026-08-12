@@ -46,69 +46,95 @@ export default function LoginPage() {
     setSuccessMessage("");
     setLoading(true);
 
-    if (mode === "signup") {
-      try {
-        const res = await fetch(`${API_BASE}/auth/register`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email,
-            password,
-            full_name: fullName,
-            role,
-          }),
-        });
+    const apiUrls = [
+      API_BASE,
+      "https://ai-proctored-exam-platform-iv1t.onrender.com",
+      typeof window !== "undefined" ? `http://${window.location.hostname}:8000` : "http://localhost:8000",
+      "http://localhost:8000"
+    ];
 
-        if (!res.ok) {
-          const body = await res.json().catch(() => ({}));
-          setError(body.detail || "Could not create account.");
+    if (mode === "signup") {
+      for (let i = 0; i < apiUrls.length; i++) {
+        const url = apiUrls[i];
+        try {
+          if (i > 0) setError("Connecting to server (waking up cloud backend, please wait)...");
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 12000);
+          const res = await fetch(`${url}/auth/register`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password, full_name: fullName, role }),
+            signal: controller.signal,
+          });
+          clearTimeout(timeoutId);
+
+          if (!res.ok) {
+            const body = await res.json().catch(() => ({}));
+            setError(body.detail || "Could not create account.");
+            setLoading(false);
+            return;
+          }
+
+          setError("");
+          setSuccessMessage("✓ Registration submitted! Your account is pending Admin approval before you can log in.");
+          setMode("login");
+          setFullName("");
+          setPassword("");
+          setRole("student");
           setLoading(false);
           return;
+        } catch (err) {
+          if (i === apiUrls.length - 1) {
+            setError("Could not reach the server. Please check your internet connection or try again in a few seconds.");
+            setLoading(false);
+            return;
+          }
         }
-
-        setError("");
-        setSuccessMessage("✓ Registration submitted! Your account is pending Admin approval before you can log in.");
-        setMode("login");
-        setFullName("");
-        setPassword("");
-        setRole("student");
-        setLoading(false);
-        return;
-      } catch {
-        setError("Could not reach the server. Is the backend running?");
-        setLoading(false);
-        return;
       }
+      return;
     }
 
+    // Login mode
     const body = new URLSearchParams();
     body.set("username", email);
     body.set("password", password);
 
-    try {
-      const res = await fetch(`${API_BASE}/auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body,
-      });
+    for (let i = 0; i < apiUrls.length; i++) {
+      const url = apiUrls[i];
+      try {
+        if (i > 0) setError("Waking up server connection, please wait a moment...");
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 12000);
+        const res = await fetch(`${url}/auth/login`, {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body,
+          signal: controller.signal,
+        });
+        clearTimeout(timeoutId);
 
-      if (!res.ok) {
-        const resData = await res.json().catch(() => ({}));
-        setError(resData.detail || "Incorrect email or password. Please try again.");
-        setLoading(false);
+        if (!res.ok) {
+          const resData = await res.json().catch(() => ({}));
+          setError(resData.detail || "Incorrect email or password. Please try again.");
+          setLoading(false);
+          return;
+        }
+
+        const data = await res.json();
+        const userRole = getUserRole(data.access_token);
+        localStorage.setItem("access_token", data.access_token);
+        if (userRole) {
+          localStorage.setItem("user_role", userRole);
+        }
+        window.location.href = "/dashboard";
         return;
+      } catch (err) {
+        if (i === apiUrls.length - 1) {
+          setError("Could not reach the server. Please verify network or wait 5 seconds for backend to finish waking up.");
+          setLoading(false);
+          return;
+        }
       }
-
-      const data = await res.json();
-      const userRole = getUserRole(data.access_token);
-      localStorage.setItem("access_token", data.access_token);
-      if (userRole) {
-        localStorage.setItem("user_role", userRole);
-      }
-      window.location.href = "/dashboard";
-    } catch {
-      setError("Could not reach the server. Is the backend running?");
-      setLoading(false);
     }
   }
 
