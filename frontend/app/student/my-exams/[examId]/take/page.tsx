@@ -930,29 +930,29 @@ export default function StudentTakeExamPage() {
           <div>OFFICIAL EVALUATION SESSION • STRICTLY MONITORED</div>
         </div>
         {/* Top Sticky Exam Header */}
-        <header style={{ height: "64px", background: cardBg, borderBottom: `1px solid ${cardBorder}`, padding: "0 1.8rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <div style={{ fontWeight: 800, fontSize: "1.2rem", color: textMain }}>
+        <header style={{ minHeight: "64px", height: "auto", background: cardBg, borderBottom: `1px solid ${cardBorder}`, padding: "0.6rem 1rem", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "0.6rem" }}>
+          <div style={{ fontWeight: 800, fontSize: "1.1rem", color: textMain }}>
             {examTitle}
           </div>
 
-          <div style={{ display: "flex", alignItems: "center", gap: "1.4rem" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", flexWrap: "wrap" }}>
             <LanguageSelector />
-            <div style={{ display: "flex", alignItems: "center", gap: "0.45rem", background: "#dcfce7", color: "#15803d", padding: "0.4rem 0.85rem", borderRadius: "20px", fontSize: "0.78rem", fontWeight: 700 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.45rem", background: "#dcfce7", color: "#15803d", padding: "0.35rem 0.75rem", borderRadius: "20px", fontSize: "0.75rem", fontWeight: 700 }}>
               <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#16a34a" }} />
               Proctoring Active
             </div>
 
             {isOnline ? (
               <div style={{ display: "flex", alignItems: "center", gap: "0.35rem", fontSize: "0.74rem", fontWeight: 600, color: "#16a34a", background: "#f0fdf4", border: "1px solid #bbf7d0", padding: "0.35rem 0.75rem", borderRadius: "20px" }}>
-                <Wifi size={13} /> {lastSyncedTime ? `Saved & Synced (${lastSyncedTime})` : "Auto-Sync Active"}
+                <Wifi size={13} /> {lastSyncedTime ? `Synced (${lastSyncedTime})` : "Auto-Sync Active"}
               </div>
             ) : (
               <div style={{ display: "flex", alignItems: "center", gap: "0.35rem", fontSize: "0.74rem", fontWeight: 700, color: "#b45309", background: "#fef3c7", border: "1px solid #fde68a", padding: "0.35rem 0.75rem", borderRadius: "20px" }}>
-                <WifiOff size={13} /> Offline Mode (Timer & Answers Saved Locally)
+                <WifiOff size={13} /> Offline Mode
               </div>
             )}
 
-            <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", fontWeight: 700, fontSize: "1rem", color: textMain }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", fontWeight: 700, fontSize: "0.95rem", color: textMain }}>
               <Clock size={18} style={{ color: "#2563eb" }} />
               <span>{formatTime(secondsLeft)}</span>
             </div>
@@ -964,7 +964,7 @@ export default function StudentTakeExamPage() {
                 color: "#ffffff",
                 border: "none",
                 borderRadius: "10px",
-                padding: "0.5rem 1.2rem",
+                padding: "0.5rem 1.1rem",
                 fontWeight: 700,
                 fontSize: "0.85rem",
                 cursor: "pointer",
@@ -976,7 +976,7 @@ export default function StudentTakeExamPage() {
         </header>
 
         {/* Main Content Area: Left Sidebar (Webcam Top Left + Compact Palette), Right Main Question Card */}
-        <div style={{ display: "grid", gridTemplateColumns: "300px 1fr", gap: "1.4rem", padding: "1.4rem 1.8rem", maxWidth: "1400px", margin: "0 auto" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.2rem", padding: "1rem", maxWidth: "1400px", margin: "0 auto" }}>
           {/* Left Column: Single Webcam Stream at Top Left + Questions Palette */}
           <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
             {/* Top Left Embedded Webcam Stream */}

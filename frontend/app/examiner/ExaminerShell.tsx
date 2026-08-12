@@ -17,7 +17,9 @@ import {
   Bell,
   LogOut,
   Sun,
-  Moon
+  Moon,
+  Menu,
+  X
 } from "lucide-react";
 import LanguageSelector from "../components/LanguageSelector";
 
@@ -45,6 +47,11 @@ export default function ExaminerShell({ children, title }: ExaminerShellProps) {
   const [notifOpen, setNotifOpen] = useState(false);
   const [theme, setTheme] = useState<"light" | "dark">("light");
   const [notifications, setNotifications] = useState<any[]>([]);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
 
   const fetchNotifications = () => {
     const token = localStorage.getItem("access_token") || "";
@@ -120,7 +127,6 @@ export default function ExaminerShell({ children, title }: ExaminerShellProps) {
 
   const isDark = theme === "dark";
 
-  // Exact Admin Dashboard theme mapping: Dark Sidebar ALWAYS (#0f172a), light/dark main body
   const themeStyles = {
     pageBg: isDark ? "#060913" : "#f8fafc",
     sidebarBg: "#0f172a",
@@ -137,21 +143,47 @@ export default function ExaminerShell({ children, title }: ExaminerShellProps) {
 
   return (
     <div style={{ minHeight: "100vh", display: "flex", background: themeStyles.pageBg, fontFamily: "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" }}>
-      {/* Dark Sidebar (Identical font style and compact size as Admin/Student Shell) */}
-      <aside style={{ width: "230px", flexShrink: 0, background: themeStyles.sidebarBg, padding: "1.1rem 0.85rem", display: "flex", flexDirection: "column" }}>
+      {/* Mobile Dark Backdrop Overlay */}
+      <div
+        className={`sidebar-backdrop ${mobileMenuOpen ? "open" : ""}`}
+        onClick={() => setMobileMenuOpen(false)}
+      />
+
+      {/* Dark Sidebar Drawer */}
+      <aside
+        className={`app-sidebar ${mobileMenuOpen ? "open" : ""}`}
+        style={{
+          width: "230px",
+          flexShrink: 0,
+          background: themeStyles.sidebarBg,
+          padding: "1.1rem 0.85rem",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
         {/* Brand Header */}
-        <div style={{ display: "flex", alignItems: "center", gap: "0.65rem", paddingBottom: "1rem", borderBottom: "1px solid #1e293b", marginBottom: "1rem" }}>
-          <div style={{ width: "36px", height: "36px", borderRadius: "8px", background: "#2563eb", color: "#ffffff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: "1rem" }}>
-            E
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingBottom: "1rem", borderBottom: "1px solid #1e293b", marginBottom: "1rem" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.65rem" }}>
+            <div style={{ width: "36px", height: "36px", borderRadius: "8px", background: "#2563eb", color: "#ffffff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: "1rem" }}>
+              E
+            </div>
+            <div>
+              <div style={{ color: "#ffffff", fontWeight: 700, fontSize: "0.92rem" }}>{examinerName}</div>
+              <div style={{ color: "#94a3b8", fontSize: "0.72rem" }}>examiner</div>
+            </div>
           </div>
-          <div>
-            <div style={{ color: "#ffffff", fontWeight: 700, fontSize: "0.92rem" }}>{examinerName}</div>
-            <div style={{ color: "#94a3b8", fontSize: "0.72rem" }}>examiner</div>
-          </div>
+
+          <button
+            onClick={() => setMobileMenuOpen(false)}
+            className="mobile-menu-btn"
+            style={{ color: "#94a3b8", background: "transparent", border: "none" }}
+          >
+            <X size={20} />
+          </button>
         </div>
 
         {/* Navigation Items */}
-        <nav style={{ display: "flex", flexDirection: "column", gap: "0.25rem", flex: 1 }}>
+        <nav style={{ display: "flex", flexDirection: "column", gap: "0.25rem", flex: 1, overflowY: "auto" }}>
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = pathname === item.href || (item.href !== "/examiner/dashboard" && pathname.startsWith(item.href));
@@ -159,6 +191,7 @@ export default function ExaminerShell({ children, title }: ExaminerShellProps) {
               <Link
                 key={item.href}
                 href={item.href}
+                onClick={() => setMobileMenuOpen(false)}
                 style={{
                   display: "flex",
                   alignItems: "center",
@@ -209,21 +242,32 @@ export default function ExaminerShell({ children, title }: ExaminerShellProps) {
       {/* Main Container */}
       <div style={{ flex: 1, display: "flex", flexDirection: "column", minWidth: 0 }}>
         {/* Top Header Bar */}
-        <header style={{ height: "56px", background: themeStyles.headerBg, borderBottom: `1px solid ${themeStyles.cardBorder}`, padding: "0 1.5rem", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, zIndex: 40 }}>
-          <h1 style={{ fontSize: "1.15rem", fontWeight: 700, color: themeStyles.textPrimary, margin: 0 }}>
-            {title}
-          </h1>
+        <header style={{ height: "60px", background: themeStyles.headerBg, borderBottom: `1px solid ${themeStyles.cardBorder}`, padding: "0 1rem", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, zIndex: 40 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.65rem" }}>
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="mobile-menu-btn"
+              title="Open Navigation Menu"
+              style={{ color: themeStyles.textPrimary, border: `1px solid ${themeStyles.cardBorder}`, background: themeStyles.cardBg }}
+            >
+              <Menu size={20} />
+            </button>
 
-          {/* Top Right Controls: Language Selector, Theme Switcher, Notifications, Logout & User Profile */}
-          <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+            <h1 style={{ fontSize: "1.05rem", fontWeight: 700, color: themeStyles.textPrimary, margin: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+              {title}
+            </h1>
+          </div>
+
+          {/* Top Right Controls */}
+          <div className="header-controls" style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
             <LanguageSelector />
-            {/* Theme Toggle Icon Button */}
+
             <button
               onClick={toggleTheme}
               title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
               style={{
-                width: "34px",
-                height: "34px",
+                width: "36px",
+                height: "36px",
                 borderRadius: "8px",
                 background: themeStyles.cardBg,
                 border: `1px solid ${themeStyles.cardBorder}`,
@@ -239,14 +283,13 @@ export default function ExaminerShell({ children, title }: ExaminerShellProps) {
               {isDark ? <Sun size={16} style={{ color: "#eab308" }} /> : <Moon size={16} style={{ color: "#6366f1" }} />}
             </button>
 
-            {/* Notification Bell with Badge */}
             <div style={{ position: "relative" }}>
               <button
                 onClick={() => setNotifOpen(!notifOpen)}
                 title="Notifications"
                 style={{
-                  width: "34px",
-                  height: "34px",
+                  width: "36px",
+                  height: "36px",
                   borderRadius: "8px",
                   background: themeStyles.cardBg,
                   border: `1px solid ${themeStyles.cardBorder}`,
@@ -270,7 +313,7 @@ export default function ExaminerShell({ children, title }: ExaminerShellProps) {
               </button>
 
               {notifOpen && (
-                <div style={{ position: "absolute", right: 0, top: "42px", width: "310px", background: themeStyles.cardBg, border: `1px solid ${themeStyles.cardBorder}`, borderRadius: "12px", padding: "0.95rem", boxShadow: "0 15px 35px rgba(0,0,0,0.2)", zIndex: 50 }}>
+                <div style={{ position: "absolute", right: "-40px", top: "44px", width: "min(310px, 88vw)", background: themeStyles.cardBg, border: `1px solid ${themeStyles.cardBorder}`, borderRadius: "12px", padding: "0.95rem", boxShadow: "0 15px 35px rgba(0,0,0,0.2)", zIndex: 50 }}>
                   <div style={{ fontWeight: 800, fontSize: "0.85rem", marginBottom: "0.6rem", color: themeStyles.textPrimary, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                     <span>Notifications</span>
                     <span style={{ fontSize: "0.65rem", background: "#dbeafe", color: "#1e40af", padding: "0.1rem 0.4rem", borderRadius: "8px", fontWeight: 700 }}>
@@ -312,7 +355,6 @@ export default function ExaminerShell({ children, title }: ExaminerShellProps) {
               )}
             </div>
 
-            {/* Sign Out / Logout Button */}
             <button
               onClick={handleLogout}
               title="Sign Out"
@@ -320,7 +362,7 @@ export default function ExaminerShell({ children, title }: ExaminerShellProps) {
                 display: "flex",
                 alignItems: "center",
                 gap: "0.35rem",
-                padding: "0.4rem 0.75rem",
+                padding: "0.45rem 0.75rem",
                 borderRadius: "8px",
                 background: "transparent",
                 border: `1px solid ${themeStyles.cardBorder}`,
@@ -331,13 +373,13 @@ export default function ExaminerShell({ children, title }: ExaminerShellProps) {
               }}
             >
               <LogOut size={14} />
-              <span>Sign Out</span>
+              <span className="header-hide-mobile">Sign Out</span>
             </button>
           </div>
         </header>
 
         {/* Content Area */}
-        <main style={{ flex: 1, padding: "1.5rem" }}>
+        <main className="main-content-area" style={{ flex: 1, padding: "1.5rem" }}>
           {children}
         </main>
       </div>

@@ -242,14 +242,14 @@ const styles: { [key: string]: React.CSSProperties } = {
     background: "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)",
     fontFamily:
       "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-    padding: "1.5rem",
+    padding: "1rem 0.75rem",
   },
   card: {
-    width: "100%",
-    maxWidth: "380px",
+    width: "94%",
+    maxWidth: "400px",
     background: "#ffffff",
     borderRadius: "16px",
-    padding: "2.5rem 2rem",
+    padding: "2rem 1.5rem",
     boxShadow: "0 20px 50px rgba(0,0,0,0.35)",
   },
   badge: {

@@ -16,9 +16,10 @@ import {
   Moon,
   Database,
   Lock,
-  User
+  User,
+  Menu,
+  X
 } from "lucide-react";
-
 
 import LanguageSelector from "../components/LanguageSelector";
 
@@ -49,12 +50,17 @@ export default function AdminShell({ children, title }: AdminShellProps) {
   const [pendingUsers, setPendingUsers] = useState<any[]>([]);
   const [notifications, setNotifications] = useState<any[]>([]);
   const [broadcastModalOpen, setBroadcastModalOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Broadcast modal form state
   const [broadcastTitle, setBroadcastTitle] = useState("");
   const [broadcastMessage, setBroadcastMessage] = useState("");
   const [broadcastTargetRole, setBroadcastTargetRole] = useState("all");
   const [broadcastSending, setBroadcastSending] = useState(false);
+
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
 
   const fetchNotifications = () => {
     const token = localStorage.getItem("access_token") || "";
@@ -170,7 +176,6 @@ export default function AdminShell({ children, title }: AdminShellProps) {
     { label: "Settings", href: "/admin/settings", icon: Settings },
   ];
 
-
   const isDark = theme === "dark";
 
   const themeStyles = {
@@ -189,19 +194,45 @@ export default function AdminShell({ children, title }: AdminShellProps) {
 
   return (
     <div style={{ minHeight: "100vh", display: "flex", background: themeStyles.pageBg, fontFamily: "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" }}>
-      {/* Dark Sidebar */}
-      <aside style={{ width: "230px", flexShrink: 0, background: themeStyles.sidebarBg, padding: "1.1rem 0.85rem", display: "flex", flexDirection: "column" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "0.65rem", paddingBottom: "1rem", borderBottom: "1px solid #1e293b", marginBottom: "1rem" }}>
-          <div style={{ width: "36px", height: "36px", borderRadius: "8px", background: "#2563eb", color: "#ffffff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: "1rem" }}>
-            A
+      {/* Mobile Dark Backdrop Overlay */}
+      <div
+        className={`sidebar-backdrop ${mobileMenuOpen ? "open" : ""}`}
+        onClick={() => setMobileMenuOpen(false)}
+      />
+
+      {/* Dark Sidebar Drawer */}
+      <aside
+        className={`app-sidebar ${mobileMenuOpen ? "open" : ""}`}
+        style={{
+          width: "230px",
+          flexShrink: 0,
+          background: themeStyles.sidebarBg,
+          padding: "1.1rem 0.85rem",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingBottom: "1rem", borderBottom: "1px solid #1e293b", marginBottom: "1rem" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.65rem" }}>
+            <div style={{ width: "36px", height: "36px", borderRadius: "8px", background: "#2563eb", color: "#ffffff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: "1rem" }}>
+              A
+            </div>
+            <div>
+              <div style={{ color: "#ffffff", fontWeight: 700, fontSize: "0.92rem" }}>{adminName}</div>
+              <div style={{ color: "#94a3b8", fontSize: "0.72rem" }}>admin</div>
+            </div>
           </div>
-          <div>
-            <div style={{ color: "#ffffff", fontWeight: 700, fontSize: "0.92rem" }}>{adminName}</div>
-            <div style={{ color: "#94a3b8", fontSize: "0.72rem" }}>admin</div>
-          </div>
+
+          <button
+            onClick={() => setMobileMenuOpen(false)}
+            className="mobile-menu-btn"
+            style={{ color: "#94a3b8", background: "transparent", border: "none" }}
+          >
+            <X size={20} />
+          </button>
         </div>
 
-        <nav style={{ display: "flex", flexDirection: "column", gap: "0.25rem", flex: 1 }}>
+        <nav style={{ display: "flex", flexDirection: "column", gap: "0.25rem", flex: 1, overflowY: "auto" }}>
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = pathname === item.href || (item.href !== "/admin/dashboard" && pathname.startsWith(item.href));
@@ -209,6 +240,7 @@ export default function AdminShell({ children, title }: AdminShellProps) {
               <Link
                 key={item.href}
                 href={item.href}
+                onClick={() => setMobileMenuOpen(false)}
                 style={{
                   display: "flex",
                   alignItems: "center",
@@ -257,21 +289,32 @@ export default function AdminShell({ children, title }: AdminShellProps) {
 
       {/* Main Container */}
       <div style={{ flex: 1, display: "flex", flexDirection: "column", minWidth: 0 }}>
-        <header style={{ height: "56px", background: themeStyles.headerBg, borderBottom: `1px solid ${themeStyles.cardBorder}`, padding: "0 1.5rem", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, zIndex: 40 }}>
-          <h1 style={{ fontSize: "1.15rem", fontWeight: 700, color: themeStyles.textPrimary, margin: 0 }}>
-            {title}
-          </h1>
+        <header style={{ height: "60px", background: themeStyles.headerBg, borderBottom: `1px solid ${themeStyles.cardBorder}`, padding: "0 1rem", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, zIndex: 40 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.65rem" }}>
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="mobile-menu-btn"
+              title="Open Navigation Menu"
+              style={{ color: themeStyles.textPrimary, border: `1px solid ${themeStyles.cardBorder}`, background: themeStyles.cardBg }}
+            >
+              <Menu size={20} />
+            </button>
+
+            <h1 style={{ fontSize: "1.05rem", fontWeight: 700, color: themeStyles.textPrimary, margin: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+              {title}
+            </h1>
+          </div>
 
           {/* Top Right Controls */}
-          <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+          <div className="header-controls" style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
             <LanguageSelector />
-            {/* Theme Toggle Icon Button */}
+
             <button
               onClick={toggleTheme}
               title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
               style={{
-                width: "34px",
-                height: "34px",
+                width: "36px",
+                height: "36px",
                 borderRadius: "8px",
                 background: themeStyles.cardBg,
                 border: `1px solid ${themeStyles.cardBorder}`,
@@ -292,8 +335,8 @@ export default function AdminShell({ children, title }: AdminShellProps) {
                 onClick={() => setNotifOpen(!notifOpen)}
                 title="Notifications"
                 style={{
-                  width: "34px",
-                  height: "34px",
+                  width: "36px",
+                  height: "36px",
                   borderRadius: "8px",
                   background: themeStyles.cardBg,
                   border: `1px solid ${themeStyles.cardBorder}`,
@@ -317,7 +360,7 @@ export default function AdminShell({ children, title }: AdminShellProps) {
               </button>
 
               {notifOpen && (
-                <div style={{ position: "absolute", right: 0, top: "42px", width: "320px", background: themeStyles.cardBg, border: `1px solid ${themeStyles.cardBorder}`, borderRadius: "12px", padding: "0.95rem", boxShadow: "0 15px 35px rgba(0,0,0,0.2)", zIndex: 50 }}>
+                <div style={{ position: "absolute", right: "-40px", top: "44px", width: "min(320px, 88vw)", background: themeStyles.cardBg, border: `1px solid ${themeStyles.cardBorder}`, borderRadius: "12px", padding: "0.95rem", boxShadow: "0 15px 35px rgba(0,0,0,0.2)", zIndex: 50 }}>
                   <div style={{ fontWeight: 800, fontSize: "0.85rem", marginBottom: "0.6rem", color: themeStyles.textPrimary, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                     <span>Notifications ({notifications.length})</span>
                     <button
@@ -336,7 +379,7 @@ export default function AdminShell({ children, title }: AdminShellProps) {
                         cursor: "pointer",
                       }}
                     >
-                      + Broadcast Announcement
+                      + Broadcast
                     </button>
                   </div>
 
@@ -400,7 +443,7 @@ export default function AdminShell({ children, title }: AdminShellProps) {
                 background: themeStyles.cardBg,
                 border: `1px solid ${themeStyles.cardBorder}`,
                 color: "#ef4444",
-                padding: "0.4rem 0.75rem",
+                padding: "0.45rem 0.75rem",
                 borderRadius: "8px",
                 fontWeight: 600,
                 fontSize: "0.78rem",
@@ -409,10 +452,10 @@ export default function AdminShell({ children, title }: AdminShellProps) {
               }}
             >
               <LogOut size={14} />
-              <span>Sign Out</span>
+              <span className="header-hide-mobile">Sign Out</span>
             </button>
 
-            <div style={{ position: "relative" }}>
+            <div style={{ position: "relative" }} className="header-hide-mobile">
               <button
                 onClick={() => setUserDropdown(!userDropdown)}
                 style={{
@@ -453,7 +496,7 @@ export default function AdminShell({ children, title }: AdminShellProps) {
           </div>
         </header>
 
-        <main style={{ flex: 1, padding: "1.5rem" }}>
+        <main className="main-content-area" style={{ flex: 1, padding: "1.5rem" }}>
           {children}
         </main>
 
