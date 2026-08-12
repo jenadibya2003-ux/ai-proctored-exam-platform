@@ -217,15 +217,35 @@ button, input, select, textarea {
     max-width: 48px !important;
   }
 
-  /* Fixed & responsive feature cards: 2 uniform side-by-side columns on mobile */
+  /* Stat cards: 2 clean side-by-side columns on mobile so metrics look great */
+  .stats-grid, .stats-grid-4 {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  /* Content cards, forms, wide sidebars, and feature panels: 1 full-width clean column on phones */
   .grid-2, .grid-3, .grid-4, .grid-5,
   .grid-wide-sidebar, .grid-sidebar-wide,
   .responsive-grid-cards,
   .exam-cards-grid, .two-col-grid, .wide-sidebar-grid,
   .form-row, .form-row-3 {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 0.45rem !important;
+    grid-template-columns: 1fr !important;
+    gap: 0.65rem !important;
     width: 100% !important;
+  }
+
+  /* Mobile Data Tables: enable smooth touch horizontal scrolling so no text is hidden */
+  .table-responsive, .table-container, table {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  /* Universal wrapping for toolbars & action buttons */
+  .toolbar, .action-bar, .filter-row, .flex-toolbar, .dashboard-toolbar {
+    flex-wrap: wrap !important;
+    gap: 0.45rem !important;
   }
 
   /* Exam interface */
@@ -235,10 +255,13 @@ button, input, select, textarea {
 }
 
 @media (min-width: 500px) and (max-width: 900px) {
-  /* On slightly wider phones/tablets, use 3 uniform columns */
-  .stats-grid, .stats-grid-4, .grid-3, .grid-4, .grid-5, .exam-cards-grid {
+  /* On wider phones & small tablets (500px–900px), use 2 uniform columns for cards & forms */
+  .grid-2, .grid-3, .grid-4, .grid-5, .exam-cards-grid, .two-col-grid, .form-row, .form-row-3 {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.55rem !important;
+  }
+  .stats-grid, .stats-grid-4 {
     grid-template-columns: repeat(3, 1fr) !important;
-    gap: 0.45rem !important;
   }
 }
 
