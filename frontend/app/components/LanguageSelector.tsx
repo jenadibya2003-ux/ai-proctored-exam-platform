@@ -91,7 +91,7 @@ export default function LanguageSelector() {
       >
         {LANGUAGES.map((l) => (
           <option key={l.code} value={l.code} style={{ background: "#0f172a", color: "#ffffff" }}>
-            {l.code.toUpperCase()}
+            {l.nativeName}
           </option>
         ))}
       </select>
