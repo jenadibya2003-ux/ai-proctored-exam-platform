@@ -253,7 +253,7 @@ export default function ExaminerShell({ children, title }: ExaminerShellProps) {
               <Menu size={20} />
             </button>
 
-            <h1 style={{ fontSize: "1.05rem", fontWeight: 700, color: themeStyles.textPrimary, margin: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+            <h1 className="header-title" style={{ fontSize: "1.05rem", fontWeight: 700, color: themeStyles.textPrimary, margin: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
               {title}
             </h1>
           </div>
@@ -313,7 +313,7 @@ export default function ExaminerShell({ children, title }: ExaminerShellProps) {
               </button>
 
               {notifOpen && (
-                <div style={{ position: "absolute", right: "-40px", top: "44px", width: "min(310px, 88vw)", background: themeStyles.cardBg, border: `1px solid ${themeStyles.cardBorder}`, borderRadius: "12px", padding: "0.95rem", boxShadow: "0 15px 35px rgba(0,0,0,0.2)", zIndex: 50 }}>
+                <div className="notif-panel" style={{ background: themeStyles.cardBg, border: `1px solid ${themeStyles.cardBorder}`, padding: "0.95rem" }}>
                   <div style={{ fontWeight: 800, fontSize: "0.85rem", marginBottom: "0.6rem", color: themeStyles.textPrimary, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                     <span>Notifications</span>
                     <span style={{ fontSize: "0.65rem", background: "#dbeafe", color: "#1e40af", padding: "0.1rem 0.4rem", borderRadius: "8px", fontWeight: 700 }}>

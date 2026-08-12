@@ -157,7 +157,7 @@ export default function CreateExamPage() {
             1. Basic Details
           </h3>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginBottom: "1rem" }}>
+          <div className="form-row" style={{ marginBottom: "1rem" }}>
             <div>
               <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 600, color: textMain, marginBottom: "0.35rem" }}>Exam Title</label>
               <input type="text" required placeholder="Example: Semester 1 Final Examination" value={title} onChange={(e) => setTitle(e.target.value)} style={{ width: "100%", background: innerBg, border: `1px solid ${cardBorder}`, color: textMain, borderRadius: "8px", padding: "0.6rem 0.85rem", fontSize: "0.82rem", outline: "none", boxSizing: "border-box" }} />
@@ -199,7 +199,7 @@ export default function CreateExamPage() {
             2. Schedule & Duration
           </h3>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "1rem" }}>
+          <div className="form-row-3">
             <div>
               <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 600, color: textMain, marginBottom: "0.35rem" }}>Start Time</label>
               <input type="datetime-local" value={startTime} onChange={(e) => setStartTime(e.target.value)} style={{ width: "100%", background: innerBg, border: `1px solid ${cardBorder}`, color: textMain, borderRadius: "8px", padding: "0.6rem 0.85rem", fontSize: "0.82rem", outline: "none", boxSizing: "border-box" }} />
@@ -223,7 +223,7 @@ export default function CreateExamPage() {
             3. Security & AI Proctoring
           </h3>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.85rem" }}>
+          <div className="form-row">
             <label style={{ display: "flex", alignItems: "center", justifyContent: "space-between", background: innerBg, border: `1px solid ${cardBorder}`, padding: "0.65rem 0.85rem", borderRadius: "8px" }}>
               <span style={{ fontSize: "0.82rem", fontWeight: 600, color: textMain }}>Enable AI Proctoring</span>
               <input type="checkbox" checked={enableProctoring} onChange={(e) => setEnableProctoring(e.target.checked)} />

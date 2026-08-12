@@ -215,7 +215,7 @@ export default function ResultsManagementPage() {
       </div>
 
       {/* 4 Stat Overview Cards */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "0.85rem", marginBottom: "1.3rem" }}>
+      <div className="stats-grid-4" style={{ marginBottom: "1.3rem" }}>
         <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "12px", padding: "1rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div>
             <div style={{ fontSize: "0.75rem", color: textSub, fontWeight: 500 }}>Total Results</div>

@@ -166,7 +166,7 @@ export default function AdminReportsView() {
       )}
 
       {/* 4 Analytics KPI Cards */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1.2rem", marginBottom: "1.8rem" }}>
+      <div className="stats-grid-4" style={{ marginBottom: "1.8rem" }}>
         <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "16px", padding: "1.4rem" }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <span style={{ fontSize: "0.82rem", fontWeight: 600, color: textSub }}>Exams Completed</span>
@@ -213,7 +213,7 @@ export default function AdminReportsView() {
         <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: textMain, margin: "0 0 1rem 0" }}>
           Platform Infrastructure & Real-Time System Health
         </h3>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1rem" }}>
+        <div className="grid-4">
           <div style={{ background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "10px", padding: "0.85rem" }}>
             <div style={{ fontSize: "0.72rem", fontWeight: 700, color: textSub }}>POSTGRESQL DATABASE</div>
             <div style={{ fontSize: "1rem", fontWeight: 800, color: "#16a34a", marginTop: "0.2rem" }}>Connected (12ms)</div>
@@ -234,7 +234,7 @@ export default function AdminReportsView() {
       </div>
 
       {/* Two Column Section */}
-      <div style={{ display: "grid", gridTemplateColumns: "1.6fr 1fr", gap: "1.6rem", marginBottom: "1.8rem" }}>
+      <div className="grid-wide-sidebar" style={{ marginBottom: "1.8rem" }}>
         {/* Exam Performance Breakdown */}
         <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "18px", padding: "1.6rem" }}>
           <h3 style={{ fontSize: "1.2rem", fontWeight: 700, color: textMain, margin: "0 0 1.2rem 0" }}>

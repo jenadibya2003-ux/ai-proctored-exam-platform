@@ -136,7 +136,7 @@ export default function ExamManagementPage() {
       </div>
 
       {/* 4 Stat Overview Cards */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "0.85rem", marginBottom: "1.3rem" }}>
+      <div className="stats-grid-4" style={{ marginBottom: "1.3rem" }}>
         <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "12px", padding: "1rem" }}>
           <div style={{ fontSize: "0.75rem", color: textSub, fontWeight: 500 }}>Total Exams</div>
           <div style={{ fontSize: "1.4rem", fontWeight: 800, color: textMain, marginTop: "0.25rem" }}>{exams.length}</div>
@@ -196,7 +196,7 @@ export default function ExamManagementPage() {
       </div>
 
       {/* Exam Cards Grid */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "1rem" }}>
+      <div className="grid-2">
         {filteredExams.map((exam) => (
           <div key={exam.id} style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "14px", padding: "1.2rem" }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.65rem" }}>
@@ -223,7 +223,7 @@ export default function ExamManagementPage() {
             </div>
 
             {/* Stats Grid */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.6rem", marginBottom: "0.95rem" }}>
+            <div className="grid-2" style={{ marginBottom: "0.95rem" }}>
               <div style={{ background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "8px", padding: "0.5rem 0.7rem" }}>
                 <div style={{ fontSize: "0.68rem", color: textSub, display: "flex", alignItems: "center", gap: "0.25rem" }}>
                   <Clock size={11} /> Duration: {exam.duration_minutes} min

@@ -270,7 +270,7 @@ export default function AIEvaluationPage() {
       </div>
 
       {/* 4 Stat Cards */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "0.85rem", marginBottom: "1.3rem" }}>
+      <div className="stats-grid-4" style={{ marginBottom: "1.3rem" }}>
         <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "12px", padding: "1rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div>
             <div style={{ fontSize: "0.75rem", color: textSub, fontWeight: 500 }}>Submissions</div>
@@ -305,7 +305,7 @@ export default function AIEvaluationPage() {
       </div>
 
       {/* Submissions Grid */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1rem" }}>
+      <div className="grid-3">
         {filteredEvals.map((item) => (
           <div key={item.id} style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "14px", padding: "1.2rem" }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.65rem" }}>

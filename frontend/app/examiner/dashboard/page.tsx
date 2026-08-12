@@ -100,19 +100,17 @@ export default function ExaminerDashboardPage() {
     <ExaminerShell title="Dashboard">
       {/* Welcome Banner - Compact font sizes */}
       <div
+        className="welcome-banner"
         style={{
           background: isDark ? "linear-gradient(135deg, #0d1424 0%, #1e1b4b 100%)" : "linear-gradient(135deg, #eff6ff 0%, #e0e7ff 100%)",
           border: `1px solid ${cardBorder}`,
           borderRadius: "16px",
           padding: "1.3rem 1.6rem",
           marginBottom: "1.4rem",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
         }}
       >
-        <div>
-          <h2 style={{ fontSize: "1.35rem", fontWeight: 800, color: textMain, margin: "0 0 0.25rem 0" }}>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <h2 style={{ fontSize: "1.25rem", fontWeight: 800, color: textMain, margin: "0 0 0.25rem 0", lineHeight: 1.3 }}>
             Welcome, {examinerName} 👋
           </h2>
           <p style={{ fontSize: "0.82rem", color: textSub, margin: 0 }}>
@@ -122,6 +120,7 @@ export default function ExaminerDashboardPage() {
 
         <Link
           href="/examiner/create"
+          className="welcome-banner-btn"
           style={{
             background: "#2563eb",
             color: "#ffffff",
@@ -134,6 +133,8 @@ export default function ExaminerDashboardPage() {
             alignItems: "center",
             gap: "0.4rem",
             boxShadow: "0 3px 10px rgba(37, 99, 235, 0.25)",
+            flexShrink: 0,
+            whiteSpace: "nowrap",
           }}
         >
           <PlusCircle size={16} /> Create New Exam
@@ -141,7 +142,7 @@ export default function ExaminerDashboardPage() {
       </div>
 
       {/* 4 Stat Overview Cards - Compact font sizes & numbers */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1rem", marginBottom: "1.4rem" }}>
+      <div className="stats-grid-4">
         <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "14px", padding: "1.1rem 1.25rem" }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <span style={{ fontSize: "0.78rem", fontWeight: 600, color: textSub }}>Total Students</span>
@@ -188,7 +189,7 @@ export default function ExaminerDashboardPage() {
         Quick Management Actions
       </h3>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1rem", marginBottom: "1.4rem" }}>
+      <div className="stats-grid" style={{ marginBottom: "1.4rem" }}>
         <Link
           href="/examiner/questions"
           style={{
@@ -261,7 +262,7 @@ export default function ExaminerDashboardPage() {
         <h4 style={{ fontSize: "0.95rem", fontWeight: 700, color: textMain, margin: "0 0 0.75rem 0" }}>
           Platform Health & Database Status
         </h4>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0.85rem" }}>
+        <div className="stats-grid">
           <div style={{ background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "8px", padding: "0.65rem 0.85rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
             <CheckCircle2 size={16} style={{ color: "#16a34a" }} />
             <div>

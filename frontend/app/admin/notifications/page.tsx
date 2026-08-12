@@ -195,7 +195,7 @@ export default function AdminNotificationsPage() {
               {bSuccess}
             </div>
           )}
-          <form onSubmit={handleBroadcast} style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.85rem" }}>
+          <form onSubmit={handleBroadcast} className="form-row">
             <div style={{ gridColumn: "1 / -1" }}>
               <label style={{ display: "block", fontSize: "0.72rem", fontWeight: 700, color: textSub, marginBottom: "0.3rem" }}>NOTIFICATION TITLE</label>
               <input required placeholder="e.g. Midterm exam rescheduled to Dec 10" value={bTitle} onChange={(e) => setBTitle(e.target.value)}

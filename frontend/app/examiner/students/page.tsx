@@ -150,7 +150,7 @@ export default function StudentsManagementPage() {
       </div>
 
       {/* 5 Stat Overview Cards */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: "0.85rem", marginBottom: "1.3rem" }}>
+      <div className="grid-5" style={{ marginBottom: "1.3rem" }}>
         <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "12px", padding: "1rem" }}>
           <div style={{ display: "flex", justifyContent: "space-between", color: textSub, fontSize: "0.75rem", fontWeight: 500 }}>
             <span>Students</span>
@@ -193,7 +193,7 @@ export default function StudentsManagementPage() {
       </div>
 
       {/* Student Cards Grid */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1rem" }}>
+      <div className="grid-3">
         {filteredStudents.map((student) => (
           <div key={student.id} style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "14px", padding: "1.2rem", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
             <div>
@@ -216,7 +216,7 @@ export default function StudentsManagementPage() {
               </div>
 
               {/* 3 Stat Boxes Grid */}
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "0.5rem", marginBottom: "0.95rem" }}>
+              <div className="grid-3" style={{ marginBottom: "0.95rem" }}>
                 <div style={{ background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "8px", padding: "0.5rem 0.3rem", textAlign: "center" }}>
                   <div style={{ fontSize: "1rem", fontWeight: 800, color: textMain }}>{student.assigned}</div>
                   <div style={{ fontSize: "0.65rem", color: textSub, marginTop: "0.1rem" }}>Assigned</div>

@@ -69,7 +69,7 @@ export default function AdminSettingsView() {
         </div>
       )}
 
-      <form onSubmit={handleSaveSettings} style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.6rem" }}>
+      <form onSubmit={handleSaveSettings} className="form-row">
         {/* AI Proctoring Rules */}
         <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "18px", padding: "1.6rem" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "1.2rem" }}>

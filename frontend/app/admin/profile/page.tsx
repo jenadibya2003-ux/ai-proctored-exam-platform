@@ -138,7 +138,7 @@ export default function AdminProfileView() {
         </div>
       )}
 
-      <div style={{ display: "grid", gridTemplateColumns: "340px 1fr", gap: "1.6rem" }}>
+      <div className="grid-sidebar-wide">
         {/* Left Profile Overview Card */}
         <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "18px", padding: "2rem", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
           <div style={{ width: "72px", height: "72px", borderRadius: "50%", background: "#2563eb", color: "#ffffff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.5rem", fontWeight: 800, marginBottom: "1rem" }}>

@@ -94,7 +94,7 @@ export default function ProctoringReviewListPage() {
         </div>
       ) : null}
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0.85rem", marginBottom: "1.3rem" }}>
+      <div className="grid-3" style={{ marginBottom: "1.3rem" }}>
         <button
           onClick={() => setStatusFilter(statusFilter === "pending" ? "" : "pending")}
           style={{

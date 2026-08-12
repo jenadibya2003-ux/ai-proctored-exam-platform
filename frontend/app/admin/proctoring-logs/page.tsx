@@ -139,7 +139,7 @@ export default function AdminProctoringLogsPage() {
       </div>
 
       {/* KPI Stats Grid */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1.2rem", marginBottom: "1.6rem" }}>
+      <div className="stats-grid-4" style={{ marginBottom: "1.6rem" }}>
         <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "14px", padding: "1.2rem" }}>
           <div style={{ fontSize: "0.75rem", fontWeight: 700, color: textSub }}>TOTAL AUDITED SESSIONS</div>
           <div style={{ fontSize: "1.8rem", fontWeight: 800, color: textMain, marginTop: "0.2rem" }}>{logs.length}</div>

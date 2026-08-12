@@ -214,7 +214,7 @@ export default function StudentResultsPage() {
         </div>
 
         {/* 4 Stat Overview Cards */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "0.85rem", marginBottom: "1.4rem" }}>
+        <div className="stats-grid-4" style={{ marginBottom: "1.4rem" }}>
           <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "12px", padding: "0.9rem 1.1rem" }}>
             <div style={{ fontSize: "0.72rem", fontWeight: 700, color: textSub, marginBottom: "0.2rem" }}>TOTAL TAKEN</div>
             <div style={{ fontSize: "1.4rem", fontWeight: 800, color: textMain }}>{totalExams}</div>
@@ -264,7 +264,7 @@ export default function StudentResultsPage() {
             </div>
 
             {/* Score Metrics Grid */}
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "0.85rem", marginBottom: "1rem" }}>
+            <div className="grid-4" style={{ marginBottom: "1rem" }}>
               <div style={{ background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "10px", padding: "0.65rem 0.85rem" }}>
                 <div style={{ fontSize: "0.65rem", fontWeight: 700, color: textSub }}>MARKS OBTAINED</div>
                 <div style={{ fontSize: "1.15rem", fontWeight: 800, color: textMain, marginTop: "0.15rem" }}>
@@ -295,7 +295,7 @@ export default function StudentResultsPage() {
             </div>
 
             {/* Stat Pills */}
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "0.65rem", marginBottom: "1rem" }}>
+            <div className="grid-4" style={{ marginBottom: "1rem" }}>
               <div style={{ background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "8px", padding: "0.45rem", textAlign: "center" }}>
                 <div style={{ fontSize: "0.95rem", fontWeight: 800, color: "#16a34a" }}>{item.correct}</div>
                 <div style={{ fontSize: "0.68rem", color: textSub }}>Correct</div>

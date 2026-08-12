@@ -211,7 +211,7 @@ export default function AssignExamsPage() {
       )}
 
       {/* 4 Stat Overview Cards */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "0.85rem", marginBottom: "1.3rem" }}>
+      <div className="stats-grid-4" style={{ marginBottom: "1.3rem" }}>
         <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "12px", padding: "1rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div>
             <div style={{ fontSize: "0.75rem", color: textSub, fontWeight: 500 }}>My Exams</div>
@@ -246,7 +246,7 @@ export default function AssignExamsPage() {
       </div>
 
       {/* Main 2-Column Grid */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1.3fr", gap: "1.2rem" }}>
+      <div className="grid-2">
         {/* Left Panel */}
         <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "14px", padding: "1.3rem" }}>
           <h3 style={{ fontSize: "1.05rem", fontWeight: 700, color: textMain, margin: "0 0 0.15rem 0" }}>Select Examination</h3>

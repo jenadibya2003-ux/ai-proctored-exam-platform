@@ -137,7 +137,7 @@ export default function StudentMyExamsPage() {
       </div>
 
       {/* 5 Stat Cards */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: "0.85rem", marginBottom: "1.3rem" }}>
+      <div className="grid-5" style={{ marginBottom: "1.3rem" }}>
         <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "12px", padding: "1rem" }}>
           <div style={{ fontSize: "0.75rem", color: textSub, fontWeight: 500 }}>Total</div>
           <div style={{ fontSize: "1.4rem", fontWeight: 800, color: textMain, marginTop: "0.25rem" }}>{totalCount}</div>
@@ -188,7 +188,7 @@ export default function StudentMyExamsPage() {
         </div>
 
         {/* Exam Cards Grid */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "1rem" }}>
+        <div className="grid-2">
           {filteredExams.map((exam) => (
             <div key={exam.id} style={{ background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "14px", padding: "1.2rem" }}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.6rem" }}>

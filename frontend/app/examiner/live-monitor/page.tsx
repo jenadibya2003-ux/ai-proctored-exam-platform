@@ -233,7 +233,7 @@ export default function LiveMonitorPage() {
       </div>
 
       {/* Live Sessions Cards Grid */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1rem" }}>
+      <div className="grid-3">
         {filteredSessions.map((session) => (
           <div key={session.id} style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "14px", padding: "1.2rem" }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.65rem" }}>

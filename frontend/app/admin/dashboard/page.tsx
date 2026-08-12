@@ -138,19 +138,17 @@ export default function AdminDashboardView() {
     <AdminShell title="Admin Dashboard">
       {/* Welcome Banner */}
       <div
+        className="welcome-banner"
         style={{
           background: isDark ? "linear-gradient(135deg, #0d1424 0%, #1e1b4b 100%)" : "linear-gradient(135deg, #eff6ff 0%, #e0e7ff 100%)",
           border: `1px solid ${cardBorder}`,
           borderRadius: "18px",
           padding: "1.6rem 2rem",
           marginBottom: "1.8rem",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
         }}
       >
-        <div>
-          <h2 style={{ fontSize: "1.6rem", fontWeight: 800, color: textMain, margin: "0 0 0.3rem 0" }}>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <h2 style={{ fontSize: "1.45rem", fontWeight: 800, color: textMain, margin: "0 0 0.3rem 0", lineHeight: 1.3 }}>
             Welcome back, {adminName} 👋
           </h2>
           <p style={{ fontSize: "0.88rem", color: textSub, margin: 0 }}>
@@ -160,6 +158,7 @@ export default function AdminDashboardView() {
 
         <Link
           href="/admin/users"
+          className="welcome-banner-btn"
           style={{
             background: "#2563eb",
             color: "#ffffff",
@@ -172,6 +171,8 @@ export default function AdminDashboardView() {
             alignItems: "center",
             gap: "0.5rem",
             boxShadow: "0 4px 12px rgba(37, 99, 235, 0.25)",
+            flexShrink: 0,
+            whiteSpace: "nowrap",
           }}
         >
           <Users size={18} /> Manage User Approvals
@@ -179,7 +180,7 @@ export default function AdminDashboardView() {
       </div>
 
       {/* 4 Summary Stat Cards */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1.2rem", marginBottom: "1.8rem" }}>
+      <div className="stats-grid-4">
         <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "16px", padding: "1.4rem" }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <span style={{ fontSize: "0.82rem", fontWeight: 600, color: textSub }}>Total Users</span>
@@ -226,7 +227,7 @@ export default function AdminDashboardView() {
         Quick Management Actions
       </h3>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1.2rem", marginBottom: "1.8rem" }}>
+      <div className="stats-grid-4">
         <Link
           href="/admin/users"
           style={{
@@ -322,7 +323,7 @@ export default function AdminDashboardView() {
           <h3 style={{ fontSize: "1.2rem", fontWeight: 700, color: textMain, margin: "0 0 1rem 0" }}>
             Live Platform Overview
           </h3>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.2rem", marginBottom: "1.8rem" }}>
+          <div className="stats-grid" style={{ marginBottom: "1.8rem" }}>
             <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "14px", padding: "1.2rem" }}>
               <div style={{ fontSize: "0.78rem", fontWeight: 600, color: textSub, marginBottom: "0.3rem" }}>Active Sessions</div>
               <div style={{ fontSize: "1.8rem", fontWeight: 800, color: "#2563eb" }}>{overview.active_sessions}</div>
@@ -358,7 +359,7 @@ export default function AdminDashboardView() {
       )}
 
       {/* Two Column Grid */}
-      <div style={{ display: "grid", gridTemplateColumns: "2.1fr 1fr", gap: "1.4rem" }}>
+      <div className="wide-sidebar-grid">
         {/* Left Panel: Pending Registrations */}
         <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "16px", padding: "1.4rem" }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.3rem" }}>

@@ -137,7 +137,7 @@ export default function ExaminerProfilePage() {
         </div>
       )}
 
-      <div style={{ display: "grid", gridTemplateColumns: "300px 1fr", gap: "1.3rem" }}>
+      <div className="grid-sidebar-wide">
         {/* Left Profile Overview Card */}
         <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "16px", padding: "1.6rem", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
           <div style={{ width: "64px", height: "64px", borderRadius: "50%", background: "#2563eb", color: "#ffffff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.3rem", fontWeight: 800, marginBottom: "0.85rem" }}>

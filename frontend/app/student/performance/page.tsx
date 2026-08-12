@@ -115,7 +115,7 @@ export default function StudentPerformancePage() {
       </div>
 
       {/* 5 Stat Overview Cards */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: "0.85rem", marginBottom: "1.4rem" }}>
+      <div className="grid-5" style={{ marginBottom: "1.4rem" }}>
         <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "12px", padding: "1rem" }}>
           <div style={{ display: "flex", justifyContent: "space-between", color: textSub, fontSize: "0.75rem", fontWeight: 500 }}>
             <span>Total Exams</span>
@@ -158,7 +158,7 @@ export default function StudentPerformancePage() {
       </div>
 
       {/* 2 Main Cards Grid */}
-      <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: "1.3rem" }}>
+      <div className="grid-wide-sidebar">
         {/* Recent Performance List */}
         <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "16px", padding: "1.35rem" }}>
           <h3 style={{ fontSize: "1.05rem", fontWeight: 700, color: textMain, margin: "0 0 0.15rem 0" }}>

@@ -217,7 +217,7 @@ export default function ExamBuilderPage() {
       </div>
 
       {/* Main 2-Column Grid */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1.3fr", gap: "1.2rem" }}>
+      <div className="grid-2" style={{ gap: "1.2rem" }}>
         {/* Left Panel: Add Section */}
         <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "14px", padding: "1.3rem" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "0.65rem", marginBottom: "0.85rem" }}>
@@ -234,7 +234,7 @@ export default function ExamBuilderPage() {
           </div>
 
           {/* 3 Question Sourcing Tabs */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "0.4rem", background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "8px", padding: "0.25rem", marginBottom: "1rem" }}>
+          <div className="grid-3" style={{ gap: "0.4rem", background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "8px", padding: "0.25rem", marginBottom: "1rem" }}>
             <button
               type="button"
               onClick={() => setSourceMode("library")}
@@ -371,7 +371,7 @@ export default function ExamBuilderPage() {
               </div>
             )}
 
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
+            <div className="form-row" style={{ gap: "0.75rem" }}>
               <div>
                 <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 600, color: textMain, marginBottom: "0.3rem" }}>
                   Section Order
@@ -397,7 +397,7 @@ export default function ExamBuilderPage() {
               </div>
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
+            <div className="form-row" style={{ gap: "0.75rem" }}>
               <div>
                 <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 600, color: textMain, marginBottom: "0.3rem" }}>
                   Total Marks

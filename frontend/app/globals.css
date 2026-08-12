@@ -1,6 +1,9 @@
-/* Global CSS Styles for AI-Proctored Exam Platform */
+/* ═══════════════════════════════════════════════════════════════════
+   AI-Proctored Exam Platform — Global CSS
+   Responsive-first design system
+   ═══════════════════════════════════════════════════════════════════ */
 
-/* Hide Google Translate top banner, tooltips, popups, frames, and highlight borders */
+/* ── Google Translate suppression ─────────────────────────────────── */
 .goog-te-banner-frame,
 .goog-te-banner-frame.skiptranslate,
 #goog-gt-tt,
@@ -17,7 +20,11 @@ iframe.goog-te-banner-frame {
   height: 0 !important;
   width: 0 !important;
 }
+.goog-text-highlight { background-color: transparent !important; box-shadow: none !important; }
+.goog-logo-link, .goog-te-gadget span, .goog-te-gadget-icon { display: none !important; }
+.goog-te-gadget { color: transparent !important; font-size: 0px !important; }
 
+/* ── Base reset ───────────────────────────────────────────────────── */
 html, body {
   top: 0px !important;
   position: static !important;
@@ -27,59 +34,32 @@ html, body {
   overflow-x: hidden !important;
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
+  font-size: 16px;
 }
-
-*, *:before, *:after {
-  box-sizing: border-box;
-}
-
+*, *:before, *:after { box-sizing: border-box; }
 button, input, select, textarea {
   font-family: inherit;
   touch-action: manipulation;
 }
 
-.goog-text-highlight {
-  background-color: transparent !important;
-  box-shadow: none !important;
-}
-
-/* Hide Google Translate attribution branding widgets */
-.goog-logo-link,
-.goog-te-gadget span,
-.goog-te-gadget-icon {
-  display: none !important;
-}
-
-.goog-te-gadget {
-  color: transparent !important;
-  font-size: 0px !important;
-}
-
-/* ==========================================================================
-   Responsive Mobile & Tablet Sidebar Drawer Rules
-   ========================================================================== */
-
+/* ── Sidebar / Drawer System ──────────────────────────────────────── */
 .mobile-menu-btn {
   display: none;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   border-radius: 8px;
   border: 1px solid rgba(226, 232, 240, 0.2);
   background: transparent;
   color: inherit;
   cursor: pointer;
+  flex-shrink: 0;
 }
-
-.sidebar-backdrop {
-  display: none;
-}
+.sidebar-backdrop { display: none; }
 
 @media (max-width: 1023px) {
-  .mobile-menu-btn {
-    display: flex !important;
-  }
+  .mobile-menu-btn { display: flex !important; }
 
   .sidebar-backdrop {
     display: block;
@@ -92,11 +72,7 @@ button, input, select, textarea {
     pointer-events: none;
     transition: opacity 0.25s ease;
   }
-
-  .sidebar-backdrop.open {
-    opacity: 1;
-    pointer-events: auto;
-  }
+  .sidebar-backdrop.open { opacity: 1; pointer-events: auto; }
 
   .app-sidebar {
     position: fixed !important;
@@ -108,67 +84,172 @@ button, input, select, textarea {
     transform: translateX(-100%) !important;
     transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1) !important;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4) !important;
+    overflow-y: auto !important;
   }
+  .app-sidebar.open { transform: translateX(0) !important; }
 
-  .app-sidebar.open {
-    transform: translateX(0) !important;
-  }
-
-  .main-content-area {
-    padding: 1rem 0.85rem !important;
-  }
-
-  .header-controls {
-    gap: 0.4rem !important;
-  }
-
-  .header-hide-mobile {
-    display: none !important;
-  }
+  .main-content-area { padding: 1rem 0.85rem !important; }
+  .header-controls { gap: 0.35rem !important; }
+  .header-hide-mobile { display: none !important; }
 }
 
 @media (min-width: 1024px) {
-  .mobile-menu-btn {
-    display: none !important;
-  }
-
-  .sidebar-backdrop {
-    display: none !important;
-  }
-
-  .app-sidebar {
-    position: static !important;
-    transform: none !important;
-  }
+  .mobile-menu-btn { display: none !important; }
+  .sidebar-backdrop { display: none !important; }
+  .app-sidebar { position: static !important; transform: none !important; }
 }
 
-/* ==========================================================================
-   Responsive Tables & Cards Utility
-   ========================================================================== */
-
+/* ── Responsive Tables ────────────────────────────────────────────── */
 .table-responsive {
   width: 100% !important;
   overflow-x: auto !important;
   -webkit-overflow-scrolling: touch !important;
   margin-bottom: 1rem;
+  border-radius: 8px;
+}
+.table-responsive table { min-width: 580px; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   RESPONSIVE GRID & LAYOUT UTILITIES
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Welcome banner — row on tablet+, stacked column on phone */
+.welcome-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
-.table-responsive table {
-  min-width: 600px;
+/* Notification panel — always stays on-screen */
+.notif-panel {
+  position: absolute;
+  right: 0;
+  top: 44px;
+  width: min(320px, 92vw);
+  max-height: 80vh;
+  overflow-y: auto;
+  border-radius: 12px;
+  z-index: 50;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
 }
 
+/* Info text that can overflow (email addresses, etc.) */
+.overflow-text { word-break: break-all; overflow-wrap: anywhere; }
+
+/* ── Grid Classes ─────────────────────────────────────────────────── */
+
+/* 2-column equal */
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+
+/* 3-column equal */
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+
+/* 4-column equal */
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+
+/* 5-column equal */
+.grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; }
+
+/* Wide + sidebar (2fr + 1fr) */
+.grid-wide-sidebar { display: grid; grid-template-columns: 2fr 1fr; gap: 1.4rem; }
+
+/* Sidebar + wide (fixed left col + flexible right) */
+.grid-sidebar-wide { display: grid; grid-template-columns: 300px 1fr; gap: 1.4rem; }
+
+/* Auto-fit responsive (minimum 220px per column) */
+.grid-auto { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+
+/* ── Named aliases used in dashboards ────────────────────────────── */
+.stats-grid   { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.4rem; }
+.stats-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; margin-bottom: 1.8rem; }
+.exam-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.two-col-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.3rem; }
+.wide-sidebar-grid { display: grid; grid-template-columns: 2.1fr 1fr; gap: 1.4rem; }
+
+/* ── Form helper ──────────────────────────────────────────────────── */
+.form-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+.form-row-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   PHONE BREAKPOINT  ≤ 640px
+   ═══════════════════════════════════════════════════════════════════ */
 @media (max-width: 640px) {
-  .mobile-stack-flex {
-    flex-direction: column !important;
-    align-items: stretch !important;
+  /* Stacking helpers */
+  .mobile-stack-flex { flex-direction: column !important; align-items: stretch !important; }
+  .mobile-full-width { width: 100% !important; max-width: 100% !important; }
+
+  /* All grid utilities collapse to 1 column */
+  .grid-2, .grid-3, .grid-4, .grid-5,
+  .grid-wide-sidebar, .grid-sidebar-wide,
+  .exam-cards-grid, .two-col-grid,
+  .wide-sidebar-grid, .responsive-grid-cards,
+  .form-row, .form-row-3 {
+    grid-template-columns: 1fr !important;
+    gap: 0.85rem !important;
   }
 
-  .mobile-full-width {
-    width: 100% !important;
-    max-width: 100% !important;
+  /* 4-col stats → 2 columns on phone (more readable) */
+  .stats-grid-4 {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.75rem !important;
+    margin-bottom: 1rem !important;
   }
 
-  .responsive-grid-cards {
+  /* 3-col stats → 1 column */
+  .stats-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  /* Banner CTA button: full width */
+  .welcome-banner-btn { width: 100% !important; justify-content: center !important; }
+
+  /* Main content padding */
+  .main-content-area { padding: 0.85rem 0.75rem !important; }
+
+  /* Card padding */
+  .card-padded { padding: 1rem !important; }
+
+  /* Header title */
+  .header-title { font-size: 0.9rem !important; }
+
+  /* Exam interface: sidebar + question area stack */
+  .exam-layout { flex-direction: column !important; }
+  .exam-question-nav { width: 100% !important; order: 2; max-height: 200px; overflow-y: auto; }
+  .exam-question-body { order: 1; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   TABLET BREAKPOINT  641px – 1023px
+   ═══════════════════════════════════════════════════════════════════ */
+@media (min-width: 641px) and (max-width: 1023px) {
+  /* 4-col → 2 cols on tablet */
+  .grid-4, .stats-grid-4 {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem !important;
+  }
+
+  /* 5-col → 3 cols */
+  .grid-5 { grid-template-columns: repeat(3, 1fr) !important; }
+
+  /* Wide+sidebar → stack */
+  .grid-wide-sidebar, .wide-sidebar-grid, .grid-sidebar-wide {
     grid-template-columns: 1fr !important;
   }
+
+  /* 2-col layouts: keep on tablet unless they're form rows */
+  .form-row { grid-template-columns: repeat(2, 1fr); }
+  .form-row-3 { grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* 2-col bottom cards → 1 col */
+  .two-col-grid { grid-template-columns: 1fr !important; }
+
+  /* Exam cards: 2 cols on tablet */
+  .exam-cards-grid { grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* stats-grid stays 3 col on tablet */
+  .stats-grid { grid-template-columns: repeat(3, 1fr); }
 }
