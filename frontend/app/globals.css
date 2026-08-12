@@ -217,10 +217,8 @@ button, input, select, textarea {
     max-width: 48px !important;
   }
 
-  /* 2-Column Side-by-Side Cards Alignment across ALL Student, Examiner, & Admin Dashboards
-     (Matches hand-drawn user diagram for 2-column mobile layout) */
+  /* Feature tiles & Stat summary cards: 2 clean side-by-side columns on mobile */
   .stats-grid, .stats-grid-4,
-  .two-col-grid, .dashboard-2col,
   .responsive-grid-cards,
   .exam-cards-grid,
   .grid-cards-2col {
@@ -230,8 +228,10 @@ button, input, select, textarea {
     margin-bottom: 0.55rem !important;
   }
 
-  /* Form rows and wide side-by-side form panels stack in 1 column for clean typing */
+  /* Main section panels, forms, two-column page layouts & wide sidebars:
+     MUST STACK IN 1 FULL-WIDTH COLUMN ON MOBILE (≤ 900px) so no right panel spills off-screen */
   .grid-2, .grid-3, .grid-4, .grid-5,
+  .two-col-grid,
   .grid-wide-sidebar, .grid-sidebar-wide, .wide-sidebar-grid,
   .form-row, .form-row-3 {
     grid-template-columns: 1fr !important;

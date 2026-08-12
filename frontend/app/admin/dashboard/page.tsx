@@ -178,75 +178,74 @@ export default function AdminDashboardView() {
         </Link>
       </div>
 
-      {/* 4 Summary Stat Cards -- 2 uniform side-by-side columns */}
-      <div className="stats-grid-4" style={{ marginBottom: "0.85rem", gap: "0.45rem" }}>
-        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "12px", padding: "0.65rem 0.75rem" }}>
+      {/* 4 Summary Stat Cards */}
+      <div className="stats-grid-4">
+        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "16px", padding: "1.4rem" }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            <span style={{ fontSize: "0.72rem", fontWeight: 700, color: textSub }}>Total Users</span>
-            <Users size={16} style={{ color: "#3b82f6" }} />
+            <span style={{ fontSize: "0.82rem", fontWeight: 600, color: textSub }}>Total Users</span>
+            <Users size={22} style={{ color: "#3b82f6" }} />
           </div>
-          <div style={{ fontSize: "1.25rem", fontWeight: 800, color: textMain, marginTop: "0.15rem" }}>
+          <div style={{ fontSize: "2rem", fontWeight: 800, color: textMain, marginTop: "0.4rem" }}>
             {loading ? "..." : totalUsers}
           </div>
         </div>
 
-        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "12px", padding: "0.65rem 0.75rem" }}>
+        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "16px", padding: "1.4rem" }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            <span style={{ fontSize: "0.72rem", fontWeight: 700, color: textSub }}>Pending Approval</span>
-            <Clock size={16} style={{ color: "#d97706" }} />
+            <span style={{ fontSize: "0.82rem", fontWeight: 600, color: textSub }}>Pending Approval</span>
+            <Clock size={22} style={{ color: "#d97706" }} />
           </div>
-          <div style={{ fontSize: "1.25rem", fontWeight: 800, color: textMain, marginTop: "0.15rem" }}>
+          <div style={{ fontSize: "2rem", fontWeight: 800, color: textMain, marginTop: "0.4rem" }}>
             {loading ? "..." : pendingUsers.length}
           </div>
         </div>
 
-        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "12px", padding: "0.65rem 0.75rem" }}>
+        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "16px", padding: "1.4rem" }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            <span style={{ fontSize: "0.72rem", fontWeight: 700, color: textSub }}>Examiners</span>
-            <Shield size={16} style={{ color: "#9333ea" }} />
+            <span style={{ fontSize: "0.82rem", fontWeight: 600, color: textSub }}>Examiners</span>
+            <Shield size={22} style={{ color: "#9333ea" }} />
           </div>
-          <div style={{ fontSize: "1.25rem", fontWeight: 800, color: textMain, marginTop: "0.15rem" }}>
+          <div style={{ fontSize: "2rem", fontWeight: 800, color: textMain, marginTop: "0.4rem" }}>
             {loading ? "..." : examiners.length}
           </div>
         </div>
 
-        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "12px", padding: "0.65rem 0.75rem" }}>
+        <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "16px", padding: "1.4rem" }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            <span style={{ fontSize: "0.72rem", fontWeight: 700, color: textSub }}>Students</span>
-            <GraduationCap size={16} style={{ color: "#16a34a" }} />
+            <span style={{ fontSize: "0.82rem", fontWeight: 600, color: textSub }}>Students</span>
+            <GraduationCap size={22} style={{ color: "#16a34a" }} />
           </div>
-          <div style={{ fontSize: "1.25rem", fontWeight: 800, color: textMain, marginTop: "0.15rem" }}>
+          <div style={{ fontSize: "2rem", fontWeight: 800, color: textMain, marginTop: "0.4rem" }}>
             {loading ? "..." : students.length}
           </div>
         </div>
       </div>
 
-      {/* Quick Management Actions -- 2 uniform side-by-side columns */}
-      <h3 style={{ fontSize: "0.92rem", fontWeight: 700, color: textMain, marginBottom: "0.55rem" }}>
+      {/* Quick Management Actions - Fixed routes */}
+      <h3 style={{ fontSize: "1.2rem", fontWeight: 700, color: textMain, margin: "0 0 1rem 0" }}>
         Quick Management Actions
       </h3>
 
-      <div className="stats-grid-4" style={{ marginBottom: "0.85rem", gap: "0.45rem" }}>
+      <div className="stats-grid-4">
         <Link
           href="/admin/users"
           style={{
             background: cardBg,
             border: `1px solid ${cardBorder}`,
-            borderRadius: "12px",
-            padding: "0.65rem 0.75rem",
+            borderRadius: "14px",
+            padding: "1.2rem",
             textDecoration: "none",
             display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-            gap: "0.35rem",
+            alignItems: "center",
+            gap: "1rem",
           }}
         >
-          <div style={{ width: "30px", height: "30px", borderRadius: "8px", background: "#eff6ff", color: "#2563eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <Users size={16} />
+          <div style={{ width: "44px", height: "44px", borderRadius: "12px", background: "#eff6ff", color: "#2563eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <Users size={22} />
           </div>
           <div>
-            <div style={{ fontWeight: 700, fontSize: "0.8rem", color: textMain, lineHeight: 1.25 }}>User Management</div>
-            <div style={{ fontSize: "0.68rem", color: textSub, marginTop: "0.1rem", lineHeight: 1.2 }}>Approve accounts</div>
+            <div style={{ fontWeight: 700, fontSize: "0.95rem", color: textMain }}>User Management</div>
+            <div style={{ fontSize: "0.78rem", color: textSub, marginTop: "0.15rem" }}>Approve &amp; manage accounts</div>
           </div>
         </Link>
 
@@ -255,21 +254,20 @@ export default function AdminDashboardView() {
           style={{
             background: cardBg,
             border: `1px solid ${cardBorder}`,
-            borderRadius: "12px",
-            padding: "0.65rem 0.75rem",
+            borderRadius: "14px",
+            padding: "1.2rem",
             textDecoration: "none",
             display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-            gap: "0.35rem",
+            alignItems: "center",
+            gap: "1rem",
           }}
         >
-          <div style={{ width: "30px", height: "30px", borderRadius: "8px", background: "#dcfce7", color: "#16a34a", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <Shield size={16} />
+          <div style={{ width: "44px", height: "44px", borderRadius: "12px", background: "#dcfce7", color: "#16a34a", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <Shield size={22} />
           </div>
           <div>
-            <div style={{ fontWeight: 700, fontSize: "0.8rem", color: textMain, lineHeight: 1.25 }}>Proctoring Logs</div>
-            <div style={{ fontSize: "0.68rem", color: textSub, marginTop: "0.1rem", lineHeight: 1.2 }}>Violation events</div>
+            <div style={{ fontWeight: 700, fontSize: "0.95rem", color: textMain }}>Proctoring Logs</div>
+            <div style={{ fontSize: "0.78rem", color: textSub, marginTop: "0.15rem" }}>Review AI violation events</div>
           </div>
         </Link>
 
@@ -278,21 +276,20 @@ export default function AdminDashboardView() {
           style={{
             background: cardBg,
             border: `1px solid ${cardBorder}`,
-            borderRadius: "12px",
-            padding: "0.65rem 0.75rem",
+            borderRadius: "14px",
+            padding: "1.2rem",
             textDecoration: "none",
             display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-            gap: "0.35rem",
+            alignItems: "center",
+            gap: "1rem",
           }}
         >
-          <div style={{ width: "30px", height: "30px", borderRadius: "8px", background: "#f3e8ff", color: "#9333ea", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <FileCheck size={16} />
+          <div style={{ width: "44px", height: "44px", borderRadius: "12px", background: "#f3e8ff", color: "#9333ea", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <FileCheck size={22} />
           </div>
           <div>
-            <div style={{ fontWeight: 700, fontSize: "0.8rem", color: textMain, lineHeight: 1.25 }}>System Analytics</div>
-            <div style={{ fontSize: "0.68rem", color: textSub, marginTop: "0.1rem", lineHeight: 1.2 }}>Reports &amp; insights</div>
+            <div style={{ fontWeight: 700, fontSize: "0.95rem", color: textMain }}>System Analytics</div>
+            <div style={{ fontSize: "0.78rem", color: textSub, marginTop: "0.15rem" }}>Reports &amp; platform insights</div>
           </div>
         </Link>
 
@@ -301,21 +298,20 @@ export default function AdminDashboardView() {
           style={{
             background: cardBg,
             border: `1px solid ${cardBorder}`,
-            borderRadius: "12px",
-            padding: "0.65rem 0.75rem",
+            borderRadius: "14px",
+            padding: "1.2rem",
             textDecoration: "none",
             display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-            gap: "0.35rem",
+            alignItems: "center",
+            gap: "1rem",
           }}
         >
-          <div style={{ width: "30px", height: "30px", borderRadius: "8px", background: "#ffe4e6", color: "#e11d48", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <Eye size={16} />
+          <div style={{ width: "44px", height: "44px", borderRadius: "12px", background: "#ffe4e6", color: "#e11d48", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <Eye size={22} />
           </div>
           <div>
-            <div style={{ fontWeight: 700, fontSize: "0.8rem", color: textMain, lineHeight: 1.25 }}>Platform Settings</div>
-            <div style={{ fontSize: "0.68rem", color: textSub, marginTop: "0.1rem", lineHeight: 1.2 }}>System settings</div>
+            <div style={{ fontWeight: 700, fontSize: "0.95rem", color: textMain }}>Platform Settings</div>
+            <div style={{ fontSize: "0.78rem", color: textSub, marginTop: "0.15rem" }}>Configure system settings</div>
           </div>
         </Link>
       </div>
