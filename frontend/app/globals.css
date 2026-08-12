@@ -217,25 +217,33 @@ button, input, select, textarea {
     max-width: 48px !important;
   }
 
-  /* Stat cards: 2 clean side-by-side columns on mobile so metrics look great */
-  .stats-grid, .stats-grid-4 {
+  /* 2-Column side-by-side cards for Examiner & Admin sections on mobile to eliminate long scrolling */
+  .stats-grid, .stats-grid-4,
+  .grid-2, .grid-3, .grid-4, .grid-5,
+  .responsive-grid-cards,
+  .exam-cards-grid, .two-col-grid {
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 0.5rem !important;
-    margin-bottom: 0.75rem !important;
+    gap: 0.45rem !important;
+    width: 100% !important;
+    margin-bottom: 0.55rem !important;
   }
 
-  /* Content cards, forms, wide sidebars, and feature panels: 1 full-width clean column on phones */
-  .grid-2, .grid-3, .grid-4, .grid-5,
-  .grid-wide-sidebar, .grid-sidebar-wide,
-  .responsive-grid-cards,
-  .exam-cards-grid, .two-col-grid, .wide-sidebar-grid,
+  /* Compact card padding so text and icons fit cleanly inside 2-column cards */
+  .card-padded, .dashboard-card, .exam-card, .stat-card, .library-card, .feature-card {
+    padding: 0.55rem 0.6rem !important;
+    margin-bottom: 0.45rem !important;
+    border-radius: 8px !important;
+  }
+
+  /* Forms and wide sidebars stack cleanly in 1 column for easy typing */
+  .grid-wide-sidebar, .grid-sidebar-wide, .wide-sidebar-grid,
   .form-row, .form-row-3 {
     grid-template-columns: 1fr !important;
-    gap: 0.65rem !important;
+    gap: 0.6rem !important;
     width: 100% !important;
   }
 
-  /* Mobile Data Tables: enable smooth touch horizontal scrolling so no text is hidden */
+  /* Mobile Data Tables: enable smooth touch horizontal scrolling */
   .table-responsive, .table-container, table {
     max-width: 100% !important;
     overflow-x: auto !important;
@@ -245,7 +253,7 @@ button, input, select, textarea {
   /* Universal wrapping for toolbars & action buttons */
   .toolbar, .action-bar, .filter-row, .flex-toolbar, .dashboard-toolbar {
     flex-wrap: wrap !important;
-    gap: 0.45rem !important;
+    gap: 0.4rem !important;
   }
 
   /* Exam interface */
