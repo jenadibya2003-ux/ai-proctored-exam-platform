@@ -187,7 +187,7 @@ button, input, select, textarea {
 /* Mobile Phones & Portrait Devices (≤ 900px) */
 @media (max-width: 900px) {
   html {
-    font-size: 11.5px !important;
+    font-size: 12.8px !important;
   }
 
   /* Header bar compact: all 4 controls (Language, Theme, Notif, Logout) fit in 1 single line */
