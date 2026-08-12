@@ -71,17 +71,18 @@ export default function LanguageSelector() {
   };
 
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: "0.35rem" }} className="notranslate">
-      <Globe size={15} style={{ color: "#3b82f6" }} />
+    <div style={{ display: "flex", alignItems: "center", gap: "0.25rem" }} className="notranslate lang-selector-wrap">
+      <Globe size={15} style={{ color: "#3b82f6", flexShrink: 0 }} />
       <select
         value={currentLang}
         onChange={(e) => changeLanguage(e.target.value as LanguageCode)}
+        className="lang-select-elem"
         style={{
           background: "transparent",
           border: "1px solid #3b82f6",
           color: "#3b82f6",
           borderRadius: "8px",
-          padding: "0.35rem 0.6rem",
+          padding: "0.35rem 0.45rem",
           fontSize: "0.78rem",
           fontWeight: 700,
           outline: "none",
@@ -90,7 +91,7 @@ export default function LanguageSelector() {
       >
         {LANGUAGES.map((l) => (
           <option key={l.code} value={l.code} style={{ background: "#0f172a", color: "#ffffff" }}>
-            {l.nativeName} ({l.name})
+            {l.code.toUpperCase()}
           </option>
         ))}
       </select>
