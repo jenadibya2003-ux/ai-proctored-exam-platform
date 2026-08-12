@@ -5,10 +5,9 @@ import { useState } from "react";
 const getApiBase = () => {
   const envUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
   if (typeof window !== "undefined") {
-    if (!envUrl || envUrl.includes("localhost") || envUrl.includes("127.0.0.1")) {
-      if (window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1") {
-        return "https://ai-proctored-exam-platform-iv1t.onrender.com";
-      }
+    const host = window.location.hostname;
+    if (host === "localhost" || host === "127.0.0.1" || host.startsWith("192.168.") || host.startsWith("10.") || host.startsWith("172.")) {
+      return `http://${host}:8000`;
     }
   }
   return envUrl || "https://ai-proctored-exam-platform-iv1t.onrender.com";
@@ -46,12 +45,19 @@ export default function LoginPage() {
     setSuccessMessage("");
     setLoading(true);
 
-    const apiUrls = [
-      API_BASE,
-      "https://ai-proctored-exam-platform-iv1t.onrender.com",
-      typeof window !== "undefined" ? `http://${window.location.hostname}:8000` : "http://localhost:8000",
-      "http://localhost:8000"
-    ];
+    const isLocalHost = typeof window !== "undefined" && (
+      window.location.hostname === "localhost" ||
+      window.location.hostname === "127.0.0.1" ||
+      window.location.hostname.startsWith("192.168.") ||
+      window.location.hostname.startsWith("10.")
+    );
+
+    const localUrl = typeof window !== "undefined" ? `http://${window.location.hostname}:8000` : "http://localhost:8000";
+    const cloudUrl = "https://ai-proctored-exam-platform-iv1t.onrender.com";
+
+    const apiUrls = isLocalHost
+      ? [localUrl, "http://localhost:8000", API_BASE, cloudUrl]
+      : [API_BASE, cloudUrl, localUrl, "http://localhost:8000"];
 
     if (mode === "signup") {
       for (let i = 0; i < apiUrls.length; i++) {
@@ -114,6 +120,9 @@ export default function LoginPage() {
         clearTimeout(timeoutId);
 
         if (!res.ok) {
+          if ((res.status === 401 || res.status === 404) && i < apiUrls.length - 1) {
+            continue;
+          }
           const resData = await res.json().catch(() => ({}));
           setError(resData.detail || "Incorrect email or password. Please try again.");
           setLoading(false);

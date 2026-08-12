@@ -44,23 +44,24 @@ def list_libraries(
     libraries = db.query(QuestionLibrary).order_by(QuestionLibrary.created_at.desc()).all()
     if not libraries:
         default_libs = [
-            ("1", "Computer Science & Programming", "Core programming concepts, syntax, and paradigms"),
-            ("2", "Mathematics & Quantitative Aptitude", "Algebra, Calculus, Discrete Math, and Probability"),
-            ("3", "Physics & Engineering Mechanics", "Newtonian Physics, Thermodynamics, and Electromagnetism"),
-            ("4", "Chemistry & Materials Science", "Organic Chemistry, Physical Chemistry, and Material Properties"),
-            ("5", "Data Structures & Algorithms", "Arrays, Trees, Graphs, Sorting, and Dynamic Programming"),
-            ("6", "Database Management Systems (DBMS)", "Relational Algebra, SQL, Normalization, and NoSQL"),
-            ("7", "Operating Systems & Computer Networks", "Processes, Memory Management, TCP/IP, and Routing"),
-            ("8", "Web Development & Fullstack Tech", "HTML, CSS, JavaScript, React, Next.js, and REST APIs"),
-            ("9", "Software Engineering & DevOps", "Agile, Testing, CI/CD, Docker, and Architecture"),
-            ("10", "Artificial Intelligence & Machine Learning", "Neural Networks, Regression, Classification, and NLP"),
+            ("Computer Science & Programming", "Core programming concepts, syntax, and paradigms"),
+            ("Mathematics & Quantitative Aptitude", "Algebra, Calculus, Discrete Math, and Probability"),
+            ("Physics & Engineering Mechanics", "Newtonian Physics, Thermodynamics, and Electromagnetism"),
+            ("Chemistry & Materials Science", "Organic Chemistry, Physical Chemistry, and Material Properties"),
+            ("Data Structures & Algorithms", "Arrays, Trees, Graphs, Sorting, and Dynamic Programming"),
+            ("Database Management Systems (DBMS)", "Relational Algebra, SQL, Normalization, and NoSQL"),
+            ("Operating Systems & Computer Networks", "Processes, Memory Management, TCP/IP, and Routing"),
+            ("Web Development & Fullstack Tech", "HTML, CSS, JavaScript, React, Next.js, and REST APIs"),
+            ("Software Engineering & DevOps", "Agile, Testing, CI/CD, Docker, and Architecture"),
+            ("Artificial Intelligence & Machine Learning", "Neural Networks, Regression, Classification, and NLP"),
         ]
-        for lib_id, title, purpose in default_libs:
-            db_lib = QuestionLibrary(id=lib_id, title=title, purpose=purpose, created_by=current_user.id)
+        for title, purpose in default_libs:
+            db_lib = QuestionLibrary(title=title, purpose=purpose, created_by=current_user.id if current_user else None)
             db.add(db_lib)
         try:
             db.commit()
-        except Exception:
+        except Exception as e:
+            print("Error auto-seeding libraries:", e)
             db.rollback()
         libraries = db.query(QuestionLibrary).order_by(QuestionLibrary.created_at.desc()).all()
 

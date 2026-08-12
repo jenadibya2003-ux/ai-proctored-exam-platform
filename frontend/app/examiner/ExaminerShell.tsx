@@ -379,7 +379,10 @@ export default function ExaminerShell({ children, title }: ExaminerShellProps) {
         </header>
 
         {/* Content Area */}
-        <main className="main-content-area" style={{ flex: 1, padding: "1.5rem" }}>
+        <main
+          className="main-content-area"
+          style={{ flex: 1, padding: "1.5rem", overflowX: "hidden", width: "100%", boxSizing: "border-box" }}
+        >
           {children}
         </main>
       </div>

@@ -161,88 +161,70 @@ button, input, select, textarea {
 /* Auto-fit responsive (minimum 220px per column) */
 .grid-auto { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
 
-/* ── Named aliases used in dashboards ────────────────────────────── */
-.stats-grid   { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.4rem; }
-.stats-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; margin-bottom: 1.8rem; }
-.exam-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-.two-col-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.3rem; }
-.wide-sidebar-grid { display: grid; grid-template-columns: 2.1fr 1fr; gap: 1.4rem; }
+/* ── Named aliases used in dashboards — auto-fit for native responsiveness ── */
+/* auto-fit means: fill as many columns as fit given the minmax minimum.
+   On phones (~390px), all grids collapse to 1 column automatically. */
+.stats-grid   { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 1rem; margin-bottom: 1.4rem; }
+.stats-grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); gap: 1.2rem; margin-bottom: 1.8rem; }
+.exam-cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 1rem; }
+.two-col-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 1.3rem; }
+.wide-sidebar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 1.4rem; }
 
 /* ── Form helper ──────────────────────────────────────────────────── */
-.form-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-.form-row-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 1rem; }
+.form-row-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); gap: 1rem; }
 
 /* ═══════════════════════════════════════════════════════════════════
-   PHONE BREAKPOINT  ≤ 640px
+   MOBILE & TABLET BREAKPOINTS
+   (auto-fit grid classes above handle most cases natively;
+    these rules handle flex layouts, padding, and utilities)
    ═══════════════════════════════════════════════════════════════════ */
-@media (max-width: 640px) {
+
+/* Mobile Phones & Portrait Devices (≤ 900px) */
+@media (max-width: 900px) {
+  /* Fixed-column grids (.grid-2 etc.) collapse to 1 column */
+  .grid-2, .grid-3, .grid-4, .grid-5,
+  .grid-wide-sidebar, .grid-sidebar-wide,
+  .responsive-grid-cards {
+    grid-template-columns: 1fr !important;
+    gap: 0.85rem !important;
+    width: 100% !important;
+  }
+
   /* Stacking helpers */
   .mobile-stack-flex { flex-direction: column !important; align-items: stretch !important; }
   .mobile-full-width { width: 100% !important; max-width: 100% !important; }
 
-  /* All grid utilities collapse to 1 column */
-  .grid-2, .grid-3, .grid-4, .grid-5,
-  .grid-wide-sidebar, .grid-sidebar-wide,
-  .exam-cards-grid, .two-col-grid,
-  .wide-sidebar-grid, .responsive-grid-cards,
-  .form-row, .form-row-3 {
-    grid-template-columns: 1fr !important;
-    gap: 0.85rem !important;
-  }
-
-  /* 4-col stats → 2 columns on phone (more readable) */
-  .stats-grid-4 {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 0.75rem !important;
-    margin-bottom: 1rem !important;
-  }
-
-  /* 3-col stats → 1 column */
-  .stats-grid {
-    grid-template-columns: 1fr !important;
-    gap: 0.75rem !important;
-    margin-bottom: 1rem !important;
-  }
-
-  /* Banner CTA button: full width */
+  /* Banner: always stack on mobile */
+  .welcome-banner { flex-direction: column !important; align-items: stretch !important; gap: 0.85rem !important; }
   .welcome-banner-btn { width: 100% !important; justify-content: center !important; }
 
   /* Main content padding */
-  .main-content-area { padding: 0.85rem 0.75rem !important; }
+  .main-content-area { padding: 0.85rem 0.65rem !important; width: 100% !important; overflow-x: hidden !important; }
+  .card-padded { padding: 1rem 0.85rem !important; }
 
-  /* Card padding */
-  .card-padded { padding: 1rem !important; }
+  /* Header */
+  .header-title { font-size: 0.88rem !important; }
+  .header-controls { gap: 0.25rem !important; }
 
-  /* Header title */
-  .header-title { font-size: 0.9rem !important; }
-
-  /* Exam interface: sidebar + question area stack */
+  /* Exam interface */
   .exam-layout { flex-direction: column !important; }
   .exam-question-nav { width: 100% !important; order: 2; max-height: 200px; overflow-y: auto; }
   .exam-question-body { order: 1; }
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   TABLET BREAKPOINT  641px – 1023px
-   ═══════════════════════════════════════════════════════════════════ */
-@media (min-width: 641px) and (max-width: 1023px) {
+/* Landscape Tablets & Intermediate Screens (901px – 1100px) */
+@media (min-width: 901px) and (max-width: 1100px) {
   /* 4-col → 2 cols on tablet */
-  .grid-4, .stats-grid-4 {
+  .grid-4, .stats-grid-4, .grid-5 {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 1rem !important;
   }
-
-  /* 5-col → 3 cols */
-  .grid-5 { grid-template-columns: repeat(3, 1fr) !important; }
 
   /* Wide+sidebar → stack */
   .grid-wide-sidebar, .wide-sidebar-grid, .grid-sidebar-wide {
     grid-template-columns: 1fr !important;
   }
-
-  /* 2-col layouts: keep on tablet unless they're form rows */
-  .form-row { grid-template-columns: repeat(2, 1fr); }
-  .form-row-3 { grid-template-columns: repeat(2, 1fr) !important; }
 
   /* 2-col bottom cards → 1 col */
   .two-col-grid { grid-template-columns: 1fr !important; }

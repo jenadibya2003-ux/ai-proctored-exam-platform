@@ -252,7 +252,7 @@ export default function ExaminerMockExamsPage() {
       </div>
 
       {/* Mocks Grid */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.1rem" }}>
+      <div className="grid-3" style={{ gap: "1.1rem" }}>
         {filteredMocks.map((m) => (
           <div key={m.id} style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "16px", padding: "1.35rem", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
             <div>

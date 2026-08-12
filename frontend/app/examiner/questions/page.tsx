@@ -310,7 +310,7 @@ export default function QuestionLibrariesPage() {
       </div>
 
       {/* Libraries Cards Grid */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1rem" }}>
+      <div className="grid-3" style={{ gap: "1rem" }}>
         {filteredLibraries.map((lib) => (
           <div key={lib.id} style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "14px", padding: "1.2rem", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
             <div>
