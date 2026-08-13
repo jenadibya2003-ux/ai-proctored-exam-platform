@@ -262,7 +262,8 @@ export default function AssignExamsPage() {
             />
           </div>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: "0.45rem" }}>
+          {/* 2 Side-by-Side Columns for Exam List */}
+          <div className="grid-cards-2col" style={{ gap: "0.45rem" }}>
             {filteredExams.map((e) => {
               const isSelected = selectedExam?.id === e.id;
               return (

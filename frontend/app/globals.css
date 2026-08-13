@@ -221,15 +221,37 @@ button, input, select, textarea {
   .stats-grid, .stats-grid-4,
   .responsive-grid-cards,
   .exam-cards-grid,
-  .grid-cards-2col {
+  .grid-cards-2col,
+  .library-cards-grid {
+    display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 0.45rem !important;
     width: 100% !important;
     margin-bottom: 0.55rem !important;
   }
 
-  /* Page-Level Section Containers, Multi-Panel Layouts & Form Rows:
-     MUST STACK IN 1 FULL-WIDTH COLUMN ON MOBILE (≤ 900px) so no right panel spills off-screen */
+  /* Page Header Wrapping to prevent button text collisions */
+  .page-header-wrap {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.5rem !important;
+    width: 100% !important;
+  }
+  .page-header-actions {
+    width: 100% !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 0.35rem !important;
+  }
+  .page-header-actions button, .page-header-actions a {
+    flex: 1 1 auto !important;
+    font-size: 0.72rem !important;
+    padding: 0.45rem 0.55rem !important;
+    justify-content: center !important;
+    white-space: nowrap !important;
+  }
+
+  /* Page-Level Section Containers & Multi-Panel Wrappers */
   .grid-2, .grid-3, .grid-4, .grid-5,
   .two-col-grid, .dashboard-2col,
   .grid-wide-sidebar, .grid-sidebar-wide, .wide-sidebar-grid,

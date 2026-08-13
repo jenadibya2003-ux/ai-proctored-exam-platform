@@ -203,7 +203,7 @@ export default function QuestionLibrariesPage() {
   return (
     <ExaminerShell title="Question Libraries">
       {/* Header & Create Button */}
-      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "1.3rem" }}>
+      <div className="page-header-wrap" style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "1.3rem", gap: "0.8rem", flexWrap: "wrap" }}>
         <div>
           <h2 style={{ fontSize: "1.35rem", fontWeight: 700, color: textMain, margin: "0 0 0.25rem 0" }}>
             Question Libraries
@@ -213,7 +213,7 @@ export default function QuestionLibrariesPage() {
           </p>
         </div>
 
-        <div style={{ display: "flex", gap: "0.6rem" }}>
+        <div className="page-header-actions" style={{ display: "flex", gap: "0.45rem", flexWrap: "wrap" }}>
           <button
             onClick={() => {
               const data = [
@@ -308,8 +308,8 @@ export default function QuestionLibrariesPage() {
         />
       </div>
 
-      {/* Libraries Cards Grid */}
-      <div className="grid-3" style={{ gap: "1rem" }}>
+      {/* Libraries Cards Grid - 2 side-by-side columns on mobile */}
+      <div className="grid-cards-2col" style={{ gap: "0.75rem" }}>
         {filteredLibraries.map((lib) => (
           <div key={lib.id} style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "14px", padding: "1.2rem", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
             <div>
