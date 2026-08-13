@@ -24,7 +24,7 @@ iframe.goog-te-banner-frame {
 .goog-logo-link, .goog-te-gadget span, .goog-te-gadget-icon { display: none !important; }
 .goog-te-gadget { color: transparent !important; font-size: 0px !important; }
 
-/* ── Base reset ───────────────────────────────────────────────────── */
+/* ── Base reset & Uniform Typography System ────────────────────────── */
 html, body {
   top: 0px !important;
   position: static !important;
@@ -35,6 +35,46 @@ html, body {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
   font-size: 16px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Uniform Dashboard Typography Standard */
+h1, .page-title, .header-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+h2, .section-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+h3, .card-title {
+  font-size: 1.02rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+p, .body-text {
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.text-sub, .subtitle {
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.text-meta, .stat-meta {
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.stat-number {
+  font-size: 1.4rem;
+  font-weight: 800;
 }
 *, *:before, *:after { box-sizing: border-box; }
 button, input, select, textarea {
