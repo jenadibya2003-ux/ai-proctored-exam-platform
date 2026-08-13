@@ -24,7 +24,7 @@ const getApiBase = () => {
   const envUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
   if (typeof window !== "undefined") {
     const host = window.location.hostname;
-    if (host === "localhost" || host === "127.0.0.1" || host.startsWith("10.") || host.startsWith("192.168.") || host.startsWith("172.") || /^\d+\.\d+\.\d+\.\d+$/.test(host)) {
+    if (host === "localhost" || host === "127.0.0.1") {
       return `http://${host}:8000`;
     }
   }
