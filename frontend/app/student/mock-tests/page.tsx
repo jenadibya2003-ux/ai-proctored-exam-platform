@@ -68,7 +68,7 @@ export default function StudentMockTestsPage() {
         </p>
       </div>
 
-      <div className="grid-cards-2col" style={{ gap: "0.75rem" }}>
+      <div className="grid-3" style={{ gap: "1rem" }}>
         {mockList.map((m, idx) => (
           <div key={m.id || idx} style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "16px", padding: "1.35rem" }}>
             <div style={{ width: "38px", height: "38px", borderRadius: "10px", background: "#eff6ff", color: "#2563eb", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "0.85rem" }}>

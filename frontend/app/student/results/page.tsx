@@ -201,7 +201,7 @@ export default function StudentResultsPage() {
 
   return (
     <StudentShell title="Results & Scorecards">
-      <div style={{ maxWidth: "1000px", margin: "0" }}>
+      <div style={{ width: "100%" }}>
         {/* Header Title */}
         <div style={{ marginBottom: "1.3rem" }}>
           <h2 style={{ fontSize: "1.35rem", fontWeight: 700, color: textMain, margin: "0 0 0.25rem 0" }}>
