@@ -162,7 +162,7 @@ def root_html():
         </style>
     </head>
     <body>
-        <iframe src="http://10.1.11.35:3000/login" title="ExamPro AI Mobile App"></iframe>
+        <iframe src="https://ai-proctored-exam-platform.vercel.app/login" title="ExamPro AI Mobile App"></iframe>
         <script>
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.register('/sw.js');
