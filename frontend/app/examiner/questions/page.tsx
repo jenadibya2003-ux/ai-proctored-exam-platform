@@ -308,8 +308,8 @@ export default function QuestionLibrariesPage() {
         />
       </div>
 
-      {/* Libraries Cards Grid - 2 side-by-side columns on mobile */}
-      <div className="grid-cards-2col" style={{ gap: "0.75rem" }}>
+      {/* Libraries Cards Grid - 3 columns on desktop */}
+      <div className="grid-3" style={{ gap: "1rem" }}>
         {filteredLibraries.map((lib) => (
           <div key={lib.id} style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "14px", padding: "1.2rem", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
             <div>

@@ -194,8 +194,8 @@ export default function ExamManagementPage() {
         </div>
       </div>
 
-      {/* Exam Cards Grid - 2 side-by-side columns on mobile */}
-      <div className="grid-cards-2col" style={{ gap: "0.75rem" }}>
+      {/* Exam Cards Grid - 3 columns on desktop */}
+      <div className="grid-3" style={{ gap: "1rem" }}>
         {filteredExams.map((exam) => (
           <div key={exam.id} style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "14px", padding: "1.2rem" }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.65rem" }}>
