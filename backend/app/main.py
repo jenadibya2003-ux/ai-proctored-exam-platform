@@ -95,14 +95,14 @@ def health_check():
 @app.get("/manifest.json")
 def get_manifest():
     return {
-        "id": "/login",
+        "id": "/",
         "scope": "/",
         "name": "ExamPro AI - AI-Proctored Examination Platform",
         "short_name": "ExamPro AI",
         "description": "Comprehensive AI-Proctored Online Examination and Assessment Platform for Students, Examiners, and Administrators.",
         "lang": "en",
         "dir": "ltr",
-        "start_url": "/login",
+        "start_url": "/",
         "display": "standalone",
         "orientation": "portrait-primary",
         "background_color": "#0f172a",
@@ -137,7 +137,7 @@ def get_manifest():
     }
 
 
-from fastapi.responses import Response, HTMLResponse
+from fastapi.responses import Response, HTMLResponse, RedirectResponse
 
 @app.get("/sw.js")
 def get_service_worker():
@@ -154,20 +154,15 @@ def root_html():
         <meta charset="UTF-8">
         <title>ExamPro AI - AI-Proctored Examination Platform</title>
         <link rel="manifest" href="/manifest.json">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <meta name="theme-color" content="#2563eb">
         <style>
-            body { font-family: system-ui, sans-serif; background: #0f172a; color: white; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; text-align: center; }
-            .card { background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); max-width: 400px; }
-            a { display: inline-block; background: #2563eb; color: white; padding: 0.75rem 1.5rem; text-decoration: none; border-radius: 10px; font-weight: bold; margin-top: 1rem; }
+            html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #0f172a; }
+            iframe { width: 100%; height: 100%; border: none; }
         </style>
     </head>
     <body>
-        <div class="card">
-            <h2>ExamPro AI Platform</h2>
-            <p>AI-Proctored Examination & Assessment Service is Live.</p>
-            <a href="/health">Health API Check</a>
-        </div>
+        <iframe src="http://10.1.11.35:3000/login" title="ExamPro AI Mobile App"></iframe>
         <script>
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.register('/sw.js');
@@ -177,6 +172,21 @@ def root_html():
     </html>
     """
 
+@app.get("/login")
+def login_route():
+    return root_html()
+
+@app.get("/student/{path:path}")
+def student_route(path: str):
+    return root_html()
+
+@app.get("/examiner/{path:path}")
+def examiner_route(path: str):
+    return root_html()
+
+@app.get("/admin/{path:path}")
+def admin_route(path: str):
+    return root_html()
 
 @app.get("/debug-routes")
 def debug_routes():
