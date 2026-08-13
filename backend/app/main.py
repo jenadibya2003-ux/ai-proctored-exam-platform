@@ -145,48 +145,49 @@ def get_service_worker():
     return Response(content=content, media_type="application/javascript")
 
 
+HTML_CONTENT = """<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ExamPro AI - AI-Proctored Examination Platform</title>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#2563eb">
+    <style>
+        html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #0f172a; }
+        iframe { width: 100%; height: 100%; border: none; }
+    </style>
+</head>
+<body>
+    <iframe src="http://10.1.11.35:3000/login" title="ExamPro AI Mobile App"></iframe>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js');
+        }
+    </script>
+</body>
+</html>"""
+
+
 @app.get("/", response_class=HTMLResponse)
 def root_html():
-    return """
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>ExamPro AI - AI-Proctored Examination Platform</title>
-        <link rel="manifest" href="/manifest.json">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        <meta name="theme-color" content="#2563eb">
-        <style>
-            html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #0f172a; }
-            iframe { width: 100%; height: 100%; border: none; }
-        </style>
-    </head>
-    <body>
-        <iframe src="https://ai-proctored-exam-platform.vercel.app/login" title="ExamPro AI Mobile App"></iframe>
-        <script>
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('/sw.js');
-            }
-        </script>
-    </body>
-    </html>
-    """
+    return HTMLResponse(content=HTML_CONTENT, status_code=200)
 
-@app.get("/login")
+@app.get("/login", response_class=HTMLResponse)
 def login_route():
-    return root_html()
+    return HTMLResponse(content=HTML_CONTENT, status_code=200)
 
-@app.get("/student/{path:path}")
+@app.get("/student/{path:path}", response_class=HTMLResponse)
 def student_route(path: str):
-    return root_html()
+    return HTMLResponse(content=HTML_CONTENT, status_code=200)
 
-@app.get("/examiner/{path:path}")
+@app.get("/examiner/{path:path}", response_class=HTMLResponse)
 def examiner_route(path: str):
-    return root_html()
+    return HTMLResponse(content=HTML_CONTENT, status_code=200)
 
-@app.get("/admin/{path:path}")
+@app.get("/admin/{path:path}", response_class=HTMLResponse)
 def admin_route(path: str):
-    return root_html()
+    return HTMLResponse(content=HTML_CONTENT, status_code=200)
 
 @app.get("/debug-routes")
 def debug_routes():
