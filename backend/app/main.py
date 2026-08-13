@@ -92,6 +92,92 @@ def health_check():
     return {"status": "ok"}
 
 
+@app.get("/manifest.json")
+def get_manifest():
+    return {
+        "id": "/login",
+        "scope": "/",
+        "name": "ExamPro AI - AI-Proctored Examination Platform",
+        "short_name": "ExamPro AI",
+        "description": "Comprehensive AI-Proctored Online Examination and Assessment Platform for Students, Examiners, and Administrators.",
+        "lang": "en",
+        "dir": "ltr",
+        "start_url": "/login",
+        "display": "standalone",
+        "orientation": "portrait-primary",
+        "background_color": "#0f172a",
+        "theme_color": "#2563eb",
+        "icons": [
+            {
+                "src": "https://raw.githubusercontent.com/jenadibya2003-ux/ai-proctored-exam-platform/main/frontend/public/icons/icon-192.png",
+                "sizes": "192x192",
+                "type": "image/png",
+                "purpose": "any"
+            },
+            {
+                "src": "https://raw.githubusercontent.com/jenadibya2003-ux/ai-proctored-exam-platform/main/frontend/public/icons/icon-192.png",
+                "sizes": "192x192",
+                "type": "image/png",
+                "purpose": "maskable"
+            },
+            {
+                "src": "https://raw.githubusercontent.com/jenadibya2003-ux/ai-proctored-exam-platform/main/frontend/public/icons/icon-512.png",
+                "sizes": "512x512",
+                "type": "image/png",
+                "purpose": "any"
+            },
+            {
+                "src": "https://raw.githubusercontent.com/jenadibya2003-ux/ai-proctored-exam-platform/main/frontend/public/icons/icon-512.png",
+                "sizes": "512x512",
+                "type": "image/png",
+                "purpose": "maskable"
+            }
+        ],
+        "categories": ["education", "productivity"]
+    }
+
+
+from fastapi.responses import Response, HTMLResponse
+
+@app.get("/sw.js")
+def get_service_worker():
+    content = "self.addEventListener('install', (e) => { self.skipWaiting(); }); self.addEventListener('activate', (e) => { e.waitUntil(clients.claim()); }); self.addEventListener('fetch', (e) => {});"
+    return Response(content=content, media_type="application/javascript")
+
+
+@app.get("/", response_class=HTMLResponse)
+def root_html():
+    return """
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>ExamPro AI - AI-Proctored Examination Platform</title>
+        <link rel="manifest" href="/manifest.json">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="theme-color" content="#2563eb">
+        <style>
+            body { font-family: system-ui, sans-serif; background: #0f172a; color: white; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; text-align: center; }
+            .card { background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); max-width: 400px; }
+            a { display: inline-block; background: #2563eb; color: white; padding: 0.75rem 1.5rem; text-decoration: none; border-radius: 10px; font-weight: bold; margin-top: 1rem; }
+        </style>
+    </head>
+    <body>
+        <div class="card">
+            <h2>ExamPro AI Platform</h2>
+            <p>AI-Proctored Examination & Assessment Service is Live.</p>
+            <a href="/health">Health API Check</a>
+        </div>
+        <script>
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/sw.js');
+            }
+        </script>
+    </body>
+    </html>
+    """
+
+
 @app.get("/debug-routes")
 def debug_routes():
     return [r.path for r in app.routes]
