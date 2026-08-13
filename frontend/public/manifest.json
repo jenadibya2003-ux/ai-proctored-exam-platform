@@ -1,9 +1,11 @@
 {
-  "id": "/",
+  "id": "/login",
   "scope": "/",
-  "name": "AI-Proctored Examination Platform",
-  "short_name": "AI Exam App",
-  "description": "Secure AI-Proctored Examination Platform",
+  "name": "ExamPro AI - AI-Proctored Examination Platform",
+  "short_name": "ExamPro AI",
+  "description": "Comprehensive AI-Proctored Online Examination and Assessment Platform for Students, Examiners, and Administrators.",
+  "lang": "en",
+  "dir": "ltr",
   "start_url": "/login",
   "display": "standalone",
   "orientation": "portrait-primary",
@@ -14,13 +16,25 @@
       "src": "/icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
       "src": "/icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
   "categories": ["education", "productivity"]
