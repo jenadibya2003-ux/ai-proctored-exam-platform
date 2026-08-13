@@ -274,17 +274,24 @@ export default function AssignExamsPage() {
                     background: innerBg,
                     border: isSelected ? "2px solid #2563eb" : `1px solid ${cardBorder}`,
                     borderRadius: "8px",
-                    padding: "0.6rem 0.75rem",
+                    padding: "0.65rem 0.75rem",
                     cursor: "pointer",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                    minHeight: "78px",
+                    boxSizing: "border-box",
                   }}
                 >
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.15rem", gap: "0.25rem" }}>
-                    <div style={{ fontSize: "0.78rem", fontWeight: 700, color: textMain, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", flex: 1, minWidth: 0 }}>{e.title}</div>
-                    <span style={{ padding: "0.08rem 0.3rem", borderRadius: "8px", fontSize: "0.58rem", fontWeight: 600, background: "#dbeafe", color: "#1e40af", flexShrink: 0 }}>
-                      {e.status}
-                    </span>
+                  <div>
+                    <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "0.25rem", gap: "0.25rem", flexWrap: "wrap" }}>
+                      <div style={{ fontSize: "0.78rem", fontWeight: 700, color: textMain, wordBreak: "break-word", lineHeight: 1.25, minWidth: 0, flex: 1 }}>{e.title}</div>
+                      <span style={{ padding: "0.1rem 0.35rem", borderRadius: "8px", fontSize: "0.58rem", fontWeight: 700, background: "#dbeafe", color: "#1e40af", flexShrink: 0, marginTop: "0.05rem" }}>
+                        {e.status}
+                      </span>
+                    </div>
+                    <div style={{ fontSize: "0.68rem", color: textSub, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{e.subject}</div>
                   </div>
-                  <div style={{ fontSize: "0.68rem", color: textSub, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{e.subject}</div>
                 </div>
               );
             })}
