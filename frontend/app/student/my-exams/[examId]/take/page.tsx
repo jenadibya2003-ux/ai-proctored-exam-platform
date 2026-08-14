@@ -982,9 +982,9 @@ export default function StudentTakeExamPage() {
         </header>
 
         {/* Main Content Area: Left Sidebar (Webcam Top Left + Compact Palette), Right Main Question Card */}
-        <div style={{ display: "grid", gridTemplateColumns: "300px 1fr", gap: "1.4rem", padding: "1.4rem 1.8rem", maxWidth: "1400px", margin: "0 auto" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "260px 1fr", gap: "1.4rem", padding: "1.4rem 1.8rem", maxWidth: "1400px", margin: "0 auto" }}>
           {/* Left Column: Single Webcam Stream at Top Left + Questions Palette */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+          <div style={{ width: "260px", minWidth: "260px", maxWidth: "260px", display: "flex", flexDirection: "column", gap: "1rem" }}>
             {/* Top Left Embedded Webcam Stream */}
             <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "16px", padding: "0.85rem", overflow: "hidden" }}>
               <div style={{ fontSize: "0.76rem", fontWeight: 700, color: textSub, marginBottom: "0.5rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
@@ -994,7 +994,7 @@ export default function StudentTakeExamPage() {
                   Monitoring
                 </span>
               </div>
-              <div style={{ width: "100%", height: "185px", borderRadius: "10px", overflow: "hidden", border: `1px solid ${cardBorder}`, background: "#000000", position: "relative" }}>
+              <div style={{ width: "100%", height: "190px", borderRadius: "10px", overflow: "hidden", border: `1px solid ${cardBorder}`, background: "#000000", position: "relative" }}>
                 <video ref={videoRef} autoPlay playsInline muted style={{ width: "100%", height: "100%", objectFit: "cover", transform: "scaleX(-1)" }} />
               </div>
             </div>

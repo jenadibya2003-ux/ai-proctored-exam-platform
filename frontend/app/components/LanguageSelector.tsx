@@ -65,9 +65,9 @@ export default function LanguageSelector() {
       combo.dispatchEvent(new Event("change"));
     }
 
-    setTimeout(() => {
-      window.location.reload();
-    }, 100);
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new CustomEvent("languageChange", { detail: langCode }));
+    }
   };
 
   return (
