@@ -1319,59 +1319,42 @@ export default function StudentTakeExamPage() {
     );
   }
 
-  // Render Step 4: Submission & Proctoring Summary View (Screenshot 12, 13)
+  // Render Step 4: Submission Confirmation Screen (No Immediate Score Display)
   return (
-    <StudentShell title="Exam Results & Proctoring Summary">
-      <div style={{ maxWidth: "800px", margin: "0 auto", padding: "1rem 0" }}>
-        <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-          <div style={{ width: "64px", height: "64px", borderRadius: "50%", background: "#dcfce7", color: "#16a34a", display: "inline-flex", alignItems: "center", justifyContent: "center", marginBottom: "0.8rem" }}>
-            <Trophy size={32} />
-          </div>
-
-          <h2 style={{ fontSize: "1.8rem", fontWeight: 800, color: textMain, margin: "0 0 0.3rem 0" }}>
-            {examTitle}
-          </h2>
-          <div style={{ fontSize: "0.88rem", color: textSub }}>{examSubject}</div>
+    <StudentShell title="Exam Submitted Successfully">
+      <div style={{ maxWidth: "680px", margin: "2rem auto", padding: "2.5rem 1.8rem", background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "20px", textAlign: "center", boxShadow: "0 10px 30px rgba(0,0,0,0.05)" }}>
+        <div style={{ width: "80px", height: "80px", borderRadius: "50%", background: "#dcfce7", color: "#16a34a", display: "inline-flex", alignItems: "center", justifyContent: "center", marginBottom: "1.2rem" }}>
+          <CheckCircle2 size={46} />
         </div>
 
-        {/* 4 Overview Stat Cards */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1rem", marginBottom: "1.8rem" }}>
-          <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "16px", padding: "1.2rem", textAlign: "center" }}>
-            <div style={{ fontSize: "2rem", fontWeight: 800, color: "#16a34a" }}>{resultScore}%</div>
-            <div style={{ fontSize: "0.78rem", color: textSub }}>Your Score</div>
-          </div>
-
-          <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "16px", padding: "1.2rem", textAlign: "center" }}>
-            <div style={{ fontSize: "2rem", fontWeight: 800, color: textMain }}>40%</div>
-            <div style={{ fontSize: "0.78rem", color: textSub }}>Pass Mark</div>
-          </div>
-
-          <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "16px", padding: "1.2rem", textAlign: "center" }}>
-            <div style={{ fontSize: "2rem", fontWeight: 800, color: "#2563eb" }}>95%</div>
-            <div style={{ fontSize: "0.78rem", color: textSub }}>Trust Score</div>
-          </div>
-
-          <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "16px", padding: "1.2rem", textAlign: "center" }}>
-            <div style={{ fontSize: "2rem", fontWeight: 800, color: tabSwitchesCount > 0 ? "#dc2626" : textMain }}>
-              {tabSwitchesCount}
-            </div>
-            <div style={{ fontSize: "0.78rem", color: textSub }}>Tab Switches</div>
-          </div>
+        <h2 style={{ fontSize: "1.8rem", fontWeight: 800, color: textMain, margin: "0 0 0.4rem 0" }}>
+          Thank You!
+        </h2>
+        <div style={{ fontSize: "1.1rem", fontWeight: 700, color: "#16a34a", marginBottom: "1.2rem" }}>
+          Your examination has been submitted successfully.
         </div>
 
-        {/* Return Button */}
-        <div style={{ textAlign: "center" }}>
+        <p style={{ fontSize: "0.88rem", color: textSub, margin: "0 auto 1.8rem auto", maxWidth: "520px", lineHeight: 1.6 }}>
+          Your answers, response timestamps, and AI proctoring logs for <strong>{examTitle}</strong> have been securely recorded. The examiner will evaluate your submission. Official results and scorecards will reflect in your dashboard once evaluation is complete.
+        </p>
+
+        <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", background: innerBg, border: `1px solid ${cardBorder}`, padding: "0.6rem 1.2rem", borderRadius: "30px", fontSize: "0.8rem", fontWeight: 600, color: textMain, marginBottom: "2rem" }}>
+          <ShieldCheck size={16} style={{ color: "#16a34a" }} /> Status: Sent to Examiner for Evaluation
+        </div>
+
+        <div>
           <button
             onClick={() => router.push("/student/my-exams")}
             style={{
-              padding: "0.75rem 1.8rem",
-              borderRadius: "10px",
+              padding: "0.8rem 2.2rem",
+              borderRadius: "12px",
               border: "none",
               background: "#2563eb",
               color: "#ffffff",
               fontWeight: 700,
-              fontSize: "0.88rem",
+              fontSize: "0.9rem",
               cursor: "pointer",
+              boxShadow: "0 4px 14px rgba(37, 99, 235, 0.35)",
             }}
           >
             Back to My Exams
