@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import func
 
 from app.database import get_db
-from app.models import Exam, ExamQuestion, Question, UserRole, User, ExamSession, Answer, Option, ExamEnrollment, ProctorEvent, ExamAssignment
+from app.models import Exam, ExamQuestion, Question, QuestionLibrary, UserRole, User, ExamSession, Answer, Option, ExamEnrollment, ProctorEvent, ExamAssignment
 from app.schemas import ExamCreate, ExamOut, QuestionForStudent, JoinExamRequest
 from app.auth import require_role, create_exam_token, get_current_exam_session, get_current_user_optional
 from app.config import settings
