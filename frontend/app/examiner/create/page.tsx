@@ -81,7 +81,7 @@ export default function CreateExamPage() {
       const parsedStart = startTime ? new Date(startTime) : now;
       const parsedEnd = endTime ? new Date(endTime) : new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
 
-      const res = await fetch(`${API_BASE}/exams`, {
+      const res = await fetch(`${API_BASE}/exams/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
