@@ -377,6 +377,7 @@ export default function StudentTakeExamPage() {
     if (step === "taking") {
       if (mediaStreamRef.current && videoRef.current) {
         videoRef.current.srcObject = mediaStreamRef.current;
+        videoRef.current.play().catch(() => {});
       } else {
         navigator.mediaDevices
           .getUserMedia({ video: true, audio: true })
@@ -384,6 +385,7 @@ export default function StudentTakeExamPage() {
             mediaStreamRef.current = stream;
             if (videoRef.current) {
               videoRef.current.srcObject = stream;
+              videoRef.current.play().catch(() => {});
             }
           })
           .catch(() => {});
@@ -988,7 +990,7 @@ export default function StudentTakeExamPage() {
                 </span>
               </div>
               <div style={{ width: "100%", height: "150px", borderRadius: "10px", overflow: "hidden", border: `1px solid ${cardBorder}`, background: "#000000", position: "relative" }}>
-                <video ref={videoRef} autoPlay playsInline muted style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                <video ref={videoRef} autoPlay playsInline muted style={{ width: "100%", height: "100%", objectFit: "cover", transform: "scaleX(-1)" }} />
               </div>
             </div>
 
