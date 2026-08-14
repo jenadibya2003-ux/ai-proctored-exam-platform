@@ -977,7 +977,8 @@ export default function StudentTakeExamPage() {
         </header>
 
         {/* Main Content Area: Left Sidebar (Webcam Top Left + Compact Palette), Right Main Question Card */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.2rem", padding: "1rem", maxWidth: "1400px", margin: "0 auto" }}>
+        {/* Main Content Area: Left Sidebar (Webcam Top Left + Compact Palette), Right Main Question Card */}
+        <div style={{ display: "grid", gridTemplateColumns: "300px 1fr", gap: "1.4rem", padding: "1.4rem 1.8rem", maxWidth: "1400px", margin: "0 auto" }}>
           {/* Left Column: Single Webcam Stream at Top Left + Questions Palette */}
           <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
             {/* Top Left Embedded Webcam Stream */}
@@ -989,7 +990,7 @@ export default function StudentTakeExamPage() {
                   Monitoring
                 </span>
               </div>
-              <div style={{ width: "100%", height: "150px", borderRadius: "10px", overflow: "hidden", border: `1px solid ${cardBorder}`, background: "#000000", position: "relative" }}>
+              <div style={{ width: "100%", aspectRatio: "16 / 9", borderRadius: "10px", overflow: "hidden", border: `1px solid ${cardBorder}`, background: "#000000", position: "relative" }}>
                 <video ref={videoRef} autoPlay playsInline muted style={{ width: "100%", height: "100%", objectFit: "cover", transform: "scaleX(-1)" }} />
               </div>
             </div>

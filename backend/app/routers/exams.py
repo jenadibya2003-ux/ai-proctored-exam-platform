@@ -651,7 +651,9 @@ def get_questions_for_exam_details(
     questions = db.query(Question).filter(Question.id.in_(question_ids)).all()
 
     if not questions and exam.subject:
-        clean_subj = exam.subject.strip()
+        clean_subj = exam.subject.replace("exam", "").replace("Exam", "").strip()
+        words = [w for w in clean_subj.split() if len(w) > 2]
+
         # 1. Match Question.subject
         questions = (
             db.query(Question)
@@ -659,15 +661,23 @@ def get_questions_for_exam_details(
             .limit(60)
             .all()
         )
-        # 2. Match QuestionLibrary title if needed
+        # 2. Match word in Question.subject if needed
+        if not questions and words:
+            questions = (
+                db.query(Question)
+                .filter(Question.subject.ilike(f"%{words[0]}%"))
+                .limit(60)
+                .all()
+            )
+        # 3. Match QuestionLibrary title if needed
         if not questions:
-            libraries = db.query(QuestionLibrary).filter(QuestionLibrary.title.ilike(f"%{clean_subj}%")).all()
+            libraries = db.query(QuestionLibrary).filter(QuestionLibrary.title.ilike(f"%{words[0] if words else clean_subj}%")).all()
             lib_ids = [l.id for l in libraries]
             if lib_ids:
                 questions = db.query(Question).filter(Question.library_id.in_(lib_ids)).limit(60).all()
 
     if not questions:
-        questions = db.query(Question).limit(20).all()
+        questions = db.query(Question).limit(60).all()
 
     res = []
     for q in questions:
