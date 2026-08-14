@@ -169,13 +169,34 @@ export default function ExamBuilderPage() {
   const totalQuestions = sections.reduce((acc, curr) => acc + curr.question_limit, 0);
   const totalMarksSum = sections.reduce((acc, curr) => acc + curr.total_marks, 0);
 
+  const [publishing, setPublishing] = useState(false);
+
+  const handlePublishExam = async () => {
+    setPublishing(true);
+    const token = localStorage.getItem("access_token") || "";
+    try {
+      await fetch(`${API_BASE}/exams/${examId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          status: "published",
+        }),
+      });
+    } catch {}
+    setPublishing(false);
+    window.location.href = "/examiner/exams";
+  };
+
   return (
     <ExaminerShell title="Exam Builder">
       {/* Top Banner */}
-      <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "14px", padding: "1.3rem", marginBottom: "1.3rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "14px", padding: "1.3rem", marginBottom: "1.3rem", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "1rem" }}>
         <div>
           <div style={{ display: "flex", gap: "0.4rem", marginBottom: "0.35rem" }}>
-            <span style={{ padding: "0.15rem 0.55rem", borderRadius: "16px", fontSize: "0.68rem", fontWeight: 600, background: "#854d0e", color: "#fef08a" }}>
+            <span style={{ padding: "0.15rem 0.55rem", borderRadius: "16px", fontSize: "0.68rem", fontWeight: 600, background: examStatus === "Published" ? "#166534" : "#854d0e", color: examStatus === "Published" ? "#dcfce7" : "#fef08a" }}>
               {examStatus}
             </span>
             <span style={{ padding: "0.15rem 0.55rem", borderRadius: "16px", fontSize: "0.68rem", fontWeight: 600, background: "#581c87", color: "#e9d5ff" }}>
@@ -191,27 +212,53 @@ export default function ExamBuilderPage() {
           </p>
         </div>
 
-        {/* 4 Stat Boxes Top Right */}
-        <div style={{ display: "flex", gap: "0.6rem" }}>
-          <div style={{ background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "8px", padding: "0.5rem 0.75rem", minWidth: "65px", textAlign: "center" }}>
-            <div style={{ fontSize: "0.65rem", color: textSub, fontWeight: 700 }}>SECTIONS</div>
-            <div style={{ fontSize: "1.1rem", fontWeight: 800, color: textMain }}>{sections.length}</div>
+        {/* 4 Stat Boxes & Action Buttons Top Right */}
+        <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", flexWrap: "wrap" }}>
+          <div style={{ display: "flex", gap: "0.5rem" }}>
+            <div style={{ background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "8px", padding: "0.5rem 0.75rem", minWidth: "65px", textAlign: "center" }}>
+              <div style={{ fontSize: "0.65rem", color: textSub, fontWeight: 700 }}>SECTIONS</div>
+              <div style={{ fontSize: "1.1rem", fontWeight: 800, color: textMain }}>{sections.length}</div>
+            </div>
+
+            <div style={{ background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "8px", padding: "0.5rem 0.75rem", minWidth: "65px", textAlign: "center" }}>
+              <div style={{ fontSize: "0.65rem", color: textSub, fontWeight: 700 }}>QUESTIONS</div>
+              <div style={{ fontSize: "1.1rem", fontWeight: 800, color: textMain }}>{totalQuestions}</div>
+            </div>
+
+            <div style={{ background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "8px", padding: "0.5rem 0.75rem", minWidth: "65px", textAlign: "center" }}>
+              <div style={{ fontSize: "0.65rem", color: textSub, fontWeight: 700 }}>LIMIT</div>
+              <div style={{ fontSize: "1.1rem", fontWeight: 800, color: textMain }}>{totalQuestions}</div>
+            </div>
+
+            <div style={{ background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "8px", padding: "0.5rem 0.75rem", minWidth: "65px", textAlign: "center" }}>
+              <div style={{ fontSize: "0.65rem", color: textSub, fontWeight: 700 }}>MARKS</div>
+              <div style={{ fontSize: "1.1rem", fontWeight: 800, color: textMain }}>{totalMarksSum}</div>
+            </div>
           </div>
 
-          <div style={{ background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "8px", padding: "0.5rem 0.75rem", minWidth: "65px", textAlign: "center" }}>
-            <div style={{ fontSize: "0.65rem", color: textSub, fontWeight: 700 }}>QUESTIONS</div>
-            <div style={{ fontSize: "1.1rem", fontWeight: 800, color: textMain }}>{totalQuestions}</div>
-          </div>
-
-          <div style={{ background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "8px", padding: "0.5rem 0.75rem", minWidth: "65px", textAlign: "center" }}>
-            <div style={{ fontSize: "0.65rem", color: textSub, fontWeight: 700 }}>LIMIT</div>
-            <div style={{ fontSize: "1.1rem", fontWeight: 800, color: textMain }}>{totalQuestions}</div>
-          </div>
-
-          <div style={{ background: innerBg, border: `1px solid ${cardBorder}`, borderRadius: "8px", padding: "0.5rem 0.75rem", minWidth: "65px", textAlign: "center" }}>
-            <div style={{ fontSize: "0.65rem", color: textSub, fontWeight: 700 }}>MARKS</div>
-            <div style={{ fontSize: "1.1rem", fontWeight: 800, color: textMain }}>{totalMarksSum}</div>
-          </div>
+          <button
+            type="button"
+            onClick={handlePublishExam}
+            disabled={publishing}
+            style={{
+              background: "#16a34a",
+              color: "#ffffff",
+              border: "none",
+              borderRadius: "8px",
+              padding: "0.65rem 1.1rem",
+              fontWeight: 700,
+              fontSize: "0.82rem",
+              cursor: publishing ? "wait" : "pointer",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.4rem",
+              boxShadow: "0 2px 8px rgba(22, 163, 74, 0.3)",
+              whiteSpace: "nowrap"
+            }}
+          >
+            <Plus size={16} />
+            {publishing ? "Publishing..." : "Publish & Complete Exam"}
+          </button>
         </div>
       </div>
 
