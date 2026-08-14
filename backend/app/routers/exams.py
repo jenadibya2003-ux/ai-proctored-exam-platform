@@ -167,14 +167,19 @@ def create_exam(
     db: Session = Depends(get_db),
     current_user: User = Depends(require_role(UserRole.examiner, UserRole.admin)),
 ):
+    now = datetime.utcnow()
+    if not payload.start_time:
+        payload.start_time = now
+    if not payload.end_time:
+        payload.end_time = now + timedelta(days=7)
     if payload.start_time >= payload.end_time:
-        raise HTTPException(400, "Exam end time must be after start time")
+        payload.end_time = payload.start_time + timedelta(hours=2)
 
     if payload.duration_minutes <= 0:
-        raise HTTPException(400, "duration_minutes must be positive")
+        payload.duration_minutes = 60
 
     if payload.max_tab_switch_warnings < 0:
-        raise HTTPException(400, "max_tab_switch_warnings cannot be negative")
+        payload.max_tab_switch_warnings = 3
 
     if payload.question_selection_rules:
         required_counts = payload.question_selection_rules.get("difficulty_counts") or {}

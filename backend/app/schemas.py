@@ -138,9 +138,9 @@ class ExamCreate(BaseModel):
     total_marks: int = 100
     passing_marks: int = 40
     status: str = "Draft"
-    duration_minutes: int
-    start_time: datetime
-    end_time: datetime
+    duration_minutes: int = 60
+    start_time: Optional[datetime] = None
+    end_time: Optional[datetime] = None
     randomize_questions: bool = True
     randomization_mode: str = "per_student"
     question_selection_rules: Optional[dict] = None
@@ -150,7 +150,7 @@ class ExamCreate(BaseModel):
     gaze_tracking_enabled: bool = False
     gaze_tracking_sensitivity_threshold: int = 3
     max_tab_switch_warnings: int = 3
-    question_ids: List[str]
+    question_ids: Optional[List[str]] = []
     join_code: Optional[str] = None
 
 

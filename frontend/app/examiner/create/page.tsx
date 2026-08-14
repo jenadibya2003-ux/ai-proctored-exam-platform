@@ -77,6 +77,10 @@ export default function CreateExamPage() {
     const token = localStorage.getItem("access_token") || "";
 
     try {
+      const now = new Date();
+      const parsedStart = startTime ? new Date(startTime) : now;
+      const parsedEnd = endTime ? new Date(endTime) : new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
+
       const res = await fetch(`${API_BASE}/exams`, {
         method: "POST",
         headers: {
@@ -85,19 +89,30 @@ export default function CreateExamPage() {
         },
         body: JSON.stringify({
           title: title.trim(),
-          subject: subject.trim(),
-          total_marks: Number(totalMarks),
-          passing_marks: Number(passingMarks),
-          duration_minutes: Number(durationMinutes),
-          instructions: instructions.trim(),
-          start_time: startTime || null,
-          end_time: endTime || null,
+          subject: subject.trim() || "Computer Science & Programming",
+          total_marks: Number(totalMarks) || 100,
+          passing_marks: Number(passingMarks) || 40,
+          duration_minutes: Number(durationMinutes) || 60,
+          instructions: instructions.trim() || "Please answer all questions carefully.",
+          start_time: parsedStart.toISOString(),
+          end_time: parsedEnd.toISOString(),
+          proctoring_enabled: enableProctoring,
+          webcam_monitoring_enabled: webcamMonitoring,
+          question_ids: [],
         }),
       });
 
       if (!res.ok) {
         const data = await res.json();
-        throw new Error(data.detail || "Failed to create examination.");
+        let msg = "Failed to create examination.";
+        if (typeof data.detail === "string") {
+          msg = data.detail;
+        } else if (Array.isArray(data.detail)) {
+          msg = data.detail.map((item: any) => item.msg || JSON.stringify(item)).join("; ");
+        } else if (data.detail && typeof data.detail === "object") {
+          msg = JSON.stringify(data.detail);
+        }
+        throw new Error(msg);
       }
 
       const created = await res.json();
