@@ -87,11 +87,9 @@ export default function StudentDashboardPage() {
       })
         .then((res) => (res.ok ? res.json() : []))
         .then((examsList: any[]) => {
-          if (Array.isArray(examsList) && examsList.length > 0) {
-            setExams(examsList);
+          if (Array.isArray(examsList)) {
+            setExams(examsList.length > 0 ? examsList : defaultExams);
             setStats((prev) => ({ ...prev, availableExams: examsList.length }));
-          } else {
-            setExams(defaultExams);
           }
         })
         .catch(() => setExams(defaultExams));

@@ -337,14 +337,13 @@ def list_student_exams_with_status(
     if enrolled_ids:
         exams = (
             db.query(Exam)
-            .filter(Exam.status != "Draft", Exam.id.in_(enrolled_ids))
+            .filter(Exam.id.in_(enrolled_ids))
             .order_by(Exam.start_time.asc())
             .all()
         )
     else:
         exams = (
             db.query(Exam)
-            .filter(Exam.status != "Draft")
             .order_by(Exam.start_time.asc())
             .all()
         )
@@ -359,9 +358,7 @@ def list_student_exams_with_status(
         ) if student_id else None
         if session and session.submitted_at is not None:
             status = "completed"
-        elif now < exam.start_time:
-            status = "upcoming"
-        elif now > exam.end_time:
+        elif exam.end_time and now > exam.end_time:
             status = "expired"
         else:
             status = "active"
@@ -471,14 +468,13 @@ def list_available_exams_for_student(
     if enrolled_ids:
         exams = (
             db.query(Exam)
-            .filter(Exam.status != "Draft", Exam.id.in_(enrolled_ids))
+            .filter(Exam.id.in_(enrolled_ids))
             .order_by(Exam.start_time.asc())
             .all()
         )
     else:
         exams = (
             db.query(Exam)
-            .filter(Exam.status != "Draft")
             .order_by(Exam.start_time.asc())
             .all()
         )
