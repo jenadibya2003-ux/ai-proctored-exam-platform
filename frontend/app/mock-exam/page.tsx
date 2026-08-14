@@ -331,9 +331,28 @@ export default function MockExamPage() {
     };
   }, [step]);
 
+  // Instant Webcam Stream Acquisition
   useEffect(() => {
     if (step !== "taking") return;
-    async function setupProctoring() {
+
+    async function initWebcam() {
+      try {
+        if (!streamRef.current) {
+          const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+          streamRef.current = stream;
+        }
+        if (videoRef.current) {
+          videoRef.current.srcObject = streamRef.current;
+          videoRef.current.play().catch(() => {});
+        }
+      } catch {
+        setError((prev) => prev || "Could not access webcam stream.");
+      }
+    }
+    initWebcam();
+
+    // Async Background TensorFlow Model Loading
+    async function loadModels() {
       try {
         await tf.ready();
         const loadedFaceModel = await blazeface.load();
@@ -342,19 +361,9 @@ export default function MockExamPage() {
         const cocoSsd = await import("@tensorflow-models/coco-ssd");
         const loadedDeviceModel = await cocoSsd.load();
         setDeviceModel(loadedDeviceModel);
-
-        if (!streamRef.current) {
-          const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-          streamRef.current = stream;
-        }
-        if (videoRef.current) {
-          videoRef.current.srcObject = streamRef.current;
-        }
-      } catch {
-        setError((prev) => prev || "Could not access webcam or load monitoring.");
-      }
+      } catch {}
     }
-    setupProctoring();
+    loadModels();
   }, [step]);
 
   useEffect(() => {
@@ -817,8 +826,8 @@ export default function MockExamPage() {
                 Monitoring
               </span>
             </div>
-            <div style={{ width: "100%", height: "150px", borderRadius: "10px", overflow: "hidden", border: `1px solid ${cardBorder}`, background: "#000000", position: "relative" }}>
-              <video ref={videoRef} autoPlay playsInline muted style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+            <div style={{ width: "100%", height: "190px", borderRadius: "10px", overflow: "hidden", border: `1px solid ${cardBorder}`, background: "#000000", position: "relative" }}>
+              <video ref={videoRef} autoPlay playsInline muted style={{ width: "100%", height: "100%", objectFit: "cover", transform: "scaleX(-1)" }} />
             </div>
           </div>
 
