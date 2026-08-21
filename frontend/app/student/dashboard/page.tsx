@@ -93,6 +93,17 @@ export default function StudentDashboardPage() {
           }
         })
         .catch(() => setExams(defaultExams));
+
+      fetch(`${API_BASE}/exams/student/results`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+        .then((res) => (res.ok ? res.json() : []))
+        .then((resList: any[]) => {
+          if (Array.isArray(resList)) {
+            setStats((prev) => ({ ...prev, completedExams: resList.length }));
+          }
+        })
+        .catch(() => {});
     } else {
       setExams(defaultExams);
     }

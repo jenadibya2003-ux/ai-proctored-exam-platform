@@ -49,34 +49,35 @@ export default function StudentResultsPage() {
     })
       .then((res) => (res.ok ? res.json() : []))
       .then((data: any[]) => {
-        if (data && data.length > 0) {
+        if (Array.isArray(data) && data.length > 0) {
           const mapped: ResultDetail[] = data.map((d, idx) => {
-            const score = d.final_score || d.ai_score || 5;
-            const total = d.total_marks || 5;
-            const pct = Math.round((score / total) * 100);
+            const score = d.score_obtained !== undefined ? d.score_obtained : (d.final_score !== undefined ? d.final_score : (d.ai_score || 0));
+            const total = d.total_marks || d.max_marks || 100;
+            const pct = d.percentage !== undefined ? d.percentage : (total > 0 ? Math.round((score / total) * 100) : 0);
+            const isPassed = d.passed !== undefined ? d.passed : (pct >= 40);
             return {
-              id: String(idx + 1),
-              exam_title: d.exam_title || "Regular Midterm Exam",
-              exam_subject: d.exam_subject || "Computer Science & Programming",
-              status: pct >= 40 ? "PASSED" : "FAILED",
+              id: d.session_id || String(idx + 1),
+              exam_title: d.exam_title || "Exam Assessment",
+              exam_subject: d.exam_subject || d.subject || "Computer Science",
+              status: isPassed ? "PASSED" : "FAILED",
               final_score: score,
               total_marks: total,
               percentage: pct,
-              passing_marks: d.passing_marks || 2,
+              passing_marks: d.passing_marks || Math.round(total * 0.4),
               ai_score: d.ai_score || score,
-              correct: d.correct || 5,
-              incorrect: d.incorrect || 0,
+              correct: d.correct_answers !== undefined ? d.correct_answers : (d.correct || 0),
+              incorrect: d.incorrect_answers !== undefined ? d.incorrect_answers : (d.incorrect || 0),
               unanswered: d.unanswered || 0,
               violations: d.violations_count || 0,
-              feedback: d.feedback || "Automatically evaluated by AI grading engine with high confidence.",
+              feedback: d.feedback || (isPassed ? "Exam evaluation completed successfully." : "Exam evaluation completed. Needs improvement."),
             };
           });
           setResults(mapped);
         } else {
-          setResults(defaultResults);
+          setResults([]);
         }
       })
-      .catch(() => setResults(defaultResults))
+      .catch(() => setResults([]))
       .finally(() => setLoading(false));
   }, []);
 

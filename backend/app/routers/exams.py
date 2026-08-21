@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import func
 
 from app.database import get_db
-from app.models import Exam, ExamQuestion, Question, QuestionLibrary, UserRole, User, ExamSession, Answer, Option, ExamEnrollment, ProctorEvent, ExamAssignment
+from app.models import Exam, ExamQuestion, Question, QuestionLibrary, UserRole, User, ExamSession, Answer, Option, ExamEnrollment, ProctorEvent, ExamAssignment, Result
 from app.schemas import ExamCreate, ExamOut, QuestionForStudent, JoinExamRequest
 from app.auth import require_role, create_exam_token, get_current_exam_session, get_current_user_optional
 from app.config import settings
@@ -418,7 +418,7 @@ def list_student_results(
             question = db.query(Question).filter(Question.id == answer.question_id).first()
             if not question:
                 continue
-            score = answer.final_score or 0
+            score = answer.final_score if answer.final_score is not None else (answer.ai_score or 0)
             total_score += score
             max_score += question.marks
             if question.question_type.value in ("mcq", "multi_select"):
@@ -426,24 +426,45 @@ def list_student_results(
                     correct_count += 1
                 else:
                     incorrect_count += 1
-        exam_question_count = db.query(ExamQuestion).filter(ExamQuestion.exam_id == exam.id).count()
-        unanswered_count = max(0, exam_question_count - len(answers))
-        percentage = round((total_score / max_score) * 100) if max_score > 0 else 0
+
+        result = db.query(Result).filter(Result.session_id == session.id).first()
+        violations_count = db.query(ProctorEvent).filter(ProctorEvent.session_id == session.id).count()
+
+        final_score_obtained = result.total_score if (result and result.total_score is not None) else total_score
+        exam_total_marks = exam.total_marks or (max_score if max_score > 0 else 100)
+        percentage = result.percentage if (result and result.percentage is not None) else (
+            round((final_score_obtained / exam_total_marks) * 100) if exam_total_marks > 0 else 0
+        )
         passing_ratio = (exam.passing_marks / exam.total_marks * 100) if exam.total_marks else 40
         passed = percentage >= passing_ratio
+        is_published = result is not None and result.status == "published"
+
         results.append({
             "session_id": session.id,
+            "exam_id": exam.id,
             "exam_title": exam.title,
+            "exam_subject": exam.subject,
             "subject": exam.subject,
-            "total_marks": exam.total_marks,
-            "score_obtained": total_score,
-            "max_marks": max_score,
+            "total_marks": exam_total_marks,
+            "score_obtained": final_score_obtained,
+            "final_score": final_score_obtained,
+            "ai_score": total_score,
+            "max_marks": exam_total_marks,
             "percentage": percentage,
             "passed": passed,
+            "passing_marks": exam.passing_marks or max(1, round(exam_total_marks * 0.4)),
+            "status": "PUBLISHED" if is_published else "EVALUATED",
+            "is_published": is_published,
             "submitted_at": session.submitted_at,
             "correct_answers": correct_count,
             "incorrect_answers": incorrect_count,
-            "unanswered": unanswered_count,
+            "unanswered": max(0, (db.query(ExamQuestion).filter(ExamQuestion.exam_id == exam.id).count() or len(answers)) - len(answers)),
+            "violations_count": violations_count,
+            "feedback": (result.examiner_feedback if result and result.examiner_feedback else "") or (
+                "Evaluation finalized and certified. Excellent performance!" if percentage >= 80 else
+                "Exam evaluation finalized. Good job!" if percentage >= 50 else
+                "Exam evaluation completed. Keep practicing to improve performance."
+            ),
         })
     return results
 
