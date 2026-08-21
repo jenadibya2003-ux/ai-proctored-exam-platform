@@ -574,6 +574,20 @@ export default function StudentTakeExamPage() {
     const answeredCount = Object.keys(answers).length;
     const pct = Math.round((answeredCount / totalQ) * 100) || 100;
     setResultScore(pct);
+
+    const token = localStorage.getItem("access_token") || "";
+    try {
+      await fetch(`${API_BASE}/exams/${examId}/submit`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ answers }),
+      });
+    } catch (err) {
+      console.error("Exam submission sync error:", err);
+    }
   };
 
   const cardBg = isDark ? "#0d1424" : "#ffffff";

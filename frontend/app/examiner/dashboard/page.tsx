@@ -35,6 +35,7 @@ export default function ExaminerDashboardPage() {
     questions: 0,
     evaluations: 0,
   });
+  const [recentSubmissions, setRecentSubmissions] = useState<any[]>([]);
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
@@ -72,6 +73,8 @@ export default function ExaminerDashboardPage() {
       const evalsData = evalsRes.ok ? await evalsRes.json() : [];
 
       const totalQuestionsCount = libsData.reduce((acc: number, curr: any) => acc + (curr.question_count || 0), 0);
+
+      setRecentSubmissions(Array.isArray(evalsData) ? evalsData : []);
 
       setStats({
         students: Array.isArray(studentsData) ? studentsData.filter((u: any) => u.role === "student" || !u.role).length : 0,
@@ -280,6 +283,103 @@ export default function ExaminerDashboardPage() {
             <div style={{ fontSize: "0.8rem", color: textSub, marginTop: "0.15rem" }}>Scores & reports</div>
           </div>
         </Link>
+      </div>
+
+      {/* Recent Student Submissions for Evaluation Section */}
+      <div style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "12px", padding: "1.1rem 1.25rem", marginBottom: "1.2rem" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.85rem" }}>
+          <div>
+            <h3 style={{ fontSize: "1.05rem", fontWeight: 700, color: textMain, margin: 0 }}>
+              Recent Student Submissions
+            </h3>
+            <p style={{ fontSize: "0.78rem", color: textSub, margin: "0.15rem 0 0 0" }}>
+              Completed exams pending or evaluated by AI proctoring system
+            </p>
+          </div>
+          <Link
+            href="/examiner/grading"
+            style={{
+              fontSize: "0.78rem",
+              fontWeight: 700,
+              color: "#2563eb",
+              textDecoration: "none",
+              background: "#eff6ff",
+              padding: "0.35rem 0.75rem",
+              borderRadius: "6px",
+            }}
+          >
+            View All ({recentSubmissions.length}) →
+          </Link>
+        </div>
+
+        {recentSubmissions.length === 0 ? (
+          <div style={{ textAlign: "center", padding: "1.8rem 1rem", color: textSub, fontSize: "0.85rem", background: innerBg, borderRadius: "8px", border: `1px dashed ${cardBorder}` }}>
+            No recent submissions yet. When students complete an exam, their session will appear here for evaluation.
+          </div>
+        ) : (
+          <div style={{ overflowX: "auto" }}>
+            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.83rem" }}>
+              <thead>
+                <tr style={{ borderBottom: `1px solid ${cardBorder}`, textAlign: "left", color: textSub, fontSize: "0.74rem", textTransform: "uppercase" }}>
+                  <th style={{ padding: "0.6rem 0.75rem" }}>Candidate</th>
+                  <th style={{ padding: "0.6rem 0.75rem" }}>Exam</th>
+                  <th style={{ padding: "0.6rem 0.75rem" }}>Score</th>
+                  <th style={{ padding: "0.6rem 0.75rem" }}>Status</th>
+                  <th style={{ padding: "0.6rem 0.75rem", textAlign: "right" }}>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {recentSubmissions.slice(0, 5).map((sub: any, idx: number) => {
+                  const statusColors: any = {
+                    Published: { bg: "#dcfce7", text: "#15803d" },
+                    Evaluated: { bg: "#eff6ff", text: "#2563eb" },
+                    "Manual Review": { bg: "#fef3c7", text: "#b45309" },
+                    Pending: { bg: "#f1f5f9", text: "#475569" },
+                  };
+                  const color = statusColors[sub.status] || { bg: "#eff6ff", text: "#2563eb" };
+
+                  return (
+                    <tr key={sub.session_id || idx} style={{ borderBottom: `1px solid ${cardBorder}` }}>
+                      <td style={{ padding: "0.75rem", fontWeight: 700, color: textMain }}>
+                        <div>{sub.student_name || "Student Candidate"}</div>
+                        <div style={{ fontSize: "0.72rem", color: textSub, fontWeight: 500 }}>{sub.student_email}</div>
+                      </td>
+                      <td style={{ padding: "0.75rem", color: textMain }}>
+                        <div style={{ fontWeight: 600 }}>{sub.exam_title}</div>
+                        <div style={{ fontSize: "0.72rem", color: textSub }}>{sub.exam_subject}</div>
+                      </td>
+                      <td style={{ padding: "0.75rem", fontWeight: 700, color: textMain }}>
+                        {sub.final_score ?? sub.ai_score ?? 0} / {sub.total_marks || 100}
+                      </td>
+                      <td style={{ padding: "0.75rem" }}>
+                        <span style={{ background: color.bg, color: color.text, padding: "0.2rem 0.55rem", borderRadius: "12px", fontSize: "0.72rem", fontWeight: 700 }}>
+                          {sub.status || "Evaluated"}
+                        </span>
+                      </td>
+                      <td style={{ padding: "0.75rem", textAlign: "right" }}>
+                        <Link
+                          href="/examiner/grading"
+                          style={{
+                            background: "#2563eb",
+                            color: "#ffffff",
+                            padding: "0.35rem 0.75rem",
+                            borderRadius: "6px",
+                            fontWeight: 700,
+                            fontSize: "0.75rem",
+                            textDecoration: "none",
+                            display: "inline-block",
+                          }}
+                        >
+                          Evaluate →
+                        </Link>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
 
       {/* System Status Summary Card */}
